@@ -1,0 +1,32 @@
+/*mainColor = #B02737
+mainColor2 = #891421
+*/
+
+#nav {
+  width: 100%;
+  float: right;
+  background-color: #B02737;
+  margin: auto;
+  line-height: 250%
+}
+#nav li {
+    float: right;
+    display: block;
+    color: #000;
+}
+#nav button {
+  background-color: #B02737;
+  border: none;
+  color: #FFFFFF;
+  display: inline-block;
+  font-family:arial;
+  font-weight: bold;
+  /*margin: 0;*/
+  padding: 9px 18px 9px;
+  text-decoration: none;
+}
+
+#nav button:hover {
+  background-color: #891421;
+  color: #fff; }
+

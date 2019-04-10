@@ -1,1 +1,1 @@
-# CEat
+#CampusEat
