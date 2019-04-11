@@ -12,7 +12,8 @@
   "scripts": {
     "start": "node index.js",
     "server": "node index.js",
-    "client": "npm start --prefix client"
+    "client": "npm start --prefix client",
+    "heroku-postbuild": "cd client && npm start"
   },
   "eslintConfig": {
     "extends": "react-app"
