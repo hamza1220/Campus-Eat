@@ -12,7 +12,6 @@
   "scripts": {
     "start": "node index.js",
     "server": "node index.js",
-    // "client": "cd client && npm start",
     "postinstall": "npm start --prefix ./client"
   },
   "eslintConfig": {
