@@ -86,7 +86,7 @@ server.get('/', function(req, res){
 
 // server.listen(process.env.PORT, process.env.IP,()=>{
 server.listen(port,()=>{
-  console.log("Server listening on port " + port);
+  console.log("Server listen on port " + port);
 });
 
 
