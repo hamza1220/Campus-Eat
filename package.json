@@ -3,13 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "concurrently": "^4.1.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-navigation": "^3.6.1",
     "react-scripts": "2.1.8"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "server": "node index.js",
+    "client": "npm start --prefix client"
   },
   "eslintConfig": {
     "extends": "react-app"
