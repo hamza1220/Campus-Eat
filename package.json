@@ -12,7 +12,6 @@
   },
   "scripts": {
     "start": "node index.js",
-    // "server": "node index.js",
     "client": "npm start --prefix client"
   },
   "eslintConfig": {
