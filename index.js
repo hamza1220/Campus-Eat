@@ -31,13 +31,6 @@ app.post('/api/form-signup', (req,res)=> {
 	res.json("Signup success");
 })
 
-app.post('/api/form-forgotpassword', (req,res)=> {
-	console.log("forgotpassword API call")
-	console.log(req.body)
-	res.json("Forgot Password done");
-
-})
-
 
 // Handles any requests that don't match the ones above
 app.post('*', (req,res) =>{

@@ -6,6 +6,7 @@ import List from './List';
 import Signup from './Signup'
 import Login from './Login'
 import Forgotpassword from './Forgotpassword'
+import SignUpComplete from './Signup_Complete'
 
 class App extends Component {
   render() {
@@ -17,6 +18,8 @@ class App extends Component {
           <Route path='/signup' component={Signup}/>
           <Route path='/login' component= {Login}/>
           <Route path='/forgotpassword' component= {Forgotpassword}/>
+          <Route path='/signupcomplete' component= {SignUpComplete}/>
+
         </Switch>
       </div>
     )

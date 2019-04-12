@@ -46,8 +46,7 @@ class Login extends Component {
       <br/><br/>
       <h1 className="heading"> LOGIN </h1>
       <p className="heading"> Login to Campus Eat and start ordering food </p>
-      <br/> <br/>
-      {/*<Link to={'./list'}>*/}
+      <br/> 
       <div className="infocontainer">  
         <form onSubmit={this.handleSubmit}>
           <input 

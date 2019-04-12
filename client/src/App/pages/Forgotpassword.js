@@ -46,7 +46,7 @@ class Login extends Component {
             className="formfield" 
             name="email" 
             type="email" 
-            placeholder="Enter Email Address to send Password"
+            placeholder="Enter Email Address accociated with your account"
             required = "required"
             value= {this.state.changePassEmail} 
             onChange = {event => this.setState({changePassEmail: event.target.value})}

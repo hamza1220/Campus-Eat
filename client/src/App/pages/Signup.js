@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
+
 // import { Link } from 'react-router-dom';
 // import {Form, Row, Col, Button, Container} from 'react-bootstrap'
 import logo from './logo.png'
 import NavbarWithoutSignUp from './NavbarWithoutSignUp'
+import SignUpComplete from './Signup_Complete'
 
 class SignUp extends Component {
 
@@ -13,6 +16,7 @@ class SignUp extends Component {
         email: '',
         phonenum: '',
         password: '',
+        redirect: false,
       };
       this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -32,13 +36,22 @@ class SignUp extends Component {
       }
     })
     .then(res => {
-      res.json().then(body => console.log(body)); 
+      res.json().then(body => {
+       console.log(body)
+       this.setState({redirect: true})
+      }); 
     })
-
   }
 
   render() {
+
+     if (this.state.redirect) {
+      console.log("Should redirect here.")
+      return <Redirect to='/signupcomplete'/>;
+     }
+
     return (
+
     <div className="App">
       <NavbarWithoutSignUp/>
       <br/> <br/> <br/> <br/>
@@ -94,7 +107,7 @@ class SignUp extends Component {
           <button className = "b1">Create Account</button>
         </form>
       </div>
-      {/*</Link>*/}
+     
 
     </div>
     );
