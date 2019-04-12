@@ -1,7 +1,11 @@
 const express = require('express');
 const path = require('path');
+const fs = require('fs')
 
 const app = express();
+bodyParser = require('body-parser')
+
+app.use(bodyParser.json())
 
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
@@ -15,6 +19,9 @@ app.get('/api/getList', (req,res) => {
 
 app.post('/api/form-login', (req,res)=> {
 	console.log("login")
+	console.log(req.body)
+	// console.log(res)
+	// fs.writeFile('hello.JSON',JSON.stringify(req), (err)=> console.log('file wrritten'))
 	res.send("Login success");
 })
 

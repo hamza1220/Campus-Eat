@@ -4,23 +4,36 @@ import { Link } from 'react-router-dom';
 import logo from './logo.png'
 import NavbarWithoutLogin from './NavbarWithoutLogin'
 
+
 class Login extends Component {
 
-  constructor() {
-      super();
+  constructor(props) {
+      super(props);
+      this.state = {
+        email: '',
+        password: ''
+      };
+
       this.handleSubmit = this.handleSubmit.bind(this);
     }
 
   handleSubmit(event){
+    
     event.preventDefault();
-    const data = event.target
-    console.log(data)   
-  
+    
+    console.log(JSON.stringify(this.state))
+        
     fetch('api/form-login', {
       method: 'POST',
-      body: JSON.stringify(data),
+      body: JSON.stringify(this.state),
+      headers: {
+        "Content-Type": "application/json",
+      }
+      
     })
-    .then(res => res.json())
+    .then(res => {
+      console.log(res.body)
+    })
 
   }
 
@@ -38,8 +51,8 @@ class Login extends Component {
       {/*<Link to={'./list'}>*/}
       <div className="infocontainer">  
         <form onSubmit={this.handleSubmit}>
-          <input className="formfield" name="email" type="email" placeholder="Email Address"/><br/><br/>
-          <input className="formfield" name="password" type="password" placeholder = "Password" /><br/><br/>
+          <input className="formfield" id="email" type="email" value= {this.state.email} placeholder="Email Address" onChange = {event => this.setState({email: event.target.value})}/><br/><br/>
+          <input className="formfield" id="password" type="password" value= {this.state.password} placeholder = "Password" onChange = {event=> this.setState({password: event.target.value})}/><br/><br/>
 
           <button className="b1">Login</button>
         </form>
