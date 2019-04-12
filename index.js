@@ -15,6 +15,7 @@ app.get('/api/getList', (req,res) => {
 
 app.get('/api/form-login', (req,res)=> {
 	console.log("login")
+	res.send("Login success");
 })
 
 app.get('/api/form-signup', (req,res)=> {
