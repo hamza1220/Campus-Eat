@@ -19,7 +19,8 @@ class Login extends Component {
     fetch('api/form-login', {
       method: 'POST',
       body: data,
-    }).then(res => res.json())
+    })
+    .then(res => res.json())
 
   }
 
