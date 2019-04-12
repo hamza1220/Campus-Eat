@@ -13,7 +13,7 @@ app.get('/api/getList', (req,res) => {
     console.log('Sent list of items');
 });
 
-app.get('/api/form-login', (req,res)=> {
+app.post('/api/form-login', (req,res)=> {
 	console.log("login")
 	res.send("Login success");
 })
