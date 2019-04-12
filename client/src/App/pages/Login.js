@@ -13,12 +13,12 @@ class Login extends Component {
 
   handleSubmit(event){
     event.preventDefault();
-    const data = new FormData(event.target)
+    const data = event.target
     console.log(data)   
   
     fetch('api/form-login', {
       method: 'POST',
-      body: data,
+      body: JSON.stringify(data),
     })
     .then(res => res.json())
 
