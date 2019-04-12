@@ -18,24 +18,29 @@ app.get('/api/getList', (req,res) => {
 });
 
 app.post('/api/form-login', (req,res)=> {
-	console.log("login")
+	console.log("login API call.")
 	console.log(req.body)
 	// console.log(res)
 	// fs.writeFile('hello.JSON',JSON.stringify(req), (err)=> console.log('file wrritten'))
-	res.send("Login success");
+	res.json("Login success");
 })
 
-app.get('/api/form-signup', (req,res)=> {
-	console.log("signup")
+app.post('/api/form-signup', (req,res)=> {
+	console.log("signup API call")
+	console.log(req.body)
+	res.json("Signup success");
 })
 
-app.get('/api/form-forgotpassword', (req,res)=> {
-	console.log("forgotpassword")
+app.post('/api/form-forgotpassword', (req,res)=> {
+	console.log("forgotpassword API call")
+	console.log(req.body)
+	res.json("Forgot Password done");
+
 })
 
 
 // Handles any requests that don't match the ones above
-app.get('*', (req,res) =>{
+app.post('*', (req,res) =>{
     res.sendFile(path.join(__dirname+'client/build', 'index.html'));
 });
 

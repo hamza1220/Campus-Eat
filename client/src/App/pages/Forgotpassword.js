@@ -6,20 +6,28 @@ import Navbar from './Navbar'
 
 class Login extends Component {
 
-  constructor() {
-      super();
+  constructor(props) {
+      super(props);
+      this.state = {
+        changePassEmail: '',
+      }
       this.handleSubmit = this.handleSubmit.bind(this);
     }
 
   handleSubmit(event){
     event.preventDefault();
-    const data = new FormData(event.target)
-    console.log(data)   
-  
+    console.log(JSON.stringify(this.state))
+ 
     fetch('api/form-forgotpassword', {
       method: 'POST',
-      body: data,
-    });
+      body: JSON.stringify(this.state),
+      headers: {
+        "Content-Type": "application/json",
+      }
+    })
+    .then(res => {
+      res.json().then(body => console.log(body)); 
+    })
 
   }
 
@@ -34,7 +42,16 @@ class Login extends Component {
       <br/> <br/> <br/>
       <div className="infocontainer">  
         <form onSubmit={this.handleSubmit}>
-          <input className="formfield" name="email" type="email" placeholder="Enter Email Address to send Password"/><br/><br/>
+          <input 
+            className="formfield" 
+            name="email" 
+            type="email" 
+            placeholder="Enter Email Address to send Password"
+            required = "required"
+            value= {this.state.changePassEmail} 
+            onChange = {event => this.setState({changePassEmail: event.target.value})}
+            />
+            <br/><br/>
 
           <button className="b1">Send Password</button>
         </form>

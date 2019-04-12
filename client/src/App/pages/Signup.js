@@ -6,20 +6,34 @@ import NavbarWithoutSignUp from './NavbarWithoutSignUp'
 
 class SignUp extends Component {
 
-  constructor() {
-      super();
+  constructor(props) {
+      super(props);
+      this.state = {
+        username: '',
+        email: '',
+        phonenum: '',
+        password: '',
+      };
       this.handleSubmit = this.handleSubmit.bind(this);
     }
 
   handleSubmit(event){
     event.preventDefault();
-    const data = new FormData(event.target)
-    console.log(data)   
-  
+    // const data = new FormData(event.target)
+    // console.log(data)   
+
+    console.log(JSON.stringify(this.state))
+ 
     fetch('api/form-signup', {
       method: 'POST',
-      body: data,
-    });
+      body: JSON.stringify(this.state),
+      headers: {
+        "Content-Type": "application/json",
+      }
+    })
+    .then(res => {
+      res.json().then(body => console.log(body)); 
+    })
 
   }
 
@@ -36,10 +50,46 @@ class SignUp extends Component {
       {/*<Link to={'./list'}>*/}
       <div className="infocontainer">  
         <form onSubmit={this.handleSubmit}>
-          <input className="formfield" name="username" type="text" placeholder="Enter your name"/><br/><br/>
-          <input className="formfield" name="email" type="email" placeholder="Enter your email address"/><br/><br/>
-          <input className="formfield" name="phonenumber" type="text" placeholder = "Enter your Phone Number (03001234567)" maxLength="11"/><br/><br/>
-          <input className="formfield" name="password" type="password" placeholder = "Enter Password" /><br/><br/>
+          <input 
+            className="formfield" 
+            name="username" 
+            type="text" 
+            placeholder="Enter your name"
+            required = "required"
+            value= {this.state.username} 
+            onChange = {event => this.setState({username: event.target.value})}
+            />
+            <br/><br/>
+          <input 
+            className="formfield"
+            name="email"
+            type="email" 
+            placeholder="Enter your email address"
+            required = "required"
+            value= {this.state.email} 
+            onChange = {event => this.setState({email: event.target.value})}
+            />
+            <br/><br/>
+          <input 
+            className="formfield" 
+            name="phonenumber" 
+            type="text" 
+            placeholder = "Enter your Phone Number (e.g 03001234567)" maxLength="11"
+            required = "required"
+            value= {this.state.phonenumber} 
+            onChange = {event => this.setState({phonenum: event.target.value})}
+            />
+            <br/><br/>
+          <input 
+            className="formfield" 
+            name="password" 
+            type="password" 
+            placeholder = "Enter Password" 
+            required = "required"
+            value= {this.state.password} 
+            onChange = {event => this.setState({password: event.target.value})}
+            />
+            <br/><br/>
 
           <button className = "b1">Create Account</button>
         </form>
