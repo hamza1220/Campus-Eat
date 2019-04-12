@@ -11,8 +11,12 @@
     "react-scripts": "2.1.8"
   },
   "scripts": {
-    "start": "node index.js && npm run client",
-    "client": "npm start --prefix client"
+    "dev": "run-p dev:**",
+    "dev:server": "nodemon index.js",
+    "dev:app": "cd client && yarn start",
+    "build:app": "cd client && yarn build",
+    "start": "node index.js",
+    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "eslintConfig": {
     "extends": "react-app"
