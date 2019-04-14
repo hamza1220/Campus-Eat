@@ -12,9 +12,9 @@ class SignUp extends Component {
   constructor(props) {
       super(props);
       this.state = {
-        username: '',
+        name: '',
         email: '',
-        phonenum: '',
+        phone: '',
         password: '',
         redirect: false,
       };
@@ -65,12 +65,12 @@ class SignUp extends Component {
         <form onSubmit={this.handleSubmit}>
           <input 
             className="formfield" 
-            name="username" 
+            name="name" 
             type="text" 
             placeholder="Enter your name"
             required = "required"
             value= {this.state.username} 
-            onChange = {event => this.setState({username: event.target.value})}
+            onChange = {event => this.setState({name: event.target.value})}
             />
             <br/><br/>
           <input 
@@ -85,12 +85,12 @@ class SignUp extends Component {
             <br/><br/>
           <input 
             className="formfield" 
-            name="phonenumber" 
+            name="phone" 
             type="text" 
             placeholder = "Enter your Phone Number (e.g 03001234567)" maxLength="11"
             required = "required"
-            value= {this.state.phonenumber} 
-            onChange = {event => this.setState({phonenum: event.target.value})}
+            value= {this.state.phone} 
+            onChange = {event => this.setState({phone: event.target.value})}
             />
             <br/><br/>
           <input 
