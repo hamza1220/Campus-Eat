@@ -4,7 +4,7 @@ const fs = require('fs')
 
 const app = express();
 bodyParser = require('body-parser')
-var path = require('path');
+// var path = require('path');
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -93,14 +93,14 @@ app.post('/api/form-login', (req,res)=> {
 app.post('/api/form-signup', (req,res)=> {
 	console.log("signup API call")
 
-	var myData = new newRest(req.body);
-	myData.save()
-	.then(item => {
-	  res.json("Signup success");
-	})
-	.catch(err => {
-	  res.status(400).send("unable to save to database");
-	});
+	var myData = new newUser(req.body);
+  myData.save()
+  .then(item => {
+    res.json("Signup success");
+  })
+  .catch(err => {
+    res.status(400).send("unable to save to database");
+  });
 	// console.log(req.body)
 	// res.json("Signup success");
 })
