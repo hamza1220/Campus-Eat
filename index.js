@@ -92,8 +92,17 @@ app.post('/api/form-login', (req,res)=> {
 
 app.post('/api/form-signup', (req,res)=> {
 	console.log("signup API call")
-	console.log(req.body)
-	res.json("Signup success");
+
+	var myData = new newRest(req.body);
+	myData.save()
+	.then(item => {
+	  res.json("Signup success");
+	})
+	.catch(err => {
+	  res.status(400).send("unable to save to database");
+	});
+	// console.log(req.body)
+	// res.json("Signup success");
 })
 
 app.post('/api/form-forgotpassword', (req,res)=> {
