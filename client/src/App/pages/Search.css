@@ -1,0 +1,9 @@
+.searchButton{
+	height: 30px;
+	width: 30px;
+	border: none;
+	background-image: url("search.png");
+	background-size: cover;
+	background-color: white;
+	vertical-align: top;
+}

@@ -1,53 +1,75 @@
 import React, { Component } from 'react';
+import MetaTags from 'react-meta-tags';
+import Toolbar from './toolbar.js';
+import SideDrawer from './SideDrawer'
+import BackDrop from './BackDrop';
+import './List.css'
+var bg= require('./restaurantPickScreen.png')
 
 class List extends Component {
-  // Initialize the state
-  constructor(props){
-    super(props);
-    this.state = {
-      list: []
-    }
+  state= {
+    sideDrawerOpen : false
   }
 
-  // Fetch the list on first mount
-  componentDidMount() {
-    this.getList();
-  }
+  drawerToggleClickHandler= ()=>{
+    this.setState((prevState)=>{
+      return {
+        sideDrawerOpen : !prevState.sideDrawerOpen
+      };
+    });
+  };
 
-  // Retrieves the list of items from the Express app
-  getList = () => {
-    fetch('/api/getList')
-    .then(res => res.json())
-    .then(list => this.setState({ list }))
-  }
+  backDropClickHandler= ()=>{
+    this.setState({sideDrawerOpen : false});
+  };
+  // constructor(props){
+  //   super(props);
+  //   this.state = {
+  //     list: [],
+  //     sideDrawerOpen: false
+  //   }
+  // }
+
+  // componentDidMount() {
+  //   this.getList();
+  // }
+
+  // getList = () => {
+  //   fetch('/api/getList')
+  //   .then(res => res.json())
+  //   .then(list => this.setState({ list }))
+  // }
+
 
   render() {
-    const { list } = this.state;
+    let backDrop;
+    if(this.state.sideDrawerOpen){
+      backDrop= <BackDrop click={this.backDropClickHandler}/>;
+    }
+    // const { list } = this.state;
 
     return (
-      <div className="App">
-        <h1>List of Items</h1>
-        {/* Check to see if any items are found*/}
-        {list.length ? (
-          <div>
-            {/* Render the list of items */}
-            {list.map((item) => {
-              return(
-                <div>
-                  {item}
-                </div>
-              );
-            })}
-          </div>
-        ) : (
-          <div>
-            <h2>No List Items Found</h2>
-          </div>
-        )
-      }
+      <div style={{height: "100%"}}>
+        <MetaTags>
+          <meta charSet="utf-8" name="viewport" content="width=device-width, initial-scale=1.0"/>
+          <meta name="theme-color" content="#B02737"/>
+        </MetaTags>
+        
+        <Toolbar drawerClickHandler={this.drawerToggleClickHandler}/>
+        <SideDrawer show={this.state.sideDrawerOpen}/>
+        {backDrop}
+        
+        <main style={{marginTop: '64px'}}>
+          <br></br>
+          <p style={{color: "white"}}> Content comes here </p>
+        </main>
+        
+        
       </div>
     );
   }
 }
 
 export default List;
+
+
