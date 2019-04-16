@@ -8,9 +8,10 @@ class Callback extends Component {
     this.props.history.replace('/');
   }
 
-  render() {
+  render() 
+  {
     return (
-      <p>Loading profile...</p>
+      <p > Loading profile... </p>
     );
   }
 }
