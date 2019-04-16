@@ -53,7 +53,7 @@ var userSchema = new mongoose.Schema({
   name: String,
   email: String,
   password: String,
-  phone: Number,
+  phone: String,
   cart: [String],
   orders: [orderSchema]
 });
@@ -74,6 +74,53 @@ var newItem = mongoose.model("Items", itemSchema);
 var newCash = mongoose.model("Cashier", cashierSchema); 
 var newOrder = mongoose.model("Order", orderSchema); 
 
+/////////////////////////////////////////////////////////////////////////
+///////////////////////////////HELPER FUNCS//////////////////////////////
+
+function validateEmail(email){
+
+   return newUser.findOne({email: email}).then(function(result){
+        return result !== null;
+   });
+}
+
+function validatePhone(number){
+  return /^\d+$/.test(number)
+}
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////API'S///////////////////////////////////
+
+app.post('/api/form-signup', (req,res)=> {
+	console.log("signup API call")
+
+  // enter conditions to validate
+  validateEmail(req.body.email).then(function(valid_email) {
+    if (!valid_email){
+     
+        if (validatePhone(req.body.phone)){
+        	var myData = new newUser(req.body);
+          myData.save()
+          .then(item => {
+            res.json("Signup success");
+          })
+          .catch(err => {
+            res.status(400).send("unable to save to database");
+          });   
+        }
+        else{
+          res.json("Phone Number should be Numeric")
+        }
+    }
+    else {
+      res.json("Account for Email Address already exists")
+    }    
+  })
+
+  
+
+
+})
 
 // An api endpoint that returns a short list of items
 app.get('/api/getList', (req,res) => {
@@ -83,27 +130,13 @@ app.get('/api/getList', (req,res) => {
 });
 
 app.post('/api/form-login', (req,res)=> {
-	console.log("login API call.")
-	console.log(req.body)
-	// console.log(res)
-	// fs.writeFile('hello.JSON',JSON.stringify(req), (err)=> console.log('file wrritten'))
-	res.json("Login success");
+  console.log("login API call.")
+  console.log(req.body)
+  // console.log(res)
+  // fs.writeFile('hello.JSON',JSON.stringify(req), (err)=> console.log('file wrritten'))
+  res.json("Login success");
 })
 
-app.post('/api/form-signup', (req,res)=> {
-	console.log("signup API call")
-
-	var myData = new newUser(req.body);
-  myData.save()
-  .then(item => {
-    res.json("Signup success");
-  })
-  .catch(err => {
-    res.status(400).send("unable to save to database");
-  });
-	// console.log(req.body)
-	// res.json("Signup success");
-})
 
 app.post('/api/form-forgotpassword', (req,res)=> {
 	console.log("forgot password API call")

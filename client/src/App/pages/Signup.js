@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import {Redirect } from 'react-router-dom';
 
 // import { Link } from 'react-router-dom';
 // import {Form, Row, Col, Button, Container} from 'react-bootstrap'
@@ -38,7 +38,9 @@ class SignUp extends Component {
     .then(res => {
       res.json().then(body => {
        console.log(body)
-       this.setState({redirect: true})
+       if (body==="Signup success"){
+         this.setState({redirect: true})
+       }
       }); 
     })
   }
@@ -115,32 +117,3 @@ class SignUp extends Component {
 }
 
 export default SignUp;
-
-
-{/*<Form id= "SignUpForm" className = "infoform">
-          
-          <Form.Group controlId="formBasicPassword">
-            <Form.Control type="text" placeholder="Enter your Name" />
-          </Form.Group>
-
-
-          <Form.Group controlId="formBasicEmail">
-            <Form.Control type="email" placeholder="Enter email" />
-          </Form.Group>
-
-          <Form.Group controlId="formBasicPassword">
-            <Form.Control type="text" placeholder="e.g 03001234567" />
-          </Form.Group>
-          
-          <Form.Group controlId="formBasicPassword">
-            <Form.Control type="password" placeholder="Password" />
-          </Form.Group>
-
-          <Form.Text className="text-muted">
-              We'll never share your phone number with anyone else.
-            </Form.Text>
-          <br/>
-          <Button variant="danger" type="submit">
-            Submit
-          </Button>
-        </Form>*/}
