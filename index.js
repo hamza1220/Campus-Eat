@@ -83,17 +83,17 @@ app.get('/api/getList', (req,res) => {
 });
 
 app.post('/api/form-login', (req,res)=> {
-	console.log("login API call.")
-	console.log(req.body)
-	// console.log(res)
-	// fs.writeFile('hello.JSON',JSON.stringify(req), (err)=> console.log('file wrritten'))
-	res.json("Login success");
+  console.log("login API call.")
+  console.log(req.body)
+  // console.log(res)
+  // fs.writeFile('hello.JSON',JSON.stringify(req), (err)=> console.log('file wrritten'))
+  res.json("Login success");
 })
 
 app.post('/api/form-signup', (req,res)=> {
-	console.log("signup API call")
+  console.log("signup API call")
 
-	var myData = new newUser(req.body);
+  var myData = new newUser(req.body);
   myData.save()
   .then(item => {
     res.json("Signup success");
@@ -101,14 +101,14 @@ app.post('/api/form-signup', (req,res)=> {
   .catch(err => {
     res.status(400).send("unable to save to database");
   });
-	// console.log(req.body)
-	// res.json("Signup success");
+  // console.log(req.body)
+  // res.json("Signup success");
 })
 
 app.post('/api/form-forgotpassword', (req,res)=> {
-	console.log("forgot password API call")
-	console.log(req.body)
-	res.json("Forgot password success");
+  console.log("forgot password API call")
+  console.log(req.body)
+  res.json("Forgot password success");
 })
 
 
