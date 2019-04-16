@@ -51,7 +51,7 @@ var restSchema = new mongoose.Schema({
 var userSchema = new mongoose.Schema({
   userID: Number,
   name: String,
-  email: String,
+  email:String,
   password: String,
   phone: Number,
   cart: [String],
