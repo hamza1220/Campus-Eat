@@ -5,8 +5,8 @@ const app = express();
 bodyParser = require('body-parser')
 // var path = require('path');
 
-const jwt = require('express-jwt');
-const jwksRsa = require('jwks-rsa');
+// const jwt = require('express-jwt');
+// const jwksRsa = require('jwks-rsa');
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -76,19 +76,19 @@ var newItem = mongoose.model("Items", itemSchema);
 var newCash = mongoose.model("Cashier", cashierSchema); 
 var newOrder = mongoose.model("Order", orderSchema); 
 
-const checkJwt = jwt({
-  secret: jwksRsa.expressJwtSecret({
-    cache: true,
-    rateLimit: true,
-    jwksRequestsPerMinute: 5,
-    jwksUri: `https://campuseat.auth0.com/.well-known/jwks.json`
-  }),
+// const checkJwt = jwt({
+//   secret: jwksRsa.expressJwtSecret({
+//     cache: true,
+//     rateLimit: true,
+//     jwksRequestsPerMinute: 5,
+//     jwksUri: `https://campuseat.auth0.com/.well-known/jwks.json`
+//   }),
 
-  // Validate the audience and the issuer.
-  audience: '25PVa8J6pmhu2FRewVJqBnYxBZDEOO08',
-  issuer: `https://campuseat.auth0.com/`,
-  algorithms: ['RS256']
-});
+//   // Validate the audience and the issuer.
+//   audience: '25PVa8J6pmhu2FRewVJqBnYxBZDEOO08',
+//   issuer: `https://campuseat.auth0.com/`,
+//   algorithms: ['RS256']
+// });
 
 // An api endpoint that returns a short list of items
 app.get('/api/getList', (req,res) => {
@@ -132,9 +132,9 @@ app.post('/api/form-forgotpassword', (req,res)=> {
   res.json("Forgot password success");
 })
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname+'client/build', 'index.html'));
-});
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname+'client/build', 'index.html'));
+// });
 
 // Handles any requests that don't match the ones above
 app.post('*', (req,res) =>{
