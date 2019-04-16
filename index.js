@@ -132,6 +132,9 @@ app.post('/api/form-forgotpassword', (req,res)=> {
   res.json("Forgot password success");
 })
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'client/build', 'index.html'));
+});
 
 // Handles any requests that don't match the ones above
 app.post('*', (req,res) =>{
