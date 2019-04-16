@@ -22,8 +22,6 @@ class App extends Component {
           <Route path='/login' component= {Login}/>
           <Route path='/forgotpassword' component= {Forgotpassword}/>
           <Route path='/signupcomplete' component= {SignUpComplete}/>
-          // <Route exact path='/callback' component={Callback}/>
-
         </Switch>
       </div>
     )
