@@ -1,10 +1,12 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs')
-
 const app = express();
 bodyParser = require('body-parser')
 // var path = require('path');
+
+const jwt = require('express-jwt');
+const jwksRsa = require('jwks-rsa');
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -74,6 +76,19 @@ var newItem = mongoose.model("Items", itemSchema);
 var newCash = mongoose.model("Cashier", cashierSchema); 
 var newOrder = mongoose.model("Order", orderSchema); 
 
+const checkJwt = jwt({
+  secret: jwksRsa.expressJwtSecret({
+    cache: true,
+    rateLimit: true,
+    jwksRequestsPerMinute: 5,
+    jwksUri: `https://campuseat.auth0.com/.well-known/jwks.json`
+  }),
+
+  // Validate the audience and the issuer.
+  audience: '25PVa8J6pmhu2FRewVJqBnYxBZDEOO08',
+  issuer: `https://campuseat.auth0.com/`,
+  algorithms: ['RS256']
+});
 
 // An api endpoint that returns a short list of items
 app.get('/api/getList', (req,res) => {
