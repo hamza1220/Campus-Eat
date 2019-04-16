@@ -77,7 +77,7 @@ var newOrder = mongoose.model("Order", orderSchema);
 
 // An api endpoint that returns a short list of items
 app.get('/api/getList', (req,res) => {
-    var list = ["You can sleep now"];
+    var list = ["Zakir Tikka","Jammin Java", "Chop-Chop", "Flavors", "Bombay Chowpati"]
     res.json(list);
     console.log('Sent list of items');
 });
@@ -103,6 +103,12 @@ app.post('/api/form-signup', (req,res)=> {
   });
   // console.log(req.body)
   // res.json("Signup success");
+})
+
+app.post('/api/form-search', (req,res)=> {
+	console.log("seach query")
+	console.log(req.body.user.search)
+	res.json("search success");
 })
 
 app.post('/api/form-forgotpassword', (req,res)=> {
