@@ -7,7 +7,7 @@ import Signup from './Signup'
 import Login from './Login'
 import Forgotpassword from './Forgotpassword'
 import SignUpComplete from './Signup_Complete'
-import Callback from './Callback';
+import Callback from './../Callback';
 
 // authjs and callback js shouldn't be in this folder. delete from here
 
