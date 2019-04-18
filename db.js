@@ -1,3 +1,3 @@
 module.exports = {
-    DB: 'mongodb://localhost:27017/auth'
+    DB: 'mongodb://admin:admin2@ds113640.mlab.com:13640/campus'
 }
