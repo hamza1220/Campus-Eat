@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 app.use('/api/users', users);
 
 app.get('/', (req,res) =>{
-    res.sendFile(path.join(__dirname+'frontend/build', 'index.html'));
+    res.sendFile(path.join(__dirname+'/frontend/build', 'index.html'));
 });
 
 // app.get('/', function(req, res) {
