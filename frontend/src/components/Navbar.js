@@ -4,7 +4,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logoutUser } from '../actions/authentication';
 import { withRouter } from 'react-router-dom';
+import Toolbar from './toolbar.js'
+import SideDrawer from './SideDrawer.js'
+import BackDrop from './BackDrop.js'
 import './Navbar.css'
+import Search from './Search'
+import './NavbarStyle.css'
 
 class Navbar extends Component {
 
@@ -16,14 +21,33 @@ class Navbar extends Component {
     render() {
         const {isAuthenticated, user} = this.props.auth;
         const authLinks = (
-            <ul id="nav">
-                <a href="" className="nav-link" onClick={this.onLogout.bind(this)}>
+            <ul id ="nav">
+
+                <li >
+                    <button onClick={this.onLogout.bind(this)}>
+                        Logout
+                    </button>
+                </li>
+                <li >
+                    <Link to="/blank"><button>Profile</button></Link>
+                </li>
+                <li >
+                    <Link to="/userscreen"><button>Restaurants</button></Link>
+                </li>
+                <li >
+                    <Link to="/blank"><button>Orders</button></Link>
+                </li>
+                <li >
+                    <input id="searchObject" type="text" placeholder="Search for food"/>
+                </li>
+{/*                <a style={{float:'right'}}href="" className="nav-link" onClick={this.onLogout.bind(this)}>
                     <img src={user.avatar} alt={user.name} title={user.name}
                         className="rounded-circle"
-                        style={{ width: '25px', marginRight: '5px'}} />
+                        style={{ width: '25px', float:'right', marginRight: '5px'}} />
                             Logout
                 </a>
-            </ul>
+*/}            </ul>
+
         )
       const guestLinks = (
         <ul id ="nav">

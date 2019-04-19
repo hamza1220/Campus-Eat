@@ -10,6 +10,8 @@ import Navbar from './components/Navbar';
 import Register from './components/Register';
 import Login from './components/Login';
 import Home from './components/Home';
+import Userscreen from './components/userscreen'
+import blank from './components/blank'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -36,7 +38,9 @@ class App extends Component {
                 <div className="container">
                   <Route exact path="/register" component={ Register } />
                   <Route exact path="/login" component={ Login } />
-                  <Route exact path="/forgotpassword" component={ Home} />
+                  <Route exact path="/forgotpassword" component={ Home } />
+                  <Route exact path="/userscreen" component={Userscreen}/>
+                  <Route exact path="/blank" component={blank} />
                 </div>
             </div>
           </Router>
