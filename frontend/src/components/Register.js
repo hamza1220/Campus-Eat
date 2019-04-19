@@ -32,7 +32,7 @@ class Register extends Component {
         const user = {
             name: this.state.name,
             email: this.state.email,
-            number: this.state.number
+            number: this.state.number,
             password: this.state.password,
             password_confirm: this.state.password_confirm
         }
