@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logoutUser } from '../actions/authentication';
 import { withRouter } from 'react-router-dom';
+import './Navbar.css'
 
 class Navbar extends Component {
 
@@ -15,7 +16,7 @@ class Navbar extends Component {
     render() {
         const {isAuthenticated, user} = this.props.auth;
         const authLinks = (
-            <ul className="navbar-nav ml-auto">
+            <ul id="nav">
                 <a href="" className="nav-link" onClick={this.onLogout.bind(this)}>
                     <img src={user.avatar} alt={user.name} title={user.name}
                         className="rounded-circle"
@@ -25,22 +26,22 @@ class Navbar extends Component {
             </ul>
         )
       const guestLinks = (
-        <ul className="navbar-nav ml-auto">
-            <li className="nav-item">
-                <Link className="nav-link" to="/register"><button>Sign Up</button></Link>
+        <ul id ="nav">
+            <li >
+                <Link to="/register"><button>Sign Up</button></Link>
             </li>
-            <li className="nav-item">
-                <Link className="nav-link" to="/login"><button>Login</button></Link>
+            <li >
+                <Link to="/login"><button>Login</button></Link>
             </li>
         </ul>
       )
         return(
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <Link className="navbar-brand" to="/">Redux Node Auth</Link>
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            // <nav className="navbar navbar-expand-lg navbar-light bg-light" id = "nav" background-color="#">
+            //     <Link className="navbar-brand" to="/">Redux Node Auth</Link>
+                <div>
                     {isAuthenticated ? authLinks : guestLinks}
                 </div>
-            </nav>
+            // </nav>
         )
     }
 }
