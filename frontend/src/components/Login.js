@@ -96,6 +96,10 @@ class Login extends Component {
                         </button>
                     </div>
                 </form>
+
+                <Link to={'/forgotpassword'}>
+                   <small style={{color: "blue"}}><u>Forgot Password?</u></small>
+                </Link>
             </div>
         </div>
         )

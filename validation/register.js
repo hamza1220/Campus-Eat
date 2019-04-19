@@ -33,9 +33,9 @@ module.exports = function validateRegisterInput(data) {
         errors.number = 'Number should have 11 digits'
     }
 
-    if(/^\d+$/.test(data.number)){
-        errors.number = 'Number cannot contain alphabets'
-    }
+    // if(/^\d+$/.test(data.number)){
+    //     errors.number = 'Number cannot contain alphabets'
+    // }
 
     if(!Validator.isLength(data.password, {min: 6, max: 30})) {
         errors.password = 'Password must have 6 chars';
