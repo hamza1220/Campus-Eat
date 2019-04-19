@@ -5,6 +5,7 @@ module.exports = function validateRegisterInput(data) {
     let errors = {};
     data.name = !isEmpty(data.name) ? data.name : '';
     data.email = !isEmpty(data.email) ? data.email : '';
+    data.number= !isEmpty(data.number) ? data.number : '';
     data.password = !isEmpty(data.password) ? data.password : '';
     data.password_confirm = !isEmpty(data.password_confirm) ? data.password_confirm : '';
 
@@ -22,6 +23,18 @@ module.exports = function validateRegisterInput(data) {
 
     if(Validator.isEmpty(data.email)) {
         errors.email = 'Email is required';
+    }
+
+    if(Validator.isEmpty(data.number)) {
+        errors.number = 'Number is required'
+    }
+
+    if(!Validator.isLength(data.number, {min: 11, max: 11})){
+        errors.number = 'Number should have 11 digits'
+    }
+
+    if(/^\d+$/.test(data.number)){
+        errors.number = 'Number cannot contain alphabets'
     }
 
     if(!Validator.isLength(data.password, {min: 6, max: 30})) {
