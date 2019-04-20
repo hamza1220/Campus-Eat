@@ -12,7 +12,6 @@ import { connect } from 'react-redux';
 class Menu extends Component {
  	constructor(props){
  		super(props);
-
  		this.state={
  			rest: '',
  		};
@@ -24,7 +23,7 @@ class Menu extends Component {
         this.setState({rest: x})
         fetch('api/menu', {
 	      method: 'POST',
-	      body: JSON.stringify(this.state),
+	      body: JSON.stringify({rest: x}),
 	      headers: {
 	        "Content-Type": "application/json",
 	      }

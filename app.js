@@ -37,7 +37,7 @@ app.post('/api/forgot-pw', (req,res)=>{
 })
 
 app.post('/api/menu', (req,res)=>{
-	console.log("send menu of",req.body.rest)
+	console.log("send menu of",req.body)
 	//GET FROM DB AND RETURN A JSON OBJECT
 	res.json("aye yaye")
 })
