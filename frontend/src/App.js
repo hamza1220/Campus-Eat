@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './setAuthToken';
 import { setCurrentUser, logoutUser } from './actions/authentication';
 
+import Home from './components/Home';
 import Navbar from './components/Navbar';
 import Register from './components/Register';
 import Login from './components/Login';
-import Home from './components/Home';
+import ForgotPassword from './components/forgotpassword'
+import PasswordSent from './components/passwordsent'
 import Userscreen from './components/userscreen'
+import Menu from './components/menu'
 import blank from './components/blank'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -34,13 +37,16 @@ class App extends Component {
         <Router>
             <div>
               <Navbar />
-                <Route exact path="/" component={ Home } />
+                <Switch>
+                  <Route exact path="/" component={ Home } />
                   <Route exact path="/register" component={ Register } />
                   <Route exact path="/login" component={ Login } />
-                  <Route exact path="/forgotpassword" component={ Home } />
+                  <Route exact path="/forgotpassword" component={ ForgotPassword } />
+                  <Route exact path="/passwordsent" component={PasswordSent}/>
                   <Route exact path="/userscreen" component={Userscreen}/>
                   <Route exact path="/blank" component={blank} />
-                
+                  <Route exact path="/menu" component={Menu}/>
+                </Switch>
             </div>
           </Router>
         </Provider>

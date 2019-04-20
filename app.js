@@ -29,6 +29,19 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.get('/api/rest-ratings', (req,res)=>{
 	res.send({'Z':'3', 'C':'4', 'J':'3', 'F':'2'})
 })
+
+app.post('/api/forgot-pw', (req,res)=>{
+	console.log(req.body)
+	//GET FROM DB AND USE NODEMAIL TO SEND PASSWORD TO EMAIL ADDRESS
+	res.json("sent password to your mail")
+})
+
+app.post('/api/menu', (req,res)=>{
+	console.log("send menu of",req.body.rest)
+	//GET FROM DB AND RETURN A JSON OBJECT
+	res.json("aye yaye")
+})
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {

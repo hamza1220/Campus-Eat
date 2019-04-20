@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import user_background from './userscreen_background.jpeg'
 import './userscreen.css'
 import StarRatingComponent from 'react-star-rating-component'
- 
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { setRestaurant } from '../actions/restaurant';
+import { Link, Redirect } from 'react-router-dom';
 
-export default class Userscreen extends Component {
+
+class Userscreen extends Component {
  	constructor(props){
  		super(props);
 
@@ -14,7 +18,7 @@ export default class Userscreen extends Component {
  			r3:'',
  			r4:'',
  		};
-
+        this.handleClick1 = this.handleClick1.bind(this);
  	}
     
 	componentDidMount(){
@@ -27,39 +31,63 @@ export default class Userscreen extends Component {
 	    	this.setState({r2: body.C})
 	    	this.setState({r3: body.J})
 	    	this.setState({r4: body.F})
-	    	console.log(this.state.r1, this.state.r2, this.state.r3, this.state.r4)
 	    })
 	}
+
+    handleClick1(event){
+        event.preventDefault()
+        return(
+        <Redirect to={{ pathname: '/menu', state: { id: '123' }}}/>
+        )
+    }
 
     render() {
         return (
             <div>
         		<img src={user_background} alt="" style= {{width: "100%", height: "auto", margin:"0auto"}}/>
-            	<div id="btn2">
-            	Chop Chop
-            		<div>
-            		<StarRatingComponent name="ChopChop" editing={false} starCount={5} value={parseInt(this.state.r2)}/>
-            		</div>
-            	</div>
-            	<div id="btn3">
-            		Jammin Java
-            		<div>
-            		<StarRatingComponent name="JamminJava" editing={false} starCount={5} value={parseInt(this.state.r3)}/>
-            		</div>
-            	</div>
-            	<div id="btn4">
-            		Flavours 
-            		<div>
-            		<StarRatingComponent name="Flavours" editing={false} starCount={5} value={parseInt(this.state.r4)}/>
-            		</div>
-            	</div>
-            	<div id="btn1">
-            		Zakir Tikka 
-            		<div>
-            		<StarRatingComponent name="Zakir" editing={false} starCount={5} value={parseInt(this.state.r1)}/>
-            		</div>
-            	</div>
+                <Link to ={{ pathname: '/menu', state: { id: 'ChopChop' }}}>
+                    <div id="btn2">
+                	    Chop Chop
+                		<div>
+                		<StarRatingComponent name="ChopChop" editing={false} starCount={5} value={parseInt(this.state.r2)}/>
+                		</div>
+                	</div>
+                </Link>
+                
+                <Link to ={{ pathname: '/menu', state: { id: 'Jammin' }}}>
+                    <div id="btn3">
+                		Jammin Java
+                		<div>
+                		<StarRatingComponent name="JamminJava" editing={false} starCount={5} value={parseInt(this.state.r3)}/>
+                		</div>
+                	</div>
+            	</Link>
+
+                <Link to ={{ pathname: '/menu', state: { id: 'Flavours' }}}>
+                    <div id="btn4">
+                		Flavours 
+                		<div>
+                		<StarRatingComponent name="Flavours" editing={false} starCount={5} value={parseInt(this.state.r4)}/>
+                		</div>
+                	</div>
+                </Link>
+
+
+                <Link to ={{ pathname: '/menu', state: { id: 'Zakir' }}}>
+                	<div id="btn1">
+                		Zakir Tikka 
+                		<div>
+                		<StarRatingComponent name="Zakir" editing={false} starCount={5} value={parseInt(this.state.r1)}/>
+                		</div>
+                	</div>
+                </Link>
             </div>
         );
     }
 }
+
+const mapStateToProps = (state) => ({
+    rest: state.rest,
+})
+
+export  default connect(mapStateToProps, { setRestaurant })(Userscreen)
