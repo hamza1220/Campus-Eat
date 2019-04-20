@@ -1,0 +1,79 @@
+/* Style the button and place it in the middle of the container/image */
+#btn1 {
+  position: absolute;
+  width: 50%;
+  top: 50%;
+  left: 30%;
+  transform: translate(-50%, 250%);
+  /*-ms-transform: translate(-50%, -0%);*/
+  background-color: #B02737;
+  color: white;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#btn1:hover {
+  background-color: #891421;
+}
+#btn2 {
+  position: absolute;
+  width: 50%;
+  top: 50%;
+  left: 30%;
+  transform: translate(-50%, -200%);
+  /*-ms-transform: translate(-50%, -0%);*/
+  background-color: #B02737;
+  color: white;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#btn2:hover {
+  background-color: #891421;
+}
+
+#btn3 {
+  position: absolute;
+  width: 50%;
+  top: 50%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  /*-ms-transform: translate(-50%, -50%);*/
+  background-color: #B02737;
+  color: white;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#btn3:hover {
+  background-color: #891421;
+}
+
+#btn4 {
+  position: absolute;
+  width: 50%;
+  top: 50%;
+  left: 30%;
+  transform: translate(-50%, 100%);
+  /*-ms-transform: translate(-50%, -50%);*/
+  background-color: #B02737;
+  color: white;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#btn4:hover {
+  background-color: #891421;
+}

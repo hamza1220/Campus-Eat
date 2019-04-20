@@ -22,17 +22,13 @@ app.use(bodyParser.json());
 
 app.use('/api/users', users);
 
-// app.get('/', (req,res) =>{
-//     res.sendFile(path.join(__dirname+'/frontend/build', 'index.html'));
-// });
 app.use(express.static(path.join(__dirname, 'frontend/build')))
 app.use(bodyParser.urlencoded({ extended: true}));
 
 
-// app.get('/', function(req, res) {
-//     res.send('hello');
-// });
-
+app.get('/api/rest-ratings', (req,res)=>{
+	res.send({'Z':'3', 'C':'4', 'J':'3', 'F':'2'})
+})
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {

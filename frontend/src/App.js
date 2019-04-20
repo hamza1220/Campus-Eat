@@ -35,13 +35,12 @@ class App extends Component {
             <div>
               <Navbar />
                 <Route exact path="/" component={ Home } />
-                <div className="container">
                   <Route exact path="/register" component={ Register } />
                   <Route exact path="/login" component={ Login } />
                   <Route exact path="/forgotpassword" component={ Home } />
                   <Route exact path="/userscreen" component={Userscreen}/>
                   <Route exact path="/blank" component={blank} />
-                </div>
+                
             </div>
           </Router>
         </Provider>
