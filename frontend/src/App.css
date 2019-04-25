@@ -17,6 +17,10 @@
   font-weight: bold;
 }
 
+.items{
+  background-color: #B7C9E2;
+}
+
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;

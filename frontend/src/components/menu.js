@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 // import { setRestaurant } from '../actions/restaurant';
 import { connect } from 'react-redux';
+import './menu.css'
+import { Link} from 'react-router-dom';
+
 
 class Menu extends Component {
  	constructor(props){
@@ -39,15 +42,24 @@ class Menu extends Component {
 	    })}
 
     render() {
-    	const items = this.state.menu.map((d,i)=> <p key={i}> {d.name}</p>)
+    	const items = this.state.menu.map((d,i)=> 
+    		<div>
+    		<div id= "items" key={i}> 
+	    		Name: {d.name} Price: Rs.{d.price}
+	 		<button classname="b1"> Add to Cart </button>  
+    			<br/>
+    		</div>
+			<br/>
+    		<br/>
+    		</div>
+    		)
 
         return (
             <div>
-        		{this.state.rest}
-				<ul>
-					{items}
-    			</ul>    		
-            	<button/>
+				{items}
+            	<Link to={{ pathname: '/cart', state: { id: '123' }}}>
+            		<button id="cartbtn"> View Shopping Cart </button>
+            	</Link>
             </div>
         );
     }

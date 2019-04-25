@@ -17,6 +17,7 @@ import Menu from './components/menu'
 import blank from './components/blank'
 import EditProfile from './components/editprofile'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Cart from './components/Shoppingcart'
 
 if(localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
@@ -47,6 +48,7 @@ class App extends Component {
                   <Route exact path="/blank" component={ blank } />
                   <Route exact path="/menu" component={ Menu }/>
                   <Route exact path='/editprofile' component={EditProfile}/>
+                  <Route exact path="/shoppingcart" component={Cart}/>
                 </Switch>
             </div>
           </Router>
