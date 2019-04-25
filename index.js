@@ -94,11 +94,10 @@ function validatePhone(number){
 app.post('/api/form-signup', (req,res)=> {
 	console.log("signup API call")
 
-  // enter conditions to validate
   validateEmail(req.body.email).then(function(valid_email) {
     if (!valid_email){
-     
         if (validatePhone(req.body.phone)){
+
         	var myData = new newUser(req.body);
           myData.save()
           .then(item => {
@@ -116,10 +115,14 @@ app.post('/api/form-signup', (req,res)=> {
       res.json("Account for Email Address already exists")
     }    
   })
+})
 
-  
-
-
+app.post('/api/form-login', (req,res)=> {
+  console.log("login API call.")
+  console.log(req.body)
+  // console.log(res)
+  // fs.writeFile('hello.JSON',JSON.stringify(req), (err)=> console.log('file wrritten'))
+  res.json("Login success");
 })
 
 // An api endpoint that returns a short list of items
@@ -129,13 +132,6 @@ app.get('/api/getList', (req,res) => {
     console.log('Sent list of items');
 });
 
-app.post('/api/form-login', (req,res)=> {
-  console.log("login API call.")
-  console.log(req.body)
-  // console.log(res)
-  // fs.writeFile('hello.JSON',JSON.stringify(req), (err)=> console.log('file wrritten'))
-  res.json("Login success");
-})
 
 
 app.post('/api/form-forgotpassword', (req,res)=> {
