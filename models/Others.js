@@ -78,10 +78,6 @@ const RestSchema = new Schema({
         type: String,
         required: true
     },
-    menu:{
-        type: [ItemSchema],
-        required: true
-    },
     num_orders: {
         type:Number,
         required: true
