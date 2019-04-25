@@ -63,8 +63,16 @@ app.post('/api/menu', (req,res)=>{
 	res.json("aye yaye")
 })
 app.post('/additem', function(req, res) {
-    const item= new Item({
-
+    const newItem= new Item({
+    	item_id : req.body.item_id,
+    	name : req.body.name,
+    	price : req.body.price,
+    	category : req.body.category,
+    	restaurant_name : req.body.category 
+    });
+    newItem.save()
+    .then(user=>{
+    	res.json(user)
     });
     
     console.log(req)
