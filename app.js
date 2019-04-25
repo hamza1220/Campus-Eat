@@ -6,7 +6,7 @@ const config = require('./db');
 const path = require('path');
 
 const User = require('./models/User');
-const Others = require('./models/Others')
+const Item = require('./models/Item')
 
 const users = require('./routes/user'); 
 
@@ -77,7 +77,7 @@ app.post('/additem', function(req, res) {
     	res.json(user)
     });
     
-    console.log(req)
+    console.log(req.body)
 });
 
 const PORT = process.env.PORT || 5000;
