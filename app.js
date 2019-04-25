@@ -61,6 +61,9 @@ app.post('/api/menu', (req,res)=>{
 	//GET FROM DB AND RETURN A JSON OBJECT
 	res.json("aye yaye")
 })
+app.post('/new', function(req, res) {
+    console.log(req.body)
+});
 
 const PORT = process.env.PORT || 5000;
 

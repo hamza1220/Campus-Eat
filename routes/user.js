@@ -178,7 +178,7 @@ router.get('/me', passport.authenticate('jwt', { session: false }), (req, res) =
 });
 
 router.post('/new', function(req, res) {
-    console.log(req)
+    console.log(req.body)
 });
 
 module.exports = router;
