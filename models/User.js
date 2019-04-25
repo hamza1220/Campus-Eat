@@ -29,8 +29,13 @@ const UserSchema = new Schema({
     user_type: {
         type: String,
         required: true
+    },
+    orders: {
+        type: [Number],
+        required: false
     }
 });
+
 
 const User = mongoose.model('users', UserSchema);
 

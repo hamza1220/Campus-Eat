@@ -5,7 +5,7 @@ const passport = require('passport');
 const config = require('./db');
 const path = require('path');
 
-
+const User = require('./models/User');
 const users = require('./routes/user'); 
 
 mongoose.connect(config.DB, { useNewUrlParser: true }).then(
