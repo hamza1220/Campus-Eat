@@ -6,6 +6,8 @@ const config = require('./db');
 const path = require('path');
 
 const User = require('./models/User');
+const Others = require('./models/Others')
+
 const users = require('./routes/user'); 
 
 mongoose.connect(config.DB, { useNewUrlParser: true }).then(
@@ -29,6 +31,24 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.get('/api/rest-ratings', (req,res)=>{
 	res.send({'Z':'3', 'C':'4', 'J':'3', 'F':'2'})
 })
+
+app.post('/api/gibprofile', (req,res)=>{
+	console.log("fetch data of ",req.body)
+	//GET FROM DB AND RETURN A JSON OBJECT
+    User.findOne({
+        email: req.body.email
+    })
+    .then(user => {
+        if(user) {
+        	// console.log(user)
+            res.json(user)
+        }else{
+        	res.json("Nahi huwa bc")
+        }
+
+
+        });
+    })
 
 app.post('/api/forgot-pw', (req,res)=>{
 	console.log(req.body)

@@ -15,7 +15,7 @@ import PasswordSent from './components/passwordsent'
 import Userscreen from './components/userscreen'
 import Menu from './components/menu'
 import blank from './components/blank'
-
+import EditProfile from './components/editprofile'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 if(localStorage.jwtToken) {
@@ -42,10 +42,11 @@ class App extends Component {
                   <Route exact path="/register" component={ Register } />
                   <Route exact path="/login" component={ Login }/>
                   <Route exact path="/forgotpassword" component={ ForgotPassword } />
-                  <Route exact path="/passwordsent" component={PasswordSent}/>
-                  <Route exact path="/userscreen" component={Userscreen}/>
-                  <Route exact path="/blank" component={blank} />
-                  <Route exact path="/menu" component={Menu}/>
+                  <Route exact path="/passwordsent" component={ PasswordSent }/>
+                  <Route exact path="/userscreen" component={ Userscreen }/>
+                  <Route exact path="/blank" component={ blank } />
+                  <Route exact path="/menu" component={ Menu }/>
+                  <Route exact path='/editprofile' component={EditProfile}/>
                 </Switch>
             </div>
           </Router>

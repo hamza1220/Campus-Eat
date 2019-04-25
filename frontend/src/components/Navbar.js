@@ -28,7 +28,7 @@ class Navbar extends Component {
                     </button>
                 </li>
                 <li >
-                    <Link to="/blank"><button>Profile</button></Link>
+                    <Link to="/editprofile"><button>Profile</button></Link>
                 </li>
                 <li >
                     <Link to="/userscreen"><button>Restaurants</button></Link>
@@ -50,7 +50,7 @@ class Navbar extends Component {
                     </button>
                 </li>
                 <li >
-                    <Link to="/blank"><button>Profile</button></Link>
+                    <Link to="/editprofile"><button>Profile</button></Link>
                 </li>
                 <li >
                     <Link to="/blank"><button>Orders</button></Link>

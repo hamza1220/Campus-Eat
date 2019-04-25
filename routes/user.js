@@ -4,10 +4,72 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
+const config = require('../db');
 const validateRegisterInput = require('../validation/register');
 const validateLoginInput = require('../validation/login');
 
 const User = require('../models/User');
+
+router.post('/editprofile', (req,res)=>{
+    // console.log(req.body)
+    const { errors, isValid } = validateRegisterInput(req.body);
+
+    if(!isValid) {
+        return res.status(400).json(errors);
+    }
+    console.log("password",req.body.password)
+    if (req.body.password.length >=6){
+        console.log("got pw")
+        bcrypt.genSalt(10, (err, salt) => {
+            if(err) console.error('There was an error', err);
+            else {
+                bcrypt.hash(req.body.password, salt, (err, hash) => {
+                    if(err) console.error('There was an error', err);
+                    else {
+                      User.updateOne(
+                            {
+                                email : req.body.email
+                            },
+                            {
+                                $set :
+                                {
+                                    "name" : req.body.name,
+                                    "number" : req.body.number,
+                                    "password": hash
+
+
+                                }
+                            }   
+                        ).then(()=>{console.log("updatedDB")})
+                    }
+                });
+            }
+        });    
+    }else{
+        console.log("no pw")
+        User.updateOne(
+            {
+                email : req.body.email
+            },
+            {
+                $set :
+                {
+                    "name" : req.body.name,
+                    "number" : req.body.number,
+                }
+            }
+            
+
+            ).then(()=>{console.log("updatedDB")})
+
+
+        
+    }
+
+    
+    
+
+})
 
 router.post('/register', function(req, res) {
 

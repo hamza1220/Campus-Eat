@@ -14,6 +14,16 @@ export const registerUser = (user, history) => dispatch => {
             });
 }
 
+export const editUser = (user, history) => dispatch => {
+    axios.post('/api/users/editprofile', user)
+                .then(res => console.log("ok"))
+                .catch(err => {
+                    dispatch({
+                        type: GET_ERRORS,
+                        payload: err.response.data
+                    });
+                });
+}
 export const loginUser = (user) => dispatch => {
     axios.post('/api/users/login', user)
             .then(res => {
