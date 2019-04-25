@@ -1,0 +1,70 @@
+#navb {
+  width: 100%;
+  background-color: #B02737;
+  line-height: 250%
+}
+li {
+    display: inline;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.test{
+  position: relative;
+}
+#navb input[type="text"]{
+  vertical-align: middle;
+  height: 25px;
+  border: none;
+  width: 25%;
+}
+#navb button{
+  position: relative;
+  border: none;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+}
+#content {
+    position: relative;
+}
+#content img {
+    position: absolute;
+    top: -35px;
+    right: -30px;
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+#container{
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+#left {width: 25%;}
+#middle {width: 50%;}
+#right {width: 25%;}
+
+@media only screen and (max-width:800px) {
+  /* For tablets: */
+  .main {
+    width: 80%;
+    padding: 0;
+  }
+  .right {
+    width: 100%;
+  }
+}
+@media only screen and (max-width:500px) {
+  /* For mobile phones: */
+  .menu, .main, .right {
+    width: 100%;
+  }
+}

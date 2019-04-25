@@ -1,10 +1,14 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs')
-
 const app = express();
 bodyParser = require('body-parser')
+
+
 // var path = require('path');
+
+// const jwt = require('express-jwt');
+// const jwksRsa = require('jwks-rsa');
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -51,7 +55,7 @@ var restSchema = new mongoose.Schema({
 var userSchema = new mongoose.Schema({
   userID: Number,
   name: String,
-  email: String,
+  email:String,
   password: String,
   phone: String,
   cart: [String],
@@ -74,6 +78,7 @@ var newItem = mongoose.model("Items", itemSchema);
 var newCash = mongoose.model("Cashier", cashierSchema); 
 var newOrder = mongoose.model("Order", orderSchema); 
 
+<<<<<<< HEAD
 /////////////////////////////////////////////////////////////////////////
 ///////////////////////////////HELPER FUNCS//////////////////////////////
 
@@ -124,22 +129,71 @@ app.post('/api/form-login', (req,res)=> {
   // fs.writeFile('hello.JSON',JSON.stringify(req), (err)=> console.log('file wrritten'))
   res.json("Login success");
 })
+=======
+// const checkJwt = jwt({
+//   secret: jwksRsa.expressJwtSecret({
+//     cache: true,
+//     rateLimit: true,
+//     jwksRequestsPerMinute: 5,
+//     jwksUri: `https://campuseat.auth0.com/.well-known/jwks.json`
+//   }),
+
+//   // Validate the audience and the issuer.
+//   audience: '25PVa8J6pmhu2FRewVJqBnYxBZDEOO08',
+//   issuer: `https://campuseat.auth0.com/`,
+//   algorithms: ['RS256']
+// });
+>>>>>>> a149e79e266c3f836b18e1f00abfae81296f5934
 
 // An api endpoint that returns a short list of items
 app.get('/api/getList', (req,res) => {
-    var list = ["You can sleep now"];
+    var list = ["Zakir Tikka","Jammin Java", "Chop-Chop", "Flavors", "Bombay Chowpati"]
     res.json(list);
     console.log('Sent list of items');
 });
 
+<<<<<<< HEAD
 
-
-app.post('/api/form-forgotpassword', (req,res)=> {
-	console.log("forgot password API call")
-	console.log(req.body)
-	res.json("Forgot password success");
+=======
+app.post('/api/form-login', (req,res)=> {
+  console.log("login API call.")
+  console.log(req.body)
+  // console.log(res)
+  // fs.writeFile('hello.JSON',JSON.stringify(req), (err)=> console.log('file wrritten'))
+  res.json("Login success");
 })
 
+app.post('/api/form-signup', (req,res)=> {
+  console.log("signup API call")
+
+  var myData = new newUser(req.body);
+  myData.save()
+  .then(item => {
+    res.json("Signup success");
+  })
+  .catch(err => {
+    res.status(400).send("unable to save to database");
+  });
+  // console.log(req.body)
+  // res.json("Signup success");
+})
+
+app.post('/api/form-search', (req,res)=> {
+	console.log("seach query")
+	console.log(req.body.user.search)
+	res.json("search success");
+})
+>>>>>>> a149e79e266c3f836b18e1f00abfae81296f5934
+
+app.post('/api/form-forgotpassword', (req,res)=> {
+  console.log("forgot password API call")
+  console.log(req.body)
+  res.json("Forgot password success");
+})
+
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname+'client/build', 'index.html'));
+// });
 
 // Handles any requests that don't match the ones above
 app.post('*', (req,res) =>{
