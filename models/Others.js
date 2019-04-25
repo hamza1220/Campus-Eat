@@ -70,6 +70,20 @@ const RestSchema = new Schema({
         type: Number,
         required: true
     },
+    },
+    number: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+    },
+    number: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
     rating: {
         type: Number,
         required: true
@@ -81,6 +95,20 @@ const RestSchema = new Schema({
     menu:{
         type: [ItemSchema],
         required: true
+    },
+    number: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+    },
+    number: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
     },
     num_orders: {
         type:Number,

@@ -10,6 +10,7 @@ const Others = require('./models/Others')
 
 const users = require('./routes/user'); 
 
+
 mongoose.connect(config.DB, { useNewUrlParser: true }).then(
     () => {console.log('Database is connected') },
     err => { console.log('Can not connect to the database'+ err)}
@@ -61,8 +62,11 @@ app.post('/api/menu', (req,res)=>{
 	//GET FROM DB AND RETURN A JSON OBJECT
 	res.json("aye yaye")
 })
-app.post('/new', function(req, res) {
-    console.log(req.body)
+app.post('/additem', function(req, res) {
+    const item= new Item({
+        
+    });
+    console.log(req)
 });
 
 const PORT = process.env.PORT || 5000;
