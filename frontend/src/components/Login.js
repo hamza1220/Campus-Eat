@@ -39,6 +39,7 @@ class Login extends Component {
     componentDidMount() {
         if(this.props.auth.isAuthenticated) {
             this.props.history.push('/userscreen');
+                  
         }
     }
 
@@ -119,4 +120,4 @@ const mapStateToProps = (state) => ({
     errors: state.errors
 })
 
-export  default connect(mapStateToProps, { loginUser })(Login)
+export default connect(mapStateToProps, { loginUser })(Login)

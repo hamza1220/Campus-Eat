@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
-import { setRestaurant } from '../actions/restaurant';
+// import { setRestaurant } from '../actions/restaurant';
 import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
-// import { Link } from 'react-router-dom';
-// import store from '../store'
-// import user_background from './userscreen_background.jpeg'
-// import './userscreen.css'
-// import StarRatingComponent from 'react-star-rating-component'
- 
 
 class Menu extends Component {
  	constructor(props){
@@ -18,9 +11,8 @@ class Menu extends Component {
  	}
     
 	componentDidMount(){
-        // console.log("store",this.props.rest)
         var x = String(this.props.location.state.id)
-        this.setState({rest: x})
+        this.setState({rest: String(this.props.location.state.id)})
         fetch('api/menu', {
 	      method: 'POST',
 	      body: JSON.stringify({rest: x}),
@@ -31,6 +23,7 @@ class Menu extends Component {
 	    .then(res => {
 	      	res.json().then(body => {
 	       	console.log(body)
+	       	console.log("you are",this.props.auth.user) //ALL USER INFORMATION CAN BE ACCESSED THIS WAY
 	       	})
 	    }); 
 	    }
@@ -39,13 +32,14 @@ class Menu extends Component {
         return (
             <div>
         		{this.state.rest}
+        		
             </div>
         );
     }
 }
 
 const mapStateToProps = (state) => ({
-    rest: state.rest
+    auth: state.auth,
 })
 
-export default connect(mapStateToProps, {setRestaurant})(Menu);
+export default connect(mapStateToProps,  {})(Menu)

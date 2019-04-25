@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const gravatar = require('gravatar');
+// const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
@@ -25,17 +25,18 @@ router.post('/register', function(req, res) {
             });
         }
         else {
-            const avatar = gravatar.url(req.body.email, {
-                s: '200',
-                r: 'pg',
-                d: 'mm'
-            });
+            // const avatar = gravatar.url(req.body.email, {
+            //     s: '200',
+            //     r: 'pg',
+            //     d: 'mm'
+            // });
             const newUser = new User({
                 name: req.body.name,
                 email: req.body.email,
                 number: req.body.number,
                 password: req.body.password,
-                avatar
+                user_type: req.body.user_type,
+                // avatar
             });
             
             bcrypt.genSalt(10, (err, salt) => {
@@ -81,7 +82,10 @@ router.post('/login', (req, res) => {
                             const payload = {
                                 id: user.id,
                                 name: user.name,
-                                avatar: user.avatar
+                                // avatar: user.avatar,
+                                email: user.email,
+                                number: user.number,
+                                user_type: user.user_type,
                             }
                             jwt.sign(payload, 'secret', {
                                 expiresIn: 3600
