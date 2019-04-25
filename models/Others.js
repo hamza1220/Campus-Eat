@@ -66,49 +66,13 @@ const OrderSchema = new Schema({
 });
 
 const RestSchema = new Schema({
-    name: {
-        type: Number,
-        required: true
-    },
-    },
-    number: {
-        type: String,
-        required: true
-    },
-    password: {
-        type: String,
-    },
-    number: {
-        type: String,
-        required: true
-    },
-    password: {
-        type: String,
-    rating: {
-        type: Number,
-        required: true
-    },
     restaurant_name: {
         type: String,
         required: true
     },
-    menu:{
-        type: [ItemSchema],
+    rating: {
+        type: Number,
         required: true
-    },
-    number: {
-        type: String,
-        required: true
-    },
-    password: {
-        type: String,
-    },
-    number: {
-        type: String,
-        required: true
-    },
-    password: {
-        type: String,
     },
     num_orders: {
         type:Number,

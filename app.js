@@ -44,7 +44,7 @@ app.post('/api/gibprofile', (req,res)=>{
         	// console.log(user)
             res.json(user)
         }else{
-        	res.json("Nahi huwa bc")
+        	res.json("LLG")
         }
 
 
@@ -60,7 +60,9 @@ app.post('/api/forgot-pw', (req,res)=>{
 app.post('/api/menu', (req,res)=>{
 	console.log("send menu of",req.body)
 	//GET FROM DB AND RETURN A JSON OBJECT
-	res.json("aye yaye")
+	res.json([{id:1, name: 'Chowmein', price: 250, category: "Food", restaurant: "ChopChop"},
+              {id:2, name: 'Rice', price: 100, category: "Food", restaurant: "ChopChop"},
+              {id:3, name: 'Coke', price: 50, category: "Drinks", restaurant: "ChopChop"}])
 })
 app.post('/additem', function(req, res) {
     const newItem= new Item({
