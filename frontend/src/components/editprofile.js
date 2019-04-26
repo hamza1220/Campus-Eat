@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 // import { registerUser } from '../actions/authentication';
 import { editUser } from '../actions/authentication';
 
@@ -21,7 +21,8 @@ class EditProfile extends Component {
             password: '',
             password_confirm: '',
             user_type: '',
-            errors: {}
+            errors: {},
+            clicked: false
         }
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -44,20 +45,9 @@ class EditProfile extends Component {
             user_type: this.state.user_type
         }
         this.props.editUser(user,this.props.history)
-        
-        // fetch('api/user/editprofile', {
-        //   method: 'POST',
-        //   body: JSON.stringify(user),
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   }
-        // })
-        // .then(res => {
-        //     res.json().then(body => {
-        //     console.log(body)
-        //     })
-        // });
 
+        this.setState({clicked:true})
+ 
     }
 
     componentWillReceiveProps(nextProps) {
@@ -93,6 +83,11 @@ class EditProfile extends Component {
 
     render() {
         const { errors } = this.state;
+
+        if (this.state.clicked) {
+            return <Redirect to='/userscreen'/>;
+        }
+
         return(
         <div className="App">
             <br/> <br/> <br/> <br/>
@@ -104,93 +99,104 @@ class EditProfile extends Component {
             <div className='infocontainer'>
 
                 <form onSubmit={ this.handleSubmit }>
-                    <div className="form-group form-inline">
-                    <label>
-                        Name    
-                        <input
-                        type="text"
-                        placeholder="Name"
-                        className={classnames('form-control form-control-lg', {
-                            'is-invalid': errors.name
-                        })}
-                        name="name"
-                        required = "required"
-                        onChange={ this.handleInputChange }
-                        value={ this.state.name }
-                        />
-                    </label>
-                        {errors.name && (<div className="invalid-feedback">{errors.name}</div>)}
+                <label style={{float: 'left'}} >
+                    Your name:
+                </label>    
+                    <div className="form-group">
+                            <div>
+                                <input
+                                type="text"
+                                placeholder="Name"
+                                className={classnames('form-control form-control-lg', {
+                                    'is-invalid': errors.name
+                                })}
+                                name="name"
+                                required = "required"
+                                onChange={ this.handleInputChange }
+                                value={ this.state.name }
+                                />
+                            </div>
+                            {errors.name && (<div className="invalid-feedback">{errors.name}</div>)}
                     </div>
-                    <div className="form-group form-inline">
-                        <label>
-                        Email
-                            <input
-                            type="email"
-                            placeholder="Email"
-                            required = "required"
-                            className={classnames('form-control form-control-lg', {
-                                'is-invalid': errors.email
-                            })}
-                            name="email"
-                            onChange={ this.handleInputChange }
-                            value={ this.state.email }
-                            readOnly
-                            />
+                    <div className="form-group">
+                        <label style={{float: 'left'}}>
+                            Email Address:
                         </label>
+                            <div >
+                                <input
+                                type="email"
+                                placeholder="Email"
+                                required = "required"
+                                className={classnames('form-control form-control-lg', {
+                                    'is-invalid': errors.email
+                                })}
+                                name="email"
+                                onChange={ this.handleInputChange }
+                                value={ this.state.email }
+                                readOnly
+                                />
+                            </div>
                         {errors.email && (<div className="invalid-feedback">{errors.email}</div>)}
                     </div>
-                    <div className="form-group form-inline">
-                        <label>
-                        Number
-                        <input
-                        type="text"
-                        placeholder="Phone Number eg 03001234567"
-                        className={classnames('form-control form-control-lg', {
-                            'is-invalid': errors.number
-                        })}
-                        name="number"
-                        required = "required"
-                        onChange={ this.handleInputChange }
-                        value={ this.state.number }
-                        />
+                    <div className="form-group">
+                        <label style={{float: 'left'}}>
+                            New Number:
                         </label>
+                            <div>
+                                <input
+                                type="text"
+                                placeholder="Phone Number eg 03001234567"
+                                className={classnames('form-control form-control-lg', {
+                                    'is-invalid': errors.number
+                                })}
+                                name="number"
+                                required = "required"
+                                onChange={ this.handleInputChange }
+                                value={ this.state.number }
+                                />
+                            </div>
+                        
                         {errors.number && (<div className="invalid-feedback">{errors.number}</div>)}
                     </div>
-                    <div className="form-group form-inline">
-                        <label>
-                        New Password
-                        <input
-                        type="password"
-                        placeholder="Password"
-                        className={classnames('form-control form-control-lg', {
-                            'is-invalid': errors.password
-                        })}
-                        name="password"
-                        onChange={ this.handleInputChange }
-                        value={ this.state.password }
-                        />
+                    <div className="form-group">
+                        <label style={{float: 'left'}}>
+                            New Password:
                         </label>
-                        {errors.password && (<div className="invalid-feedback">{errors.password}</div>)}
+                            <div>
+                                <input
+                                type="password"
+                                placeholder="Password"
+                                className={classnames('form-control form-control-lg', {
+                                    'is-invalid': errors.password
+                                })}
+                                name="password"
+                                onChange={ this.handleInputChange }
+                                value={ this.state.password }
+                                />
+                            </div>
+                            {errors.password && (<div className="invalid-feedback">{errors.password}</div>)}
                     </div>
-                    <div className="form-group form-inline">
-                        <label>
-                        Confirm password
-                        <input
-                        type="password"
-                        placeholder="Confirm Password"
-                        className={classnames('form-control form-control-lg', {
-                            'is-invalid': errors.password_confirm
-                        })}
-                        name="password_confirm"
-                        onChange={ this.handleInputChange }
-                        value={ this.state.password_confirm }
-                        />
-                        </label>
+                    <div className="form-group">
+                        <label style={{float: 'left'}}>
+                            Confirm Password:
+                        </label>    
+                            <div>
+                                <input
+                                type="password"
+                                placeholder="Confirm Password"
+                                className={classnames('form-control form-control-lg', {
+                                    'is-invalid': errors.password_confirm
+                                })}
+                                name="password_confirm"
+                                onChange={ this.handleInputChange }
+                                value={ this.state.password_confirm }
+                                />
+                            </div>
                         {errors.password_confirm && (<div className="invalid-feedback">{errors.password_confirm}</div>)}
                     </div>
                     <div className="form-group">
                         <button type="submit" className="b1">
-                            Sign Up
+                            Confirm 
                         </button>
                     </div>
                 </form>
