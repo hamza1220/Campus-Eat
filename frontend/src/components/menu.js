@@ -111,31 +111,28 @@ class Menu extends Component {
     	)
 
     	const drink_items = drinks.map((d,i)=> 
-    		<div>
-    		<br/>
-    		<div id= "items" key={i}> 
-	    		{d.name} 
-	    		<br/>
-	    		Rs.{d.price}
-	 			<button id="b1" onClick = {(e)=> {this.addToCart(e,d.item_id,d.name,d.price)}}> Add to Cart </button>  
-    		</div>
+    		<div id="lol">
+	    		<div id= "items" key={i}> 
+	    		    <div>&nbsp; {d.name} </div>
+	    			<div className="spacer"/>
+		    		<div> Rs.{d.price} &nbsp; </div>
+	    		</div>
+		 	<button id='b2' onClick = {(e)=> {this.addToCart(e,d.item_id,d.name,d.price, d.category)}}> &nbsp; + &nbsp; &nbsp; </button>  
     		</div>
     	)
         return (
             <div id="bg">
             <h1 id="heading">{this.state.rest}
-            	
-            	<Button variant="primary" onClick={this.handleShow}>
-		          View Shopping Cart
+            	<Button variant="danger" className = "VC" onClick={this.handleShow}>
 		        </Button>
 		    </h1>
+		    <small className="heading"> Select an Item to add to your Shopping Cart </small>
+
             <br/><br/>
-	            CATEGORY: Food
-	            <br/>
+	            <h4 className = "heading">Food</h4>
 				{food_items}
 				<br/>
-				CATEGORY: Drinks
-				<br/>
+				<h4 className="heading">Drinks</h4>
 				{drink_items}
 				<br/>
 
