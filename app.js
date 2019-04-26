@@ -63,9 +63,9 @@ app.post('/api/menu', (req,res)=>{
     })
     .then(items => {res.json(items)})
 
-	// res.json([{id:1, name: 'Chowmein', price: 250, category: "Food", restaurant: "ChopChop"},
- //              {id:2, name: 'Rice', price: 100, category: "Food", restaurant: "ChopChop"},
- //              {id:3, name: 'Coke', price: 50, category: "Drinks", restaurant: "ChopChop"}])
+	res.json([{id:1, name: 'Chowmein', price: 250, category: "Food", restaurant: "ChopChop"},
+              {id:2, name: 'Rice', price: 100, category: "Food", restaurant: "ChopChop"},
+              {id:3, name: 'Coke', price: 50, category: "Drinks", restaurant: "ChopChop"}])
 })
 
 app.post('/additem', function(req, res) {

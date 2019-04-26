@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './menu.css'
 import { Link} from 'react-router-dom';
+import {Modal,ReactModal} from 'react-modal';
+
 
 
 class Menu extends Component {
@@ -11,9 +13,19 @@ class Menu extends Component {
  		this.state={
  			rest: '',
  			menu: [],
+ 			showModal: false
  		};
+ 		this.handleOpenModal = this.handleOpenModal.bind(this);
+    	this.handleCloseModal = this.handleCloseModal.bind(this);
  	}
-    
+    handleOpenModal () {
+	    this.setState({ showModal: true });
+	}
+	  
+	handleCloseModal () {
+	    this.setState({ showModal: false });
+	}
+  
 	componentDidMount(){
         var y = String(this.props.location.state.id)
         this.setState({rest: String(this.props.location.state.id)})
@@ -51,6 +63,17 @@ class Menu extends Component {
     		</div>
 			<br/>
     		<br/>
+    		
+    		<button onClick={this.handleOpenModal}>Trigger Modal</button>
+    		<ReactModal 
+	           isOpen={this.state.showModal}
+	           contentLabel="onRequestClose Example"
+	           onRequestClose={this.handleCloseModal}
+	           shouldCloseOnOverlayClick={false}
+	        >
+	        <p>Modal text!</p>
+	        <button onClick={this.handleCloseModal}>Close Modal</button>
+	        </ReactModal>
     		</div>
     		)
 
