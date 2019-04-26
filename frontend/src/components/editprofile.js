@@ -140,7 +140,7 @@ class EditProfile extends Component {
                     </div>
                     <div className="form-group form-inline">
                         
-                            <div style={{marginLeft:'5px',textAlign: 'left'}}>
+                            <div style={{textAlign: 'left'}}>
                             New Number:         
                                 <input
                                 type="text"
