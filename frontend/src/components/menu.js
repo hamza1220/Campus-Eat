@@ -99,43 +99,45 @@ class Menu extends Component {
     		</div>
     		)
 
-
     	const food_items = food.map((d,i)=> 
-    		<div>
-    		<div id= "items" key={i}> 
-	    		Name: {d.name} Price: Rs.{d.price}
-	 			<button id="b1" onClick = {(e)=> {this.addToCart(e,d.item_id,d.name,d.price, d.category)}}> Add to Cart </button>  
-    			<br/>
-				<br/>
-    		</div>
-    		<br/>
-    		<br/>
+    		<div id="lol">
+	    		<div id= "items" key={i}> 
+	    		    <div>&nbsp; {d.name} </div>
+	    			<div className="spacer"/>
+		    		<div> Rs.{d.price} &nbsp; </div>
+	    		</div>
+		 	<button id='b2' onClick = {(e)=> {this.addToCart(e,d.item_id,d.name,d.price, d.category)}}> &nbsp; + &nbsp; &nbsp; </button>  
     		</div>
     	)
 
     	const drink_items = drinks.map((d,i)=> 
     		<div>
+    		<br/>
     		<div id= "items" key={i}> 
-	    		Name: {d.name} Price: Rs.{d.price}
+	    		{d.name} 
+	    		<br/>
+	    		Rs.{d.price}
 	 			<button id="b1" onClick = {(e)=> {this.addToCart(e,d.item_id,d.name,d.price)}}> Add to Cart </button>  
-    			<br/>
-				<br/>
     		</div>
-    		<br/>
-    		<br/>
     		</div>
     	)
         return (
-            <div>
-            <br/><br/><br/>
-	            CATEGORY: Food
-				{food_items}
-				CATEGORY: Drinks
-				{drink_items}
-
+            <div id="bg">
+            <h1 id="heading">{this.state.rest}
+            	
             	<Button variant="primary" onClick={this.handleShow}>
 		          View Shopping Cart
 		        </Button>
+		    </h1>
+            <br/><br/>
+	            CATEGORY: Food
+	            <br/>
+				{food_items}
+				<br/>
+				CATEGORY: Drinks
+				<br/>
+				{drink_items}
+				<br/>
 
 		        <Modal show={this.state.show} animation='true' onHide={this.handleClose}>
 		          <Modal.Header closeButton>
