@@ -11,6 +11,7 @@ class Menu extends Component {
  		this.state={
  			rest: '',
  			menu: [],
+ 			cart: [],
  		};
  	}
     
@@ -41,10 +42,10 @@ class Menu extends Component {
 	    }); 
 	    })}
 
-	addToCart(e)
-	{
-		e.preventDefault()
-		console.log(e)
+	addToCart(e,id,name,price)
+	{	e.preventDefault()
+		this.state.cart.push({item_id: id, name: name, price: price})
+		console.log(this.state.cart)
 	}
 
     render() {
@@ -52,7 +53,7 @@ class Menu extends Component {
     		<div>
     		<div id= "items" key={i}> 
 	    		Name: {d.name} Price: Rs.{d.price}
-	 		<button classname="b1" onClick = {this.addToCart}> Add to Cart </button>  
+	 			<button id="b1" onClick = {(e)=> {this.addToCart(e,d.item_id,d.name,d.price)}}> Add to Cart </button>  
     			<br/>
 				<br/>
     		</div>
