@@ -6,7 +6,9 @@ const config = require('./db');
 const path = require('path');
 
 const User = require('./models/User');
-const Item = require('./models/Item')
+const Item = require('./models/Item');
+const Rest = require('./models/Rest');
+const Order= require('./models/Order')
 
 const users = require('./routes/user'); 
 
