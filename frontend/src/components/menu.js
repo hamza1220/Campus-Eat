@@ -1,6 +1,5 @@
-import { Button, Modal, InputGroup, FormControl} from 'react-bootstrap';
+import { Button, Modal, InputGroup, FormControl, Form} from 'react-bootstrap';
 import React, { Component } from 'react';
-// import { setRestaurant } from '../actions/restaurant';
 import { connect } from 'react-redux';
 import './menu.css'
 // import { Link} from 'react-router-dom';
@@ -26,13 +25,28 @@ class Menu extends Component {
 	}
 
 	handleShow() {
-		console.log(this.state.cart)
 	   this.setState({ show: true });
+
 	}
-	placeOrder(){
-		
+	placeOrder(event,email){
+		event.preventDefault();
+		let loc =event.target.location.value
+		let inst =event.target.instruction.value
+
+		this.setState({location:loc})
+		this.setState({instructions:inst})
+
+		console.log(inst)
+		let o = {orderID:12, customer_email:email, restaurant_name: this.state.rest,
+			items:this.state.cart, del_location: loc, status: "pending", 
+			instructions: inst}
+		console.log(o)
 	}
 
+	submit(event){
+    event.preventDefault();
+    console.log('Search');
+  }
     
 	componentDidMount(){
         var y = String(this.props.location.state.id)
@@ -52,15 +66,10 @@ class Menu extends Component {
 	    })
 	}
 
-	addToCart(e,id,name,price)
+	addToCart(e,id,name,price, cat)
 	{	e.preventDefault()
-		this.state.cart.push({item_id: id, name: name, price: price})
-	}
-
-	viewCart(e, cart)
-	{
-		e.preventDefault()
-		console.log("Your Shopping Cart", cart)
+		this.state.cart.push({item_id: id, name: name, price: price, category: cat, 
+			restaurant_name: this.state.rest})
 	}
 
     render() {
@@ -95,7 +104,7 @@ class Menu extends Component {
     		<div>
     		<div id= "items" key={i}> 
 	    		Name: {d.name} Price: Rs.{d.price}
-	 			<button id="b1" onClick = {(e)=> {this.addToCart(e,d.item_id,d.name,d.price)}}> Add to Cart </button>  
+	 			<button id="b1" onClick = {(e)=> {this.addToCart(e,d.item_id,d.name,d.price, d.category)}}> Add to Cart </button>  
     			<br/>
 				<br/>
     		</div>
@@ -117,7 +126,6 @@ class Menu extends Component {
     		</div>
     	)
         return (
-
             <div>
             <br/><br/><br/>
 	            CATEGORY: Food
@@ -137,37 +145,24 @@ class Menu extends Component {
 
 		          {cart_items}
 		          Total Order price: {total_price}
-{/*Special instructions text box*/}
-		         <InputGroup className="mb-3">
-				    <InputGroup.Prepend>
-				      <InputGroup.Text id="inputGroup-sizing-default">Delivery Location</InputGroup.Text>
-				    </InputGroup.Prepend>
-				    <FormControl
-				    required
-				      aria-label="Default"
-				      aria-describedby="inputGroup-sizing-default"
-				    />
-				 </InputGroup>
-
-{/*Deliver instructions text box*/}
-		         <InputGroup className="mb-3">
-				    <InputGroup.Prepend>
-				      <InputGroup.Text id="inputGroup-sizing-default">Special Instructions</InputGroup.Text>
-				    </InputGroup.Prepend>
-				    <FormControl
-				      aria-label="Default"
-				      aria-describedby="inputGroup-sizing-default"
-				    />
-				 </InputGroup>
+		         <form onSubmit={(e)=>{this.placeOrder(e,this.props.auth.user.email)}}>
+                        <input
+                        type="text"
+                        placeholder="Location to deliver to"
+                        name="location"
+                        /><input
+                        type="text"
+                        placeholder="Instructions"
+                        name="instruction"
+                        />
+				  <button variant="primary" type="submit">
+				    Submit
+				  </button>
+				</form>
 
 		          </Modal.Body>
 		          <Modal.Footer>
-		            <Button variant="secondary" onClick={this.handleClose}>
-		              Close
-		            </Button>
-		            <Button variant="primary" onClick={this.handleClose}>
-		              Place Order
-		            </Button>
+
 		          </Modal.Footer>
 		        </Modal>
 
