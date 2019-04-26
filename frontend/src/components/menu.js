@@ -39,7 +39,7 @@ class Menu extends Component {
 		this.setState({instructions:inst})
 
 		console.log(inst)
-		let o = {orderID:12, customer_email:email, restaurant_name: this.state.rest,
+		let o = {orderID: Math.floor(Math.random() * 1000000000000), customer_email:email, restaurant_name: this.state.rest,
 			items:this.state.cart, del_location: loc, status: "pending", 
 			instructions: inst}
 		console.log(o)
