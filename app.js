@@ -59,7 +59,7 @@ app.post('/api/forgot-pw', (req,res)=>{
 app.post('/api/menu', (req,res)=>{
 	console.log("send menu of",req.body)
 	Item.find({
-        restaurant_name : "Food"
+        restaurant_name : req.body.rest
     })
     .then(items => {res.json(items)})
 

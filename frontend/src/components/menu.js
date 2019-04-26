@@ -34,28 +34,37 @@ class Menu extends Component {
 	   		let t = ((body))
 	       	// console.log(res)
 	       	// let x = this.state.menu
-	       	console.log("men", t)
+	       	// console.log("men", t)
 
 	       	this.setState({menu: t})
 	       	// console.log("menu", this.state.menu)
 	    }); 
 	    })}
 
+	addToCart(e)
+	{
+		e.preventDefault()
+		console.log(e)
+	}
+
     render() {
     	const items = this.state.menu.map((d,i)=> 
     		<div>
     		<div id= "items" key={i}> 
 	    		Name: {d.name} Price: Rs.{d.price}
-	 		<button classname="b1"> Add to Cart </button>  
+	 		<button classname="b1" onClick = {this.addToCart}> Add to Cart </button>  
     			<br/>
+				<br/>
     		</div>
-			<br/>
+    		<br/>
     		<br/>
     		</div>
-    		)
+    	)
 
         return (
+
             <div>
+            <br/><br/><br/>
 				{items}
             	<Link to={{ pathname: '/cart', state: { id: '123' }}}>
             		<button id="cartbtn"> View Shopping Cart </button>
