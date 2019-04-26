@@ -58,7 +58,7 @@ router.post('/editprofile', (req,res)=>{
 
                                 }
                             }   
-                        ).then(()=>{console.log("updatedDB")})
+                        ).then(()=>{res.json("updatedDB")});
                     }
                 });
             }
@@ -78,10 +78,8 @@ router.post('/editprofile', (req,res)=>{
             }
             
 
-            ).then(()=>{console.log("updatedDB")})
-
-
-        
+            ).then(()=>{res.json("updatedDB")})
+       
     }
 
     

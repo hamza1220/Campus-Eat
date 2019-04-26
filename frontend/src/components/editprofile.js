@@ -46,8 +46,7 @@ class EditProfile extends Component {
         }
         this.props.editUser(user,this.props.history)
 
-        this.setState({clicked:true})
- 
+        this.setState({clicked:true}) 
     }
 
     componentWillReceiveProps(nextProps) {
