@@ -59,13 +59,13 @@ app.post('/api/forgot-pw', (req,res)=>{
 app.post('/api/menu', (req,res)=>{
 	console.log("send menu of",req.body)
 	Item.find({
-        restaurant_name : "Food"
+        restaurant_name : req.body.rest
     })
     .then(items => {res.json(items)})
 
-	res.json([{id:1, name: 'Chowmein', price: 250, category: "Food", restaurant: "ChopChop"},
-              {id:2, name: 'Rice', price: 100, category: "Food", restaurant: "ChopChop"},
-              {id:3, name: 'Coke', price: 50, category: "Drinks", restaurant: "ChopChop"}])
+	// res.json([{id:1, name: 'Chowmein', price: 250, category: "Food", restaurant: "ChopChop"},
+ //              {id:2, name: 'Rice', price: 100, category: "Food", restaurant: "ChopChop"},
+ //              {id:3, name: 'Coke', price: 50, category: "Drinks", restaurant: "ChopChop"}])
 })
 
 app.post('/additem', function(req, res) {
