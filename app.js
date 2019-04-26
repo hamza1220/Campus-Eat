@@ -73,8 +73,8 @@ app.post('/additem', function(req, res) {
     	restaurant_name : req.body.restaurant_name
     });
     newItem.save()
-    .then(user=>{
-    	res.json(user)
+    .then(item=>{
+    	res.json(item)
     });
     
     console.log(req.body)
