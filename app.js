@@ -70,7 +70,7 @@ app.post('/additem', function(req, res) {
     	name : req.body.name,
     	price : req.body.price,
     	category : req.body.category,
-    	restaurant_name : req.body.category 
+    	restaurant_name : req.body.restaurant_name
     });
     newItem.save()
     .then(user=>{
