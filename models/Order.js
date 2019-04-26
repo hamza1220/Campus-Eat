@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-
 const Schema = mongoose.Schema;
+const Item = require('./Item').schema
 
 const OrderSchema = new Schema({
     orderID: {
@@ -16,7 +16,7 @@ const OrderSchema = new Schema({
         required: true
     },
     items: {
-        type: [ItemSchema],
+        type: [Item],
         required: true
     },
     order_time:{

@@ -6,7 +6,9 @@ const config = require('./db');
 const path = require('path');
 
 const User = require('./models/User');
-const Item = require('./models/Item')
+const Item = require('./models/Item');
+const Rest = require('./models/Rest');
+const Order= require('./models/Order')
 
 const users = require('./routes/user'); 
 
@@ -35,7 +37,6 @@ app.get('/api/rest-ratings', (req,res)=>{
 
 app.post('/api/gibprofile', (req,res)=>{
 	console.log("fetch data of ",req.body)
-	//GET FROM DB AND RETURN A JSON OBJECT
     User.findOne({
         email: req.body.email
     })
@@ -46,9 +47,7 @@ app.post('/api/gibprofile', (req,res)=>{
         }else{
         	res.json("LLG")
         }
-
-
-        });
+    });
     })
 
 app.post('/api/forgot-pw', (req,res)=>{
@@ -59,22 +58,27 @@ app.post('/api/forgot-pw', (req,res)=>{
 
 app.post('/api/menu', (req,res)=>{
 	console.log("send menu of",req.body)
-	//GET FROM DB AND RETURN A JSON OBJECT
-	res.json([{id:1, name: 'Chowmein', price: 250, category: "Food", restaurant: "ChopChop"},
-              {id:2, name: 'Rice', price: 100, category: "Food", restaurant: "ChopChop"},
-              {id:3, name: 'Coke', price: 50, category: "Drinks", restaurant: "ChopChop"}])
+	Item.find({
+        restaurant_name : req.body.rest
+    })
+    .then(items => {res.json(items)})
+
+	// res.json([{id:1, name: 'Chowmein', price: 250, category: "Food", restaurant: "ChopChop"},
+ //              {id:2, name: 'Rice', price: 100, category: "Food", restaurant: "ChopChop"},
+ //              {id:3, name: 'Coke', price: 50, category: "Drinks", restaurant: "ChopChop"}])
 })
+
 app.post('/additem', function(req, res) {
     const newItem= new Item({
     	item_id : req.body.item_id,
     	name : req.body.name,
     	price : req.body.price,
     	category : req.body.category,
-    	restaurant_name : req.body.category 
+    	restaurant_name : req.body.restaurant_name
     });
     newItem.save()
-    .then(user=>{
-    	res.json(user)
+    .then(item=>{
+    	res.json(item)
     });
     
     console.log(req.body)
