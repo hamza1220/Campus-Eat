@@ -99,10 +99,11 @@ class EditProfile extends Component {
             <div className='infocontainer'>
 
                 <form onSubmit={ this.handleSubmit }>
-                    <div className="form-group form-inline">
-                        <label style={{textAlign: 'left'}}>
+                <label style={{float: 'left'}} >
+                    Your name:
+                </label>    
+                    <div className="form-group">
                             <div>
-                            Your Name:    
                                 <input
                                 type="text"
                                 placeholder="Name"
@@ -115,13 +116,13 @@ class EditProfile extends Component {
                                 value={ this.state.name }
                                 />
                             </div>
-                        </label>
                             {errors.name && (<div className="invalid-feedback">{errors.name}</div>)}
                     </div>
-                    <div className="form-group form-inline">
-                        <label style={{textAlign: 'left'}}>
-                            <div>
+                    <div className="form-group">
+                        <label style={{float: 'left'}}>
                             Email Address:
+                        </label>
+                            <div >
                                 <input
                                 type="email"
                                 placeholder="Email"
@@ -135,13 +136,13 @@ class EditProfile extends Component {
                                 readOnly
                                 />
                             </div>
-                        </label>
                         {errors.email && (<div className="invalid-feedback">{errors.email}</div>)}
                     </div>
-                    <div className="form-group form-inline">
-                        
-                            <div style={{textAlign: 'left'}}>
-                            New Number:         
+                    <div className="form-group">
+                        <label style={{float: 'left'}}>
+                            New Number:
+                        </label>
+                            <div>
                                 <input
                                 type="text"
                                 placeholder="Phone Number eg 03001234567"
@@ -157,10 +158,11 @@ class EditProfile extends Component {
                         
                         {errors.number && (<div className="invalid-feedback">{errors.number}</div>)}
                     </div>
-                    <div className="form-group form-inline">
-                        
-                            <div style={{textAlign: 'left'}}>
+                    <div className="form-group">
+                        <label style={{float: 'left'}}>
                             New Password:
+                        </label>
+                            <div>
                                 <input
                                 type="password"
                                 placeholder="Password"
@@ -172,13 +174,13 @@ class EditProfile extends Component {
                                 value={ this.state.password }
                                 />
                             </div>
-                        
                             {errors.password && (<div className="invalid-feedback">{errors.password}</div>)}
                     </div>
-                    <div className="form-group form-inline">
-                        <label style={{textAlign: 'left'}}>
+                    <div className="form-group">
+                        <label style={{float: 'left'}}>
+                            Confirm Password:
+                        </label>    
                             <div>
-                            Confirm password:
                                 <input
                                 type="password"
                                 placeholder="Confirm Password"
@@ -190,7 +192,6 @@ class EditProfile extends Component {
                                 value={ this.state.password_confirm }
                                 />
                             </div>
-                        </label>
                         {errors.password_confirm && (<div className="invalid-feedback">{errors.password_confirm}</div>)}
                     </div>
                     <div className="form-group">
