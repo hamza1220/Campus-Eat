@@ -16,7 +16,7 @@ export const registerUser = (user, history) => dispatch => {
 
 export const editUser = (user, history) => dispatch => {
     axios.post('/api/users/editprofile', user)
-                .then(res => console.log("ok"))
+                .then(res => console.log("Profile is Edited."))
                 .catch(err => {
                     dispatch({
                         type: GET_ERRORS,
