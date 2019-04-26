@@ -102,7 +102,7 @@ class EditProfile extends Component {
                     <div className="form-group form-inline">
                         <label style={{textAlign: 'left'}}>
                             <div>
-                            New Name:    
+                            Your Name:    
                                 <input
                                 type="text"
                                 placeholder="Name"
@@ -140,7 +140,7 @@ class EditProfile extends Component {
                     </div>
                     <div className="form-group form-inline">
                         
-                            <div style={{marginLeft:'5px',textAlign: 'left'}}>
+                            <div style={{textAlign: 'left'}}>
                             New Number:         
                                 <input
                                 type="text"
