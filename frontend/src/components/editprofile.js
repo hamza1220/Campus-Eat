@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 // import { registerUser } from '../actions/authentication';
 import { editUser } from '../actions/authentication';
 
@@ -21,7 +21,8 @@ class EditProfile extends Component {
             password: '',
             password_confirm: '',
             user_type: '',
-            errors: {}
+            errors: {},
+            clicked: false
         }
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -44,20 +45,9 @@ class EditProfile extends Component {
             user_type: this.state.user_type
         }
         this.props.editUser(user,this.props.history)
-        
-        // fetch('api/user/editprofile', {
-        //   method: 'POST',
-        //   body: JSON.stringify(user),
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   }
-        // })
-        // .then(res => {
-        //     res.json().then(body => {
-        //     console.log(body)
-        //     })
-        // });
 
+        this.setState({clicked:true})
+ 
     }
 
     componentWillReceiveProps(nextProps) {
@@ -93,6 +83,11 @@ class EditProfile extends Component {
 
     render() {
         const { errors } = this.state;
+
+        if (this.state.clicked) {
+            return <Redirect to='/userscreen'/>;
+        }
+
         return(
         <div className="App">
             <br/> <br/> <br/> <br/>
@@ -105,92 +100,102 @@ class EditProfile extends Component {
 
                 <form onSubmit={ this.handleSubmit }>
                     <div className="form-group form-inline">
-                    <label>
-                        Name    
-                        <input
-                        type="text"
-                        placeholder="Name"
-                        className={classnames('form-control form-control-lg', {
-                            'is-invalid': errors.name
-                        })}
-                        name="name"
-                        required = "required"
-                        onChange={ this.handleInputChange }
-                        value={ this.state.name }
-                        />
-                    </label>
-                        {errors.name && (<div className="invalid-feedback">{errors.name}</div>)}
+                        <label style={{textAlign: 'left'}}>
+                            <div>
+                            New Name:    
+                                <input
+                                type="text"
+                                placeholder="Name"
+                                className={classnames('form-control form-control-lg', {
+                                    'is-invalid': errors.name
+                                })}
+                                name="name"
+                                required = "required"
+                                onChange={ this.handleInputChange }
+                                value={ this.state.name }
+                                />
+                            </div>
+                        </label>
+                            {errors.name && (<div className="invalid-feedback">{errors.name}</div>)}
                     </div>
                     <div className="form-group form-inline">
-                        <label>
-                        Email
-                            <input
-                            type="email"
-                            placeholder="Email"
-                            required = "required"
-                            className={classnames('form-control form-control-lg', {
-                                'is-invalid': errors.email
-                            })}
-                            name="email"
-                            onChange={ this.handleInputChange }
-                            value={ this.state.email }
-                            readOnly
-                            />
+                        <label style={{textAlign: 'left'}}>
+                            <div>
+                            Email Address:
+                                <input
+                                type="email"
+                                placeholder="Email"
+                                required = "required"
+                                className={classnames('form-control form-control-lg', {
+                                    'is-invalid': errors.email
+                                })}
+                                name="email"
+                                onChange={ this.handleInputChange }
+                                value={ this.state.email }
+                                readOnly
+                                />
+                            </div>
                         </label>
                         {errors.email && (<div className="invalid-feedback">{errors.email}</div>)}
                     </div>
                     <div className="form-group form-inline">
-                        <label>
-                        Number
-                        <input
-                        type="text"
-                        placeholder="Phone Number eg 03001234567"
-                        className={classnames('form-control form-control-lg', {
-                            'is-invalid': errors.number
-                        })}
-                        name="number"
-                        required = "required"
-                        onChange={ this.handleInputChange }
-                        value={ this.state.number }
-                        />
-                        </label>
+                        
+                            <div style={{marginLeft:'5px',textAlign: 'left'}}>
+                            New Number:         
+                                <input
+                                type="text"
+                                placeholder="Phone Number eg 03001234567"
+                                className={classnames('form-control form-control-lg', {
+                                    'is-invalid': errors.number
+                                })}
+                                name="number"
+                                required = "required"
+                                onChange={ this.handleInputChange }
+                                value={ this.state.number }
+                                />
+                            </div>
+                        
                         {errors.number && (<div className="invalid-feedback">{errors.number}</div>)}
                     </div>
                     <div className="form-group form-inline">
-                        <label>
-                        New Password
-                        <input
-                        type="password"
-                        placeholder="Password"
-                        className={classnames('form-control form-control-lg', {
-                            'is-invalid': errors.password
-                        })}
-                        name="password"
-                        onChange={ this.handleInputChange }
-                        value={ this.state.password }
-                        />
-                        </label>
-                        {errors.password && (<div className="invalid-feedback">{errors.password}</div>)}
+                        
+                            <div style={{textAlign: 'left'}}>
+                            New Password:
+                                <input
+                                type="password"
+                                placeholder="Password"
+                                className={classnames('form-control form-control-lg', {
+                                    'is-invalid': errors.password
+                                })}
+                                name="password"
+                                onChange={ this.handleInputChange }
+                                value={ this.state.password }
+                                />
+                            </div>
+                        
+                            {errors.password && (<div className="invalid-feedback">{errors.password}</div>)}
                     </div>
                     <div className="form-group form-inline">
-                        <label>
-                        Confirm password
-                        <input
-                        type="password"
-                        placeholder="Confirm Password"
-                        className={classnames('form-control form-control-lg', {
-                            'is-invalid': errors.password_confirm
-                        })}
-                        name="password_confirm"
-                        onChange={ this.handleInputChange }
-                        value={ this.state.password_confirm }
-                        />
+                        <label style={{textAlign: 'left'}}>
+                            <div>
+                            Confirm password:
+                                <input
+                                type="password"
+                                placeholder="Confirm Password"
+                                className={classnames('form-control form-control-lg', {
+                                    'is-invalid': errors.password_confirm
+                                })}
+                                name="password_confirm"
+                                onChange={ this.handleInputChange }
+                                value={ this.state.password_confirm }
+                                />
+                            </div>
                         </label>
                         {errors.password_confirm && (<div className="invalid-feedback">{errors.password_confirm}</div>)}
                     </div>
                     <div className="form-group">
                         <button type="submit" className="b1">
-                            Sign Up
+                            Confirm 
                         </button>
                     </div>
                 </form>

@@ -12,14 +12,32 @@ const User = require('../models/User');
 
 router.post('/editprofile', (req,res)=>{
     // console.log(req.body)
-    const { errors, isValid } = validateRegisterInput(req.body);
-
-    if(!isValid) {
-        return res.status(400).json(errors);
+    let pass = req.body.password
+    let pass1 = false
+    if (pass != ''){
+        pass1 = true
+        console.log("Password was changed.")
     }
-    console.log("password",req.body.password)
-    if (req.body.password.length >=6){
-        console.log("got pw")
+
+    if (pass1 == true){
+        const { errors, isValid } = validateRegisterInput(req.body, false);
+        if(!isValid) {
+            console.log(errors)
+            return res.status(400).json(errors);
+        }
+
+
+    }else{
+        const { errors, isValid } = validateRegisterInput(req.body, true);
+        if(!isValid) {
+            console.log(errors)
+            return res.status(400).json(errors);
+        }
+    }
+
+
+    if (pass1){
+        console.log("if")
         bcrypt.genSalt(10, (err, salt) => {
             if(err) console.error('There was an error', err);
             else {
@@ -46,7 +64,7 @@ router.post('/editprofile', (req,res)=>{
             }
         });    
     }else{
-        console.log("no pw")
+        console.log("else")
         User.updateOne(
             {
                 email : req.body.email
