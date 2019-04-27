@@ -101,7 +101,7 @@ app.post('/placeorder', function(req, res) {
         items:req.body.items,
         order_time:req.body.order_time,
         del_location:req.body.del_location,
-        del_time:req.body.del_time,
+        // del_time:req.body.del_time,
         status:req.body.status,
         instructions:req.body.instructions
     });

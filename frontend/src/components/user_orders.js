@@ -43,7 +43,7 @@ class user_orders extends Component {
        const drink_items = ord.map((d,i)=> 
             <div id="lol">
                 <div key={i}> 
-                    <div>{d.customer_email}  {d.restaurant_name}  {d.del_time} {d.customer_email} </div>
+                    <div>{d.customer_email}  {d.restaurant_name}  {d.del_time}  </div>
                 </div>
             </div>
         )
