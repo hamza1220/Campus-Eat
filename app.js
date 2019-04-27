@@ -120,6 +120,16 @@ app.post('/getrestorders', function(req, res){
 
 })
 
+app.post('/delivered', function(req, res){
+    console.log("Request to change to delivered")
+   
+    Order.update({orderID: req.body.orderID}, {
+        status: "delivered"
+    }, function(err, affected, resp) {
+       console.log(resp);
+    })
+})
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
