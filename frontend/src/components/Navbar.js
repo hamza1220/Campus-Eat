@@ -34,7 +34,7 @@ class Navbar extends Component {
                     <Link to="/userscreen"><button>Restaurants</button></Link>
                 </li>
                 <li >
-                    <Link to="/blank"><button>Orders</button></Link>
+                    <Link to="/orders"><button>Orders</button></Link>
                 </li>
                 <li >
                     <input id="searchObject" type="text" placeholder="Search for food"/>
@@ -53,7 +53,7 @@ class Navbar extends Component {
                     <Link to="/editprofile"><button>Profile</button></Link>
                 </li>
                 <li >
-                    <Link to="/blank"><button>Orders</button></Link>
+                    <Link to="/rest_orders"><button>Orders</button></Link>
                 </li>
             </ul>
 

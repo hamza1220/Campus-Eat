@@ -15,9 +15,11 @@ import PasswordSent from './components/passwordsent'
 import Userscreen from './components/userscreen'
 import Menu from './components/menu'
 import blank from './components/blank'
+import User_Orders from './components/user_orders'
 import EditProfile from './components/editprofile'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Cart from './components/Shoppingcart'
+import Rest_Orders from './components/rest_orders'
+// import Cart from './components/Shoppingcart'
 
 if(localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
@@ -45,10 +47,10 @@ class App extends Component {
                   <Route exact path="/forgotpassword" component={ ForgotPassword } />
                   <Route exact path="/passwordsent" component={ PasswordSent }/>
                   <Route exact path="/userscreen" component={ Userscreen }/>
-                  <Route exact path="/blank" component={ blank } />
+                  <Route exact path="/orders" component={ User_Orders } />
                   <Route exact path="/menu" component={ Menu }/>
                   <Route exact path='/editprofile' component={EditProfile}/>
-                  <Route exact path="/shoppingcart" component={Cart}/>
+                  <Route exact path='/rest_orders' component={Rest_Orders}/>
                 </Switch>
             </div>
           </Router>

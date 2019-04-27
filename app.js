@@ -68,6 +68,15 @@ app.post('/api/menu', (req,res)=>{
  //              {id:3, name: 'Coke', price: 50, category: "Drinks", restaurant: "ChopChop"}])
 })
 
+app.post('/api/orders', (req,res)=>{
+    console.log("sending orders of",req.body)
+    Order.find({
+        customer_email : req.body.email
+    })
+    .then(orders => {res.json(orders)})
+
+})
+
 app.post('/additem', function(req, res) {
     const newItem= new Item({
     	item_id : req.body.item_id,
@@ -79,6 +88,24 @@ app.post('/additem', function(req, res) {
     newItem.save()
     .then(item=>{
     	res.json(item)
+    });
+    console.log(req.body)
+});
+
+app.post('/placeorder', function(req, res) {
+    const newOrder= new Order({
+        orderID : req.body.orderID,
+        customer_email : req.body.customer_email,
+        customer_number : req.body.customer_number,
+        restaurant_name:req.body.restaurant_name,
+        items:req.body.items,
+        del_location:req.body.del_location,
+        status:req.body.status,
+        instructions:req.body.instructions
+    });
+    newOrder.save()
+    .then(order=>{
+        res.json("Your Order has been Placed. Track in Orders Screen")
     });
     
     console.log(req.body)
@@ -103,6 +130,26 @@ app.post('/addorder', function(req,res){
 
     console.log(req.body)
 });
+
+app.post('/getrestorders', function(req, res){
+    console.log("sdsd")
+    Order.find({
+        restaurant_name: req.body.restaurant_name
+    })
+    .then(orders =>{res.json(orders)})
+
+})
+
+app.post('/delivered', function(req, res){
+    console.log("Request to change to delivered")
+   
+    Order.update({orderID: req.body.orderID}, {
+        status: "delivered"
+    }, function(err, affected, resp) {
+       console.log(resp);
+    })
+})
+>>>>>>> a3f1d3bf94e87de5220498749755cb73fccf8d7d
 
 const PORT = process.env.PORT || 5000;
 

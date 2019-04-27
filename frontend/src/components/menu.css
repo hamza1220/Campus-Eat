@@ -7,6 +7,7 @@
   padding-top: 5px;
   align-items: center
 }
+
 .spacer{
   flex: 1;  
 }
@@ -23,16 +24,22 @@
 	background-size: cover;
 	height: 50px;
 	width: 50px;
+
 }
 
 #heading{
 	padding-top: 7%;
-	color: #708090;
+	color: #626262;
 }
 
 #lol div:hover{
   background-color: #CCC;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+#heading1 {
+  color: #626262;
+  font-size: small;
 }
 
 #b2{
@@ -42,11 +49,20 @@
   color: #FFF;
   padding-top: 1.5%;
   align-items: center;
-  transition-duration: 0.4s;
   border-bottom: 1px solid #898989;
+  font-size: 15px;
+  font-weight: bolder;
 } 
 
-.button:hover {opacity: 1 !important;}
+#b2:hover {
+  background-color: #510000;
+  color: white;
+}
+
+#b2:active {
+  background-color: #00AE00;
+}
+
 
 
 #cartbtn{
