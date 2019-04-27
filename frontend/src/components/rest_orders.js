@@ -10,25 +10,7 @@ import { Button, Modal, Table} from 'react-bootstrap';
 
 import axios from 'axios';
 
-function interval(func, wait, times){
-    var interv = function(w, t){
-        return function(){
-            // console.log("in")
-            if(typeof t === "undefined" || t-- > 0){
-                setTimeout(interv, w);
-                try{
-                    func.call(null);
-                }
-                catch(e){
-                    t = 0;
-                    throw e.toString();
-                }
-            }
-        };
-    }(wait, times);
-
-    setTimeout(interv, wait);
-};
+let close=false
 
 class rest_orders extends Component {
   constructor(props){
@@ -40,30 +22,64 @@ class rest_orders extends Component {
       currItems: [],
       total:0,
       orderID: null,
+      //close:false,
       };
 
         this.handleClose = this.handleClose.bind(this);
         this.handleShow = this.handleShow.bind(this);
+        this.interval = this.interval.bind(this);
    }
 
-  componentDidMount(){
-        var restaurant_name = String(this.props.auth.user.user_type).split('_')[1]
-        interval(() => {
-          axios.post('/getrestorders', {
-            restaurant_name: restaurant_name,
-            })
-          .then((response) => {
-            this.setState({orders: response.data})
-              console.log(response.data)
-          })
-        }, 2500, 200)
+  interval(func, wait, times){
+      var interv = function(w, t){
+          return function(){
+              // console.log("in")
+              if (close===true)
+              {
+                t=0
+              }
+              if(typeof t === "undefined" || t-- > 0){
+                  setTimeout(interv, w);
+                  try{
+                      func.call(null);
+                  }
+                  catch(e){
+                      t = 0;
+                      throw e.toString();
+                  }
+              }
+          };
+      }(wait, times);
+
+      setTimeout(interv, wait);
+  };
+  componentWillMount(){
+    // this.setState({close: false})
+    close=false
+    console.log("new",close)
+    var restaurant_name = String(this.props.auth.user.user_type).split('_')[1]
+    this.interval(() => {
+      axios.post('/getrestorders', {
+        restaurant_name: restaurant_name,
+        })
+      .then((response) => {
+        // console.log(this.state.close)
+        // if(close===false){
+          this.setState({orders: response.data})
+          console.log(response.data)
+        // }
+
+      })
+    }, 2500, 240)
+    setTimeout(()=>{window.location.reload()}, 602500)
         
   }
 
-  // componentWillUnmount() {
-  //       clearInterval(this.lookupInterval)
-  //       this.lookupInterval = 0
-  // }
+  componentWillUnmount() {
+    close=true
+    // console.log("in",close)
+
+  }
 
     handleClose() {
         this.setState({ show: false, currItems:[], total: 0, orderID:null});

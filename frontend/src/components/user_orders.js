@@ -7,11 +7,16 @@ import { Link, Redirect } from 'react-router-dom';
 import './user_orders.css'
 import { Button, Modal, Table} from 'react-bootstrap';
 
+let close = false
+
 function interval(func, wait, times){
     var interv = function(w, t){
         return function(){
-            // console.log("in")
-            if(typeof t === "undefined" || t-- > 0){
+            if(close===true)
+            {
+                t=0
+            }
+            if(typeof t === "undefined" || t-- > 0 ){
                 setTimeout(interv, w);
                 try{
                     func.call(null);
@@ -44,6 +49,8 @@ class user_orders extends Component {
         this.handleShow = this.handleShow.bind(this);
     }
 	componentDidMount(){
+        close=false
+        console.log("new",close)
         var email = String(this.props.auth.user.email)
         console.log(email);
 
@@ -60,12 +67,13 @@ class user_orders extends Component {
 	    	let t = ((body))
             this.setState({orders: t})
 	    })
-        }, 4000, 200)    
+        }, 2500, 240)
+        setTimeout(()=>{window.location.reload()}, 602500)
+
     }
 
     componentWillUnmount() {
-        clearInterval(this.lookupInterval)
-        this.lookupInterval = 0
+        close=true
     }
 
     handleClose() {
@@ -80,8 +88,6 @@ class user_orders extends Component {
         this.setState({ show: true, currItems:items, orderID:id, total:total});
 
     }
-
-    
 
     render() {
         
