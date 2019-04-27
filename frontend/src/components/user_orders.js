@@ -41,6 +41,8 @@ class user_orders extends Component {
 	componentDidMount(){
         var email = String(this.props.auth.user.email)
         console.log(email);
+
+        this.lookupInterval = setInterval(() => {
 		fetch('api/orders', {
           method: 'POST',
           body: JSON.stringify({email: email}),
@@ -53,7 +55,8 @@ class user_orders extends Component {
 	    	let t = ((body))
             this.setState({orders: t})
 	    })
-	}
+        }, 3500)    
+    }
 
     render() {
         
