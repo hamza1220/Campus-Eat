@@ -118,17 +118,22 @@ app.post('/getrestorders', function(req, res){
 
 app.post('/delivered', function(req, res){
     console.log("Request to change to delivered")
-    Order.updateOne({orderID: req.body.orderID}, {
+    Order.updateOne(
+        {orderID: parseInt(req.body.orderID)}, {
         status: "delivered"
-    })
+    }).then(()=>{Order.find({
+        orderID: parseInt(req.body.orderID)
+    })}).then((order)=>{console.log(order)})
 })
 
 app.post('/processing', function(req, res){
-    console.log("Request to change to delivered")
-   
-    Order.updateOne({orderID: req.body.orderID}, {
+    console.log("Request to change to processing")   
+    Order.updateOne(
+        {orderID: parseInt(req.body.orderID)}, {
         status: "processing"
-    })
+    }).then(()=>{Order.find({
+        orderID: parseInt(req.body.orderID)
+    })}).then((order)=>{console.log(order)})
 })
 
 const PORT = process.env.PORT || 5000;

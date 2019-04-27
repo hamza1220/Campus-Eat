@@ -7,6 +7,26 @@ import { Link, Redirect } from 'react-router-dom';
 import './user_orders.css'
 import { Button, Modal, Table} from 'react-bootstrap';
 
+function interval(func, wait, times){
+    var interv = function(w, t){
+        return function(){
+            // console.log("in")
+            if(typeof t === "undefined" || t-- > 0){
+                setTimeout(interv, w);
+                try{
+                    func.call(null);
+                }
+                catch(e){
+                    t = 0;
+                    throw e.toString();
+                }
+            }
+        };
+    }(wait, times);
+
+    setTimeout(interv, wait);
+};
+
 
 class user_orders extends Component {
  	constructor(props){
@@ -15,14 +35,38 @@ class user_orders extends Component {
  		this.state={
  			orders:'',
             show:false,
- 		    currItems: [],
+            currItems: [],
             total:0,
             orderID: null,
         };
 
         this.handleClose = this.handleClose.bind(this);
         this.handleShow = this.handleShow.bind(this);
- 	}
+    }
+	componentDidMount(){
+        var email = String(this.props.auth.user.email)
+        console.log(email);
+
+        interval(() => {
+		fetch('api/orders', {
+          method: 'POST',
+          body: JSON.stringify({email: email}),
+          headers: {
+            "Content-Type": "application/json",
+          }
+        })
+	    .then(res => res.json())
+	    .then(body =>{
+	    	let t = ((body))
+            this.setState({orders: t})
+	    })
+        }, 4000, 200)    
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.lookupInterval)
+        this.lookupInterval = 0
+    }
 
     handleClose() {
         this.setState({ show: false, currItems:[], total: 0, orderID:null});
@@ -38,25 +82,6 @@ class user_orders extends Component {
     }
 
     
-	componentDidMount(){
-        var email = String(this.props.auth.user.email)
-        console.log(email);
-
-        this.lookupInterval = setInterval(() => {
-		fetch('api/orders', {
-          method: 'POST',
-          body: JSON.stringify({email: email}),
-          headers: {
-            "Content-Type": "application/json",
-          }
-        })
-	    .then(res => res.json())
-	    .then(body =>{
-	    	let t = ((body))
-            this.setState({orders: t})
-	    })
-        }, 3500)    
-    }
 
     render() {
         
