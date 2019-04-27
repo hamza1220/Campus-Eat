@@ -53,7 +53,7 @@ class Navbar extends Component {
                     <Link to="/editprofile"><button>Profile</button></Link>
                 </li>
                 <li >
-                    <Link to="/blank"><button>Orders</button></Link>
+                    <Link to="/rest_orders"><button>Orders</button></Link>
                 </li>
             </ul>
 

@@ -110,6 +110,15 @@ app.post('/placeorder', function(req, res) {
     
     console.log(req.body)
 });
+
+app.post('/getrestorders', function(req, res){
+    Order.find({
+        restaurant_name: req.body.restaurant_name
+    })
+    .then(orders =>{res.json(orders)})
+
+})
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
