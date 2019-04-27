@@ -18,6 +18,8 @@ class Menu extends Component {
  			location:'',
  			instructions: '',
  			total: 0,
+ 			showmessage: false,
+ 			message: '',
  		};
  	}
  	handleClose() {
@@ -43,7 +45,21 @@ class Menu extends Component {
 			items:this.state.cart, del_location: loc, status: "pending", 
 			instructions: inst}
 		console.log(o)
-		this.setState({show:false});
+		// this.setState({show:false});
+		fetch('api/placeorder', {
+	      method: 'POST',
+	      body: JSON.stringify(o),
+	      headers: {
+	        "Content-Type": "application/json",
+	      }
+	    })
+	    .then(res => {
+	      	res.json().then(body => {
+		   		let response = (body)
+		       	console.log(response)
+		       	this.setState({showmessage:true, message: response})
+		    }); 
+	    })
 
 	}
 
@@ -149,6 +165,62 @@ class Menu extends Component {
 	    	</tr>
     	)
 
+    	const view_cart = (
+    		<Modal.Header closeButton>
+	            <Modal.Title>Shopping cart for {this.state.rest}</Modal.Title>
+	          </Modal.Header>
+	          <Modal.Body>
+
+	          <Table>
+	          	<thead>
+	          		<tr>
+		          		<th>Item ID</th>
+		          		<th>Name</th>
+		          		<th>Price</th>
+	          		</tr>
+	          	</thead>
+	          		<tbody>
+		          		{cart_table}
+		          	<tr> 
+		          		<td> </td>
+		          		<td> <b>Total Order Price</b> </td>
+		          		<td> <b>{this.state.total}</b> </td>
+		          	</tr>
+					</tbody>
+	          </Table>
+
+	         <form onSubmit={(e)=>{this.placeOrder(e,this.props.auth.user.email,this.props.auth.user.number)}}>
+                <label>
+                    Delivery Location &nbsp; &nbsp; &nbsp;  
+                    <input
+                    type="text"
+                    placeholder="Location to deliver to"
+                    name="location"
+                    required
+                    />
+                </label>
+                <br/>
+
+                <label>
+                	Special Instructions &nbsp;
+                    <input
+                    type="text"
+                    placeholder="Instructions"
+                    name="instruction"
+                    />
+                </label>
+                <br/>
+				<Button variant="danger" type="submit">
+				  Place Order
+				</Button>
+			</form>
+
+	          </Modal.Body>
+	          <Modal.Footer>
+
+	          </Modal.Footer>
+    		)
+
         return (
             <div id="bg">
             <h1 id="heading">{this.state.rest}
@@ -166,59 +238,10 @@ class Menu extends Component {
 				<br/>
 
 		        <Modal show={this.state.show} animation='true' onHide={this.handleClose}>
-		          <Modal.Header closeButton>
-		            <Modal.Title>Shopping cart for {this.state.rest}</Modal.Title>
-		          </Modal.Header>
-		          <Modal.Body>
+		        
+		        	{this.state.showmessage? null:view_cart}
 
-		          <Table>
-		          	<thead>
-		          		<tr>
-			          		<th>Item ID</th>
-			          		<th>Name</th>
-			          		<th>Price</th>
-		          		</tr>
-		          	</thead>
-		          		<tbody>
-			          		{cart_table}
-			          	<tr> 
-			          		<td> </td>
-			          		<td> <b>Total Order Price</b> </td>
-			          		<td> <b>{this.state.total}</b> </td>
-			          	</tr>
-						</tbody>
-		          </Table>
-
-		         <form onSubmit={(e)=>{this.placeOrder(e,this.props.auth.user.email,this.props.auth.user.number)}}>
-                    <label>
-                        Delivery Location &nbsp; &nbsp; &nbsp;  
-                        <input
-                        type="text"
-                        placeholder="Location to deliver to"
-                        name="location"
-                        required
-                        />
-                    </label>
-                    <br/>
-
-                    <label>
-                    	Special Instructions &nbsp;
-                        <input
-                        type="text"
-                        placeholder="Instructions"
-                        name="instruction"
-                        />
-                    </label>
-                    <br/>
-					<Button variant="danger" type="submit">
-					  Place Order
-					</Button>
-				</form>
-
-		          </Modal.Body>
-		          <Modal.Footer>
-
-		          </Modal.Footer>
+		          
 		        </Modal>
 
             </div>
