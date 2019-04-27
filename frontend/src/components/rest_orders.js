@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import user_background from './userscreen_background.jpeg'
+import user_background from './userscreen_background.jpeg';
 // import './userscreen.css'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
