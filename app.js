@@ -99,15 +99,13 @@ app.post('/placeorder', function(req, res) {
         customer_number : req.body.customer_number,
         restaurant_name:req.body.restaurant_name,
         items:req.body.items,
-        order_time:req.body.order_time,
         del_location:req.body.del_location,
-        // del_time:req.body.del_time,
         status:req.body.status,
         instructions:req.body.instructions
     });
     newOrder.save()
     .then(order=>{
-        res.json(order)
+        res.json("Your Order has been Placed. Track in Orders Screen")
     });
     
     console.log(req.body)
