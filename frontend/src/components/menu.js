@@ -2,7 +2,6 @@ import { Button, Modal, Table} from 'react-bootstrap';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './menu.css'
-// import { Link} from 'react-router-dom';
 
 class Menu extends Component {
  	constructor(props){

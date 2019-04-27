@@ -58,20 +58,25 @@ class user_orders extends Component {
     render() {
         
         var pending= []
+        let check1 = true        
         for (var i = this.state.orders.length - 1; i >= 0; i--) {
             if (this.state.orders[i].status!=="delivered"){
                 pending.push(this.state.orders[i])
             }
         }
+        if (pending.length === 0){
+            check1 = false
+        }
+
         var doneOrders= []
-        let check = true
+        let check2 = true
         for (var i = this.state.orders.length - 1; i >= 0; i--) {
             if (this.state.orders[i].status==="delivered"){
                 doneOrders.push(this.state.orders[i])
             }
-            if (doneOrders.length === 0){
-                check = false
-            }
+        }
+        if (doneOrders.length === 0){
+            check2 = false
         }
 
 
@@ -81,11 +86,6 @@ class user_orders extends Component {
             ord.push(this.state.orders[i])
         }
         console.log(ord)
-        // {const items = d.items.map((z,k)=>
-        //                     <div>
-        //                         {z.name, z.price}
-        //                     </div>
-        // )}
 
         const pendingOrders = pending.map((d,i) => 
             <div id="orderdiv">
@@ -149,11 +149,11 @@ class user_orders extends Component {
             <div id = "stuff">
                 <div className = "borderx">
                     <h4 className = "heading3">Pending Orders</h4>
-                    {pendingOrders}
+                    {check1 ? pendingOrders: none}
                 </div>
                 <div className = "borderx">
                     <h4 className = "heading3">Completed Orders</h4>
-                    {check ? completedOrders: none}
+                    {check2 ? completedOrders: none}
                 </div>
 
                 <Modal show={this.state.show} onHide={this.handleClose}>
