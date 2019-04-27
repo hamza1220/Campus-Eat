@@ -17,28 +17,28 @@ class rest_orders extends Component {
  		};
  	}
     
-  	componentDidMount(){
-          var restaurant_name = String(this.props.auth.user.user_type).split('_')[1]
-          this.lookupInterval = setInterval(() => {
-            axios.post('/getrestorders', {
-              restaurant_name: restaurant_name,
-              })
-            .then((response) => {
-              // console
-                console.log(response.data)
+  componentDidMount(){
+        var restaurant_name = String(this.props.auth.user.user_type).split('_')[1]
+        this.lookupInterval = setInterval(() => {
+          axios.post('/getrestorders', {
+            restaurant_name: restaurant_name,
             })
-          }, 8500)
-          
-  	}
+          .then((response) => {
+            // console
+              console.log(response.data)
+          })
+        }, 8500)
+        
+  }
 
 
-    render() {
-        var pending= []
-        for (var i = this.state.orders.length - 1; i >= 0; i--) {
-            if (this.state.orders[i].status==="pending"){
-                pending.push(this.state.orders[i])
-            }
-        }
+  render() {
+      var pending= []
+      for (var i = this.state.orders.length - 1; i >= 0; i--) {
+          if (this.state.orders[i].status==="pending"){
+              pending.push(this.state.orders[i])
+          }
+      }
 
        //  var ord= []
        //  for (var i = this.state.orders.length - 1; i >= 0; i--) {
