@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setRestaurant } from '../actions/restaurant';
 import { Link, Redirect } from 'react-router-dom';
+import axios from 'axios';
 
 
 class rest_orders extends Component {
@@ -16,22 +17,20 @@ class rest_orders extends Component {
  		};
  	}
     
-	componentDidMount(){
-        var restaurant_name = String(this.props.auth.user.user_type).split('_')[1]
-        console.log(restaurant_name);
-		fetch('/getrestorders', {
-          method: 'POST',
-          body: JSON.stringify({restaurant_name: restaurant_name}),
-          headers: {
-            "Content-Type": "application/json",
-          }
-        })
-	    .then(res => res.json())
-	    .then(body =>{
-	    	let t = ((body))
-            this.setState({orders: t})
-	    })
-	}
+  	componentDidMount(){
+          var restaurant_name = String(this.props.auth.user.user_type).split('_')[1]
+          this.lookupInterval = setInterval(() => {
+            axios.post('/getrestorders', {
+              restaurant_name: restaurant_name,
+              })
+            .then((response) => {
+              // console
+                console.log(response.data)
+            })
+          }, 8500)
+          
+  	}
+
 
     render() {
         var pending= []

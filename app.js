@@ -112,6 +112,7 @@ app.post('/placeorder', function(req, res) {
 });
 
 app.post('/getrestorders', function(req, res){
+    console.log("sdsd")
     Order.find({
         restaurant_name: req.body.restaurant_name
     })

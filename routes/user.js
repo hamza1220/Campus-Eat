@@ -78,12 +78,8 @@ router.post('/editprofile', (req,res)=>{
             }
             
 
-            ).then(()=>{res.json("updatedDB")})
-       
-    }
-
-    
-    
+            ).then(()=>{res.json("updatedDB")})       
+    }  
 
 })
 
@@ -103,11 +99,7 @@ router.post('/register', function(req, res) {
             });
         }
         else {
-            // const avatar = gravatar.url(req.body.email, {
-            //     s: '200',
-            //     r: 'pg',
-            //     d: 'mm'
-            // });
+   
             const newUser = new User({
                 name: req.body.name,
                 email: req.body.email,
