@@ -23,7 +23,7 @@ class Menu extends Component {
  		};
  	}
  	handleClose() {
-	    this.setState({ show: false });
+	    this.setState({ show: false , showmessage:false});
 	}
 
 	handleShow() {
@@ -35,19 +35,19 @@ class Menu extends Component {
 		
 		
 		let loc =event.target.location.value
-		let inst =event.target.instruction.value
+		
+		let inst = (event.target.instruction.value!==''? event.target.instruction.value:  'None')
 
 		this.setState({location:loc})
 		this.setState({instructions:inst})
 
-		console.log(inst)
 		let o = {orderID: Math.floor(Math.random() * 1000000000000), customer_email:email, 
 			customer_number:number, restaurant_name: this.state.rest,
 			items:this.state.cart, del_location: loc, status: "pending", 
 			instructions: inst}
-		console.log(o)
+		// console.log(o)
 		// this.setState({show:false});
-		fetch('api/placeorder', {
+		fetch('/placeorder', {
 	      method: 'POST',
 	      body: JSON.stringify(o),
 	      headers: {
@@ -58,7 +58,7 @@ class Menu extends Component {
 	      	res.json().then(body => {
 		   		let response = (body)
 		       	console.log(response)
-		       	this.setState({showmessage:true, message: response})
+		       	this.setState({showmessage:true, message: response, cart: [], location: '', instructions: '', total:0})
 		    }); 
 	    })
 
@@ -162,61 +162,81 @@ class Menu extends Component {
     	)
 
     	const view_cart = (
+    	<Modal show={this.state.show} animation='true' onHide={this.handleClose}>	
     		<Modal.Header closeButton>
 	            <Modal.Title>Shopping cart for {this.state.rest}</Modal.Title>
 	          </Modal.Header>
 	          <Modal.Body>
 
-	          <Table>
-	          	<thead>
-	          		<tr>
-		          		<th>Item ID</th>
-		          		<th>Name</th>
-		          		<th>Price</th>
-	          		</tr>
-	          	</thead>
-	          		<tbody>
-		          		{cart_table}
-		          	<tr> 
-		          		<td> </td>
-		          		<td> <b>Total Order Price</b> </td>
-		          		<td> <b>{this.state.total}</b> </td>
-		          	</tr>
-					</tbody>
-	          </Table>
+		          <Table>
+		          	<thead>
+		          		<tr>
+			          		<th>Item ID</th>
+			          		<th>Name</th>
+			          		<th>Price</th>
+		          		</tr>
+		          	</thead>
+		          		<tbody>
+			          		{cart_table}
+			          	<tr> 
+			          		<td> </td>
+			          		<td> <b>Total Order Price</b> </td>
+			          		<td> <b>{this.state.total}</b> </td>
+			          	</tr>
+						</tbody>
+		          </Table>
 
-	         <form onSubmit={(e)=>{this.placeOrder(e,this.props.auth.user.email,this.props.auth.user.number)}}>
-                <label>
-                    Delivery Location &nbsp; &nbsp; &nbsp;  
-                    <input
-                    type="text"
-                    placeholder="Location to deliver to"
-                    name="location"
-                    required
-                    />
-                </label>
-                <br/>
+		         <form onSubmit={(e)=>{this.placeOrder(e,this.props.auth.user.email,this.props.auth.user.number)}}>
+	                <label>
+	                    Delivery Location &nbsp; &nbsp; &nbsp;  
+	                    <input
+	                    type="text"
+	                    placeholder="Location to deliver to"
+	                    name="location"
+	                    required
+	                    />
+	                </label>
+	                <br/>
 
-                <label>
-                	Special Instructions &nbsp;
-                    <input
-                    type="text"
-                    placeholder="Instructions"
-                    name="instruction"
-                    />
-                </label>
-                <br/>
-				<Button variant="danger" type="submit">
-				  Place Order
-				</Button>
-			</form>
+	                <label>
+	                	Special Instructions &nbsp;
+	                    <input
+	                    type="text"
+	                    placeholder="Instructions"
+	                    name="instruction"
+	                    // value = {this.state.instructions}
+	                    />
+	                </label>
+	                <br/>
+					<Button variant="danger" type="submit">
+					  Place Order
+					</Button>
+				</form>
 
 	          </Modal.Body>
 	          <Modal.Footer>
 
 	          </Modal.Footer>
+	    </Modal>
     		)
 
+    	const view_message = (
+    		<Modal show={this.state.show} animation='true' onHide={this.handleClose}>	
+    		<Modal.Header closeButton>
+	            <Modal.Title>Shopping cart for {this.state.rest}</Modal.Title>
+	          </Modal.Header>
+	          <Modal.Body>
+
+		         	<p>{this.state.message} </p>
+
+	          </Modal.Body>
+	          <Modal.Footer>
+
+	          </Modal.Footer>
+	    </Modal>
+	    ) 
+
+	    
         return (
             <div id="bg">
             <h1 id="heading">{this.state.rest}
@@ -232,13 +252,8 @@ class Menu extends Component {
 				<h4 className="heading">Drinks</h4>
 				{drink_items}
 				<br/>
+		        	{this.state.showmessage? view_message:view_cart}
 
-		        <Modal show={this.state.show} animation='true' onHide={this.handleClose}>
-		        
-		        	{this.state.showmessage? null:view_cart}
-
-		          
-		        </Modal>
 
             </div>
         );
