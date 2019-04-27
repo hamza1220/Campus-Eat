@@ -130,6 +130,16 @@ app.post('/delivered', function(req, res){
     })
 })
 
+app.post('/processing', function(req, res){
+    console.log("Request to change to delivered")
+   
+    Order.update({orderID: req.body.orderID}, {
+        status: "processing"
+    }, function(err, affected, resp) {
+       console.log(resp);
+    })
+})
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
