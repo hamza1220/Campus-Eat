@@ -1,4 +1,4 @@
-import { Button, Modal, InputGroup, FormControl, Form, Table} from 'react-bootstrap';
+import { Button, Modal, Table} from 'react-bootstrap';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './menu.css'
@@ -29,7 +29,7 @@ class Menu extends Component {
 	   this.setState({ show: true });
 
 	}
-	placeOrder(event,email){
+	placeOrder(event,email, number){
 		event.preventDefault();
 		
 		let loc =event.target.location.value
@@ -39,7 +39,8 @@ class Menu extends Component {
 		this.setState({instructions:inst})
 
 		console.log(inst)
-		let o = {orderID: Math.floor(Math.random() * 1000000000000), customer_email:email, restaurant_name: this.state.rest,
+		let o = {orderID: Math.floor(Math.random() * 1000000000000), customer_email:email, 
+			customer_number:number, restaurant_name: this.state.rest,
 			items:this.state.cart, del_location: loc, status: "pending", 
 			instructions: inst}
 		console.log(o)
@@ -188,7 +189,7 @@ class Menu extends Component {
 						</tbody>
 		          </Table>
 
-		         <form onSubmit={(e)=>{this.placeOrder(e,this.props.auth.user.email)}}>
+		         <form onSubmit={(e)=>{this.placeOrder(e,this.props.auth.user.email,this.props.auth.user.number)}}>
                     <label>
                         Delivery Location &nbsp; &nbsp; &nbsp;  
                         <input

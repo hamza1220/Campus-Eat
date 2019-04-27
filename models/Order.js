@@ -11,6 +11,10 @@ const OrderSchema = new Schema({
         type: String,
         required: true
     },
+    customer_number: {
+        type: String,
+        required: true
+    },
     restaurant_name: {
         type: String,
         required: true
