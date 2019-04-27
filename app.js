@@ -63,9 +63,6 @@ app.post('/api/menu', (req,res)=>{
     })
     .then(items => {res.json(items)})
 
-	// res.json([{id:1, name: 'Chowmein', price: 250, category: "Food", restaurant: "ChopChop"},
- //              {id:2, name: 'Rice', price: 100, category: "Food", restaurant: "ChopChop"},
- //              {id:3, name: 'Coke', price: 50, category: "Drinks", restaurant: "ChopChop"}])
 })
 
 app.post('/api/orders', (req,res)=>{
@@ -132,7 +129,6 @@ app.post('/addorder', function(req,res){
 });
 
 app.post('/getrestorders', function(req, res){
-    console.log("sdsd")
     Order.find({
         restaurant_name: req.body.restaurant_name
     })
@@ -142,12 +138,22 @@ app.post('/getrestorders', function(req, res){
 
 app.post('/delivered', function(req, res){
     console.log("Request to change to delivered")
-   
-    Order.update({orderID: req.body.orderID}, {
+    Order.updateOne(
+        {orderID: parseInt(req.body.orderID)}, {
         status: "delivered"
-    }, function(err, affected, resp) {
-       console.log(resp);
-    })
+    }).then(()=>{Order.find({
+        orderID: parseInt(req.body.orderID)
+    })}).then((order)=>{console.log(order)})
+})
+
+app.post('/processing', function(req, res){
+    console.log("Request to change to processing")   
+    Order.updateOne(
+        {orderID: parseInt(req.body.orderID)}, {
+        status: "processing"
+    }).then(()=>{Order.find({
+        orderID: parseInt(req.body.orderID)
+    })}).then((order)=>{console.log(order)})
 })
 >>>>>>> a3f1d3bf94e87de5220498749755cb73fccf8d7d
 

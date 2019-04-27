@@ -2,7 +2,6 @@ import { Button, Modal, Table} from 'react-bootstrap';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './menu.css'
-// import { Link} from 'react-router-dom';
 
 class Menu extends Component {
  	constructor(props){
@@ -253,8 +252,6 @@ class Menu extends Component {
 				{drink_items}
 				<br/>
 		        	{this.state.showmessage? view_message:view_cart}
-
-
             </div>
         );
     }

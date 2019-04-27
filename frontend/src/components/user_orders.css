@@ -1,13 +1,55 @@
 #list{
-    display: inline-block;
     align-items: left;
+    padding-left: 1%;
+    width: 50%;
 }
 
 #uList{
+	border-radius: 30px;
 	list-style: none;
+	background-color: #D4D4D4;
 }
 
 #resName{
 	font-size: 20px;
-	color: #626262;
+	color: #474747;
+}
+
+#btnn{
+	padding-bottom: 4%;
+	padding-left: 2%;
+	margin-top: -2%;
+}
+
+#stuff{
+  	background-image: linear-gradient(black, #353535);
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+
+#none{
+	color: white;
+	padding-left: 4%;
+}
+
+#orderdiv{
+	width: 100%;
+}
+
+.heading4{
+	font-style: bold;
+	font-weight: bold;
+	color: white;
+}
+
+.heading3{
+	padding-left: 1%;
+	font-weight: bold;
+	color: white;
+}
+
+.borderx{
+	border: none;
+  	border-bottom: 1px dotted #898989;
 }
