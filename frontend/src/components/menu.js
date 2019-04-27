@@ -112,11 +112,6 @@ class Menu extends Component {
     	}
 
     	let c = this.state.cart
-    	// let total_price = 0;
-    	// for (var i = c.length - 1; i >= 0; i--) {
-    	// 	total_price = total_price + c[i].price
-    	// }
-    	// this.setState({total: total_price})
 
     	const food_items = food.map((d,i)=> 
     		<div id="lol">
@@ -125,7 +120,7 @@ class Menu extends Component {
 	    			<div className="spacer"/>
 		    		<div> Rs.{d.price} &nbsp; </div>
 	    		</div>
-		 	<button id='b2' onClick = {(e)=> {this.addToCart(e,d.item_id,d.name,d.price, d.category)}}> &nbsp; + &nbsp; &nbsp; </button>  
+		 	<button id='b2' title="Add to cart" onClick = {(e)=> {this.addToCart(e,d.item_id,d.name,d.price, d.category)}}> &nbsp; + &nbsp; &nbsp; </button>  
     		</div>
     	)
 
@@ -136,7 +131,7 @@ class Menu extends Component {
 	    			<div className="spacer"/>
 		    		<div> Rs.{d.price} &nbsp; </div>
 	    		</div>
-		 	<button id='b2' onClick = {(e)=> {this.addToCart(e,d.item_id,d.name,d.price, d.category)}}> &nbsp; + &nbsp; &nbsp; </button>  
+		 	<button id='b2' title="Add to cart" onClick = {(e)=> {this.addToCart(e,d.item_id,d.name,d.price, d.category)}}> &nbsp; + &nbsp; &nbsp; </button>  
     		</div>
     	)
     	
@@ -152,7 +147,7 @@ class Menu extends Component {
         return (
             <div id="bg">
             <h1 id="heading">{this.state.rest}
-            	<Button variant="danger" className = "VC" onClick={this.handleShow}>
+            	<Button variant="danger" title="View shopping cart" className = "VC" onClick={this.handleShow}>
 		        </Button>
 		    </h1>
 		    <h5 className="heading1"> Select an Item to add to your Shopping Cart </h5>
