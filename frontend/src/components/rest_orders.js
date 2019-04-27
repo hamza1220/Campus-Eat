@@ -141,7 +141,11 @@ class rest_orders extends Component {
         for (var i = this.state.orders.length - 1; i >= 0; i--) {
             ord.push(this.state.orders[i])
         }
-    
+        
+      const del= "Delivered"
+      const acc= "Accept Order"
+      const send = "Change Status to Delivered"
+
        const orderitems = ord.map((d,i) => 
             <div id="orderdiv">
                 <div id = "list" key={i}> 
@@ -155,7 +159,7 @@ class rest_orders extends Component {
                                 View Bill
                             </Button>
                             <Button variant="danger" title="Order Status" onClick={(e)=>{this.changeStatus(e,d.status, d.orderID)}}>
-                                {d.status}
+                                {d.status==="delivered"? del: (d.status=="pending"? acc: send) }
                             </Button>
 
 
