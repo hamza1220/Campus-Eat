@@ -68,6 +68,15 @@ app.post('/api/menu', (req,res)=>{
  //              {id:3, name: 'Coke', price: 50, category: "Drinks", restaurant: "ChopChop"}])
 })
 
+app.post('/api/orders', (req,res)=>{
+    console.log("sending orders of",req.body)
+    Order.find({
+        customer_email : req.body.email
+    })
+    .then(orders => {res.json(orders)})
+
+})
+
 app.post('/additem', function(req, res) {
     const newItem= new Item({
     	item_id : req.body.item_id,
@@ -84,6 +93,26 @@ app.post('/additem', function(req, res) {
     console.log(req.body)
 });
 
+app.post('/placeorder', function(req, res) {
+    const newOrder= new Order({
+        orderID : req.body.orderID,
+        customer_email : req.body.customer_email,
+        customer_number : req.body.customer_number,
+        restaurant_name:req.body.restaurant_name,
+        items:req.body.items,
+        order_time:req.body.order_time,
+        del_location:req.body.del_location,
+        del_time:req.body.del_time,
+        status:req.body.status,
+        instructions:req.body.instructions
+    });
+    newOrder.save()
+    .then(order=>{
+        res.json(order)
+    });
+    
+    console.log(req.body)
+});
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {

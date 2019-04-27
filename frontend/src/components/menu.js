@@ -32,6 +32,7 @@ class Menu extends Component {
 	placeOrder(event,email, number){
 		event.preventDefault();
 		
+		
 		let loc =event.target.location.value
 		let inst =event.target.instruction.value
 
