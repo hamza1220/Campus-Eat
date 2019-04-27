@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import user_background from './userscreen_background.jpeg'
 // import './userscreen.css'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -58,6 +57,24 @@ class user_orders extends Component {
 
     render() {
         
+        var pending= []
+        for (var i = this.state.orders.length - 1; i >= 0; i--) {
+            if (this.state.orders[i].status!=="delivered"){
+                pending.push(this.state.orders[i])
+            }
+        }
+        var doneOrders= []
+        let check = true
+        for (var i = this.state.orders.length - 1; i >= 0; i--) {
+            if (this.state.orders[i].status==="delivered"){
+                doneOrders.push(this.state.orders[i])
+            }
+            if (doneOrders.length === 0){
+                check = false
+            }
+        }
+
+
 
         var ord= []
         for (var i = this.state.orders.length - 1; i >= 0; i--) {
@@ -70,28 +87,49 @@ class user_orders extends Component {
         //                     </div>
         // )}
 
-        const orderitems = ord.map((d,i) => 
+        const pendingOrders = pending.map((d,i) => 
             <div id="orderdiv">
                 <div id = "list" key={i}> 
-                    <div>
-                        <ul id = "uList">
-                            <li id = "resName">{d.restaurant_name}</li>
-                            <li>&nbsp;&nbsp;&nbsp;Order Placed at: &nbsp; {(d.order_time).split('T')[0]} &nbsp;&nbsp; {(parseInt(d.order_time.split('T')[1].split('.')[0])+5)%24 }:{(d.order_time.split('T')[1]).split(':')[1]}:{(d.order_time.split('T')[1]).split(':')[2].split('.')[0]} </li>                            
-                            <li>&nbsp;&nbsp;&nbsp;Location: &nbsp; {d.del_location}</li>
-                            <li>&nbsp;&nbsp;&nbsp;Instructions: &nbsp;{d.instructions}</li>
-                            <Button variant="danger" title="View Bill" onClick={()=>{this.handleShow(d.items, d.orderID)}}>
-                                View Bill
-                            </Button>
-                            <Button variant="danger" disabled="true" title="Order Status" onClick={this.handleShow}>
-                                {d.status}
-                            </Button>
-
-
-                        </ul>
-                    </div>
+                    <ul id = "uList">
+                        <li id = "resName">{d.restaurant_name}&nbsp; Order#: {d.orderID}</li>
+                        <li>&nbsp;&nbsp;&nbsp;Order Placed at: &nbsp; {(d.order_time).split('T')[0]} &nbsp;&nbsp; {(parseInt(d.order_time.split('T')[1].split('.')[0])+5)%24 }:{(d.order_time.split('T')[1]).split(':')[1]}:{(d.order_time.split('T')[1]).split(':')[2].split('.')[0]} </li>                            
+                        <li>&nbsp;&nbsp;&nbsp;Location: &nbsp; {d.del_location}</li>
+                        <li>&nbsp;&nbsp;&nbsp;Instructions: &nbsp;{d.instructions}</li>
+                        &nbsp;&nbsp;&nbsp;
+                        <div id="btnn">
+                        <Button  variant="danger" title="View Bill" onClick={()=>{this.handleShow(d.items, d.orderID)}}>
+                            View Bill
+                        </Button>
+                        &nbsp;&nbsp;&nbsp;
+                        <Button  variant="secondary" disabled={true} title="Order Status" onClick={this.handleShow}>
+                            Status: {d.status}
+                        </Button>
+                        </div>
+                    </ul>
                 </div>
             </div>
         )
+        const completedOrders = doneOrders.map((d,i) => 
+            <div id="orderdiv">
+                <div id = "list" key={i}> 
+                        <ul id = "uList">
+                            <li id = "resName">{d.restaurant_name}&nbsp; Order#: {d.orderID}</li>
+                            <li>&nbsp;&nbsp;&nbsp;Order Placed at: &nbsp; {(d.order_time).split('T')[0]} &nbsp;&nbsp; {(parseInt(d.order_time.split('T')[1].split('.')[0])+5)%24 }:{(d.order_time.split('T')[1]).split(':')[1]}:{(d.order_time.split('T')[1]).split(':')[2].split('.')[0]} </li>                            
+                            <li>&nbsp;&nbsp;&nbsp;Location: &nbsp; {d.del_location}</li>
+                            <li>&nbsp;&nbsp;&nbsp;Instructions: &nbsp;{d.instructions}</li>
+                            &nbsp;&nbsp;&nbsp;
+                            <Button variant="danger" title="View Bill" onClick={()=>{this.handleShow(d.items, d.orderID)}}>
+                                View Bill
+                            </Button>
+                            &nbsp;&nbsp;&nbsp;
+                            <Button variant="secondary" disabled={true} title="Order Status" onClick={this.handleShow}>
+                                Status: {d.status}
+                            </Button>
+                        </ul>
+                </div>
+            </div>
+        )
+
 
         const view_items = this.state.currItems.map((d,i)=>
             <tr>
@@ -100,9 +138,24 @@ class user_orders extends Component {
                 <td> {d.price} </td>
             </tr>
         )
-        return (
+
+        const none = (
             <div>
-                {orderitems}
+                <h6 id="none"> None </h6>
+            </div>
+        )
+
+        return (
+            <div id = "stuff">
+                <div className = "borderx">
+                    <h4 className = "heading3">Pending Orders</h4>
+                    {pendingOrders}
+                </div>
+                <div className = "borderx">
+                    <h4 className = "heading3">Completed Orders</h4>
+                    {check ? completedOrders: none}
+                </div>
+
                 <Modal show={this.state.show} onHide={this.handleClose}>
                   <Modal.Header closeButton>
                     <Modal.Title>Order Bill for Order# {this.state.orderID}</Modal.Title>
@@ -134,6 +187,7 @@ class user_orders extends Component {
                     </Button>
                   </Modal.Footer>
                 </Modal>
+
             </div>
         );
     }

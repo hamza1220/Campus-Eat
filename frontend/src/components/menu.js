@@ -253,8 +253,6 @@ class Menu extends Component {
 				{drink_items}
 				<br/>
 		        	{this.state.showmessage? view_message:view_cart}
-
-
             </div>
         );
     }
