@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 // import './userscreen.css'
 import PropTypes from 'prop-types';
+import MetaTags from 'react-meta-tags';
 import { connect } from 'react-redux';
 import { setRestaurant } from '../actions/restaurant';
 import { Link, Redirect } from 'react-router-dom';
@@ -175,6 +176,10 @@ class user_orders extends Component {
 
         return (
             <div id = "stuff">
+                <MetaTags>
+                    <meta charSet="utf-8" name="viewport" content="width=device-width, initial-scale=1.0"/>
+                    <meta name="theme-color" content="#B02737"/>
+                </MetaTags>
                 <div className = "borderx">
                     <h4 className = "heading3">Pending Orders</h4>
                     {check1 ? pendingOrders: none}

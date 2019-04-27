@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import MetaTags from 'react-meta-tags';
 import user_background from './userscreen_background.jpeg'
 import './userscreen.css'
 import StarRatingComponent from 'react-star-rating-component'
@@ -44,6 +45,10 @@ class Userscreen extends Component {
     render() {
         return (
             <div>
+                <MetaTags>
+                    <meta charSet="utf-8" name="viewport" content="width=device-width, initial-scale=1.0"/>
+                    <meta name="theme-color" content="#B02737"/>
+                </MetaTags>
         		<img src={user_background} alt="" style= {{width: "100%", height: "auto", margin:"0auto"}}/>
                 
                 <Link to ={{ pathname: '/menu', state: { id: 'ChopChop' }}}>

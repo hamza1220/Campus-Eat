@@ -155,7 +155,6 @@ app.post('/processing', function(req, res){
         orderID: parseInt(req.body.orderID)
     })}).then((order)=>{console.log(order)})
 })
->>>>>>> a3f1d3bf94e87de5220498749755cb73fccf8d7d
 
 const PORT = process.env.PORT || 5000;
 
