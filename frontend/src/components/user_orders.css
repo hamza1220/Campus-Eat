@@ -1,0 +1,13 @@
+#list{
+    display: inline-block;
+    align-items: left;
+}
+
+#uList{
+	list-style: none;
+}
+
+#resName{
+	font-size: 20px;
+	color: #626262;
+}
