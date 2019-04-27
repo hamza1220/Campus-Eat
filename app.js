@@ -118,7 +118,7 @@ app.post('/getrestorders', function(req, res){
 
 app.post('/delivered', function(req, res){
     console.log("Request to change to delivered")
-    Order.update({orderID: req.body.orderID}, {
+    Order.updateOne({orderID: req.body.orderID}, {
         status: "delivered"
     }, function(err, affected, resp) {
        console.log(resp);
@@ -128,7 +128,7 @@ app.post('/delivered', function(req, res){
 app.post('/processing', function(req, res){
     console.log("Request to change to delivered")
    
-    Order.update({orderID: req.body.orderID}, {
+    Order.updateOne({orderID: req.body.orderID}, {
         status: "processing"
     }, function(err, affected, resp) {
        console.log(resp);
