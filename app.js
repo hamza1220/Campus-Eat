@@ -89,7 +89,6 @@ app.post('/additem', function(req, res) {
     .then(item=>{
     	res.json(item)
     });
-    
     console.log(req.body)
 });
 
