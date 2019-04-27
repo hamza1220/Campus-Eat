@@ -84,6 +84,26 @@ app.post('/additem', function(req, res) {
     console.log(req.body)
 });
 
+app.post('/addorder', function(req,res){
+    const newOrder= new Order({
+        orderID : req.body.orderID,
+        customer_email : req.body.customer_email,
+        restaurant_name : req.body.restaurant_name,
+        items : req.body.items,
+        order_time : req.body.order_time,
+        del_location : req.body.del_location,
+        del_time : req.body.del_time,
+        status : req.body.status,
+        instructions : req.body.instructions
+    });
+    newOrder.save()
+    .then(order=>{
+        res.json(order)
+    });
+
+    console.log(req.body)
+});
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
