@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import './menu.css'
 // import { Link} from 'react-router-dom';
 
-
 class Menu extends Component {
  	constructor(props){
  		super(props);
@@ -98,6 +97,7 @@ class Menu extends Component {
 	}
 
     render() {
+
     	var food= []
     	for (var i = this.state.menu.length - 1; i >= 0; i--) {
     		if (this.state.menu[i].category==="Food"){
@@ -156,9 +156,9 @@ class Menu extends Component {
             	<Button variant="danger" className = "VC" onClick={this.handleShow}>
 		        </Button>
 		    </h1>
-		    <small className="heading"> Select an Item to add to your Shopping Cart </small>
+		    <h5 className="heading1"> Select an Item to add to your Shopping Cart </h5>
 
-            <br/><br/>
+            <br/>
 	            <h4 className = "heading">Food</h4>
 				{food_items}
 				<br/>
