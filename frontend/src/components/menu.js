@@ -20,6 +20,7 @@ class Menu extends Component {
  			total: 0,
  			showmessage: false,
  			message: '',
+ 			emptycart: false,
  		};
  	}
  	handleClose() {
@@ -41,26 +42,34 @@ class Menu extends Component {
 		this.setState({location:loc})
 		this.setState({instructions:inst})
 
-		let o = {orderID: Math.floor(Math.random() * 1000000000000), customer_email:email, 
-			customer_number:number, restaurant_name: this.state.rest,
-			items:this.state.cart, del_location: loc, status: "pending", 
-			instructions: inst}
-		// console.log(o)
-		// this.setState({show:false});
-		fetch('/placeorder', {
-	      method: 'POST',
-	      body: JSON.stringify(o),
-	      headers: {
-	        "Content-Type": "application/json",
-	      }
-	    })
-	    .then(res => {
-	      	res.json().then(body => {
-		   		let response = (body)
-		       	console.log(response)
-		       	this.setState({showmessage:true, message: response, cart: [], location: '', instructions: '', total:0})
-		    }); 
-	    })
+		if (this.state.cart.length === 0){
+			this.setState({emptycart:true})
+
+		}
+		else{
+
+			let o = {orderID: Math.floor(Math.random() * 1000000000000), customer_email:email, 
+				customer_number:number, restaurant_name: this.state.rest,
+				items:this.state.cart, del_location: loc, status: "pending", 
+				instructions: inst}
+			// console.log(o)
+			// this.setState({show:false});
+			fetch('/placeorder', {
+		      method: 'POST',
+		      body: JSON.stringify(o),
+		      headers: {
+		        "Content-Type": "application/json",
+		      }
+		    })
+		    .then(res => {
+		      	res.json().then(body => {
+			   		let response = (body)
+			       	console.log(response)
+			       	this.setState({showmessage:true, message: response, cart: [], location: '', instructions: '', total:0})
+			    }); 
+		    })
+
+		}
 
 	}
 
@@ -113,6 +122,11 @@ class Menu extends Component {
 	}
 
     render() {
+
+    	if (this.state.emptycart === true){
+    		alert("Your shopping cart is empty. Please click the + symbol next to an item to add it to your cart.")
+    		this.state.emptycart = false
+    	}
 
     	var food= []
     	for (var i = this.state.menu.length - 1; i >= 0; i--) {

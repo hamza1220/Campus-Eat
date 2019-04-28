@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
 // import './userscreen.css'
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import MetaTags from 'react-meta-tags';
 import { connect } from 'react-redux';
-import { setRestaurant } from '../actions/restaurant';
-import { Link, Redirect } from 'react-router-dom';
+// import { setRestaurant } from '../actions/restaurant';
+// import { Link, Redirect } from 'react-router-dom';
 import './user_orders.css'
 import { Button, Modal, Table} from 'react-bootstrap';
+
+let close = false
+let received=false
 
 function interval(func, wait, times){
     var interv = function(w, t){
         return function(){
-            // console.log("in")
-            if(typeof t === "undefined" || t-- > 0){
+            if(close===true)
+            {
+                t=0
+            }
+            if(typeof t === "undefined" || t-- > 0 ){
                 setTimeout(interv, w);
                 try{
                     func.call(null);
@@ -45,8 +51,10 @@ class user_orders extends Component {
         this.handleShow = this.handleShow.bind(this);
     }
     componentDidMount(){
+        close=false
+        // console.log("new",close)
         var email = String(this.props.auth.user.email)
-        console.log(email);
+        // console.log(email);
 
         interval(() => {
         fetch('api/orders', {
@@ -60,13 +68,16 @@ class user_orders extends Component {
         .then(body =>{
             let t = ((body))
             this.setState({orders: t})
+            received =true
         })
-        }, 4000, 200)    
+        }, 2500, 240)
+        setTimeout(()=>{window.location.reload()}, 602500)
+
     }
 
     componentWillUnmount() {
-        clearInterval(this.lookupInterval)
-        this.lookupInterval = 0
+        close=true
+        received=false
     }
 
     handleClose() {
@@ -82,15 +93,13 @@ class user_orders extends Component {
 
     }
 
-    
-
     render() {
         
         var pending= []
         let check1 = true        
-        for (var i = this.state.orders.length - 1; i >= 0; i--) {
-            if (this.state.orders[i].status!=="delivered"){
-                pending.push(this.state.orders[i])
+        for (var a = this.state.orders.length - 1; a >= 0; a--) {
+            if (this.state.orders[a].status!=="delivered"){
+                pending.push(this.state.orders[a])
             }
         }
         if (pending.length === 0){
@@ -99,62 +108,54 @@ class user_orders extends Component {
 
         var doneOrders= []
         let check2 = true
-        for (var i = this.state.orders.length - 1; i >= 0; i--) {
-            if (this.state.orders[i].status==="delivered"){
-                doneOrders.push(this.state.orders[i])
+        for (var b = this.state.orders.length - 1; b >= 0; b--) {
+            if (this.state.orders[b].status==="delivered"){
+                doneOrders.push(this.state.orders[b])
             }
         }
         if (doneOrders.length === 0){
             check2 = false
         }
 
-
-
-        var ord= []
-        for (var i = this.state.orders.length - 1; i >= 0; i--) {
-            ord.push(this.state.orders[i])
-        }
-        console.log(ord)
-
         const pendingOrders = pending.map((d,i) => 
-            <div id="orderdiv">
-                <div id = "list" key={i}> 
+            <div id="orderdiv" key={i}>
+                <div id = "list" > 
                     <ul id = "uList">
                         <li id = "resName">{d.restaurant_name}&nbsp; Order#: {d.orderID}</li>
-                        <li>&nbsp;&nbsp;&nbsp;Order Placed at: &nbsp; {(d.order_time).split('T')[0]} &nbsp;&nbsp; {(parseInt(d.order_time.split('T')[1].split('.')[0])+5)%24 }:{(d.order_time.split('T')[1]).split(':')[1]}:{(d.order_time.split('T')[1]).split(':')[2].split('.')[0]} </li>                            
+                        <li>&nbsp;&nbsp;&nbsp;Order Placed at: &nbsp; {(d.order_time).split('T')[0]} &nbsp;&nbsp; {(parseInt(d.order_time.split('T')[1].split('.')[0], 10)+5)%24 }:{(d.order_time.split('T')[1]).split(':')[1]}:{(d.order_time.split('T')[1]).split(':')[2].split('.')[0]} </li>                            
                         <li>&nbsp;&nbsp;&nbsp;Location: &nbsp; {d.del_location}</li>
                         <li>&nbsp;&nbsp;&nbsp;Instructions: &nbsp;{d.instructions}</li>
-                        &nbsp;&nbsp;&nbsp;
                         <div id="btnn">
-                        <Button  variant="danger" title="View Bill" onClick={()=>{this.handleShow(d.items, d.orderID)}}>
-                            View Bill
-                        </Button>
-                        &nbsp;&nbsp;&nbsp;
-                        <Button  variant="secondary" disabled={true} title="Order Status" onClick={this.handleShow}>
-                            Status: {d.status}
-                        </Button>
+                            <Button  variant="danger" title="View Bill" onClick={()=>{this.handleShow(d.items, d.orderID)}}>
+                                View Bill
+                            </Button>
+                            &nbsp;&nbsp;&nbsp;
+                            <Button  variant={d.status==="pending"? "warning" : "info"  } disabled={true} title="Order Status" onClick={this.handleShow}>
+                                Status: {d.status}
+                            </Button>
                         </div>
                     </ul>
                 </div>
             </div>
         )
         const completedOrders = doneOrders.map((d,i) => 
-            <div id="orderdiv">
-                <div id = "list" key={i}> 
-                        <ul id = "uList">
-                            <li id = "resName">{d.restaurant_name}&nbsp; Order#: {d.orderID}</li>
-                            <li>&nbsp;&nbsp;&nbsp;Order Placed at: &nbsp; {(d.order_time).split('T')[0]} &nbsp;&nbsp; {(parseInt(d.order_time.split('T')[1].split('.')[0])+5)%24 }:{(d.order_time.split('T')[1]).split(':')[1]}:{(d.order_time.split('T')[1]).split(':')[2].split('.')[0]} </li>                            
-                            <li>&nbsp;&nbsp;&nbsp;Location: &nbsp; {d.del_location}</li>
-                            <li>&nbsp;&nbsp;&nbsp;Instructions: &nbsp;{d.instructions}</li>
-                            &nbsp;&nbsp;&nbsp;
+            <div id="orderdiv" key={i}>
+                <div id = "list"> 
+                    <ul id = "uList">
+                        <li id = "resName">{d.restaurant_name}&nbsp; Order#: {d.orderID}</li>
+                        <li>&nbsp;&nbsp;&nbsp;Order Placed at: &nbsp; {(d.order_time).split('T')[0].split('-')[2]}-{(d.order_time).split('T')[0].split('-')[1]}-{(d.order_time).split('T')[0].split('-')[0]} &nbsp;&nbsp; {(parseInt(d.order_time.split('T')[1].split('.')[0], 10)+5)%24 }:{(d.order_time.split('T')[1]).split(':')[1]}:{(d.order_time.split('T')[1]).split(':')[2].split('.')[0]} </li>                            
+                        <li>&nbsp;&nbsp;&nbsp;Location: &nbsp; {d.del_location}</li>
+                        <li>&nbsp;&nbsp;&nbsp;Instructions: &nbsp;{d.instructions}</li>
+                        <div id="btnn">
                             <Button variant="danger" title="View Bill" onClick={()=>{this.handleShow(d.items, d.orderID)}}>
                                 View Bill
                             </Button>
                             &nbsp;&nbsp;&nbsp;
-                            <Button variant="secondary" disabled={true} title="Order Status" onClick={this.handleShow}>
+                            <Button variant="success" disabled={true} title="Order Status" onClick={this.handleShow}>
                                 Status: {d.status}
                             </Button>
-                        </ul>
+                        </div>
+                    </ul>
                 </div>
             </div>
         )
@@ -174,19 +175,37 @@ class user_orders extends Component {
             </div>
         )
 
+        const none2 = (
+              <div>
+                  <h6 id="none"> You Have No Completed Orders Yet</h6>
+              </div>
+        )
+
+        const loading = (
+              <div>
+                  <h6 id="none"> Loading... </h6>
+              </div>
+        )
+
         return (
             <div id = "stuff">
+
                 <MetaTags>
                     <meta charSet="utf-8" name="viewport" content="width=device-width, initial-scale=1.0"/>
                     <meta name="theme-color" content="#B02737"/>
                 </MetaTags>
+
                 <div className = "borderx">
                     <h4 className = "heading3">Pending Orders</h4>
-                    {check1 ? pendingOrders: none}
+                    <br/>
+                    {check1 ? pendingOrders: (received ? none: loading)}
+                    <br/>
                 </div>
                 <div className = "borderx">
                     <h4 className = "heading3">Completed Orders</h4>
-                    {check2 ? completedOrders: none}
+                    <br/>
+                    {check2 ? completedOrders: (received ? none2: loading)}
+                    <br/>
                 </div>
 
                 <Modal show={this.state.show} onHide={this.handleClose}>

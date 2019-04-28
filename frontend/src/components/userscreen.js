@@ -3,7 +3,7 @@ import MetaTags from 'react-meta-tags';
 import user_background from './userscreen_background.jpeg'
 import './userscreen.css'
 import StarRatingComponent from 'react-star-rating-component'
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setRestaurant } from '../actions/restaurant';
 import { Link, Redirect } from 'react-router-dom';
