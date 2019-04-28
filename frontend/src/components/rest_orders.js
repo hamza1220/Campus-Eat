@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import user_background from './userscreen_background.jpeg'
+import user_background from './userscreen_background.jpeg';
 // import './userscreen.css'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -10,13 +10,32 @@ import { Button, Modal, Table} from 'react-bootstrap';
 
 import axios from 'axios';
 
+function interval(func, wait, times){
+    var interv = function(w, t){
+        return function(){
+            // console.log("in")
+            if(typeof t === "undefined" || t-- > 0){
+                setTimeout(interv, w);
+                try{
+                    func.call(null);
+                }
+                catch(e){
+                    t = 0;
+                    throw e.toString();
+                }
+            }
+        };
+    }(wait, times);
+
+    setTimeout(interv, wait);
+};
 
 class rest_orders extends Component {
- 	constructor(props){
- 		super(props);
+  constructor(props){
+    super(props);
 
- 		this.state={
- 			orders:'',
+    this.state={
+      orders:'',
       show:false,
       currItems: [],
       total:0,
@@ -26,6 +45,25 @@ class rest_orders extends Component {
         this.handleClose = this.handleClose.bind(this);
         this.handleShow = this.handleShow.bind(this);
    }
+
+  componentDidMount(){
+        var restaurant_name = String(this.props.auth.user.user_type).split('_')[1]
+        interval(() => {
+          axios.post('/getrestorders', {
+            restaurant_name: restaurant_name,
+            })
+          .then((response) => {
+            this.setState({orders: response.data})
+              console.log(response.data)
+          })
+        }, 2500, 200)
+        
+  }
+
+  // componentWillUnmount() {
+  //       clearInterval(this.lookupInterval)
+  //       this.lookupInterval = 0
+  // }
 
     handleClose() {
         this.setState({ show: false, currItems:[], total: 0, orderID:null});
@@ -39,6 +77,7 @@ class rest_orders extends Component {
         this.setState({ show: true, currItems:items, orderID:id, total:total});
 
     }
+
     changeStatus(e,status,id) {
         e.preventDefault()
         if(status==="pending")
@@ -67,36 +106,20 @@ class rest_orders extends Component {
   }
 
     
-  componentDidMount(){
-        var restaurant_name = String(this.props.auth.user.user_type).split('_')[1]
-        this.lookupInterval = setTimeout(() => {
-          axios.post('/getrestorders', {
-            restaurant_name: restaurant_name,
-            })
-          .then((response) => {
-            // console
-            this.setState({orders: response.data})
-              console.log(response.data)
-          })
-        }, 3500)
-        
-  }
-
-
   render() {
-      var pending= []
-      for (var i = this.state.orders.length - 1; i >= 0; i--) {
-          if (this.state.orders[i].status!=="delivered"){
-              pending.push(this.state.orders[i])
-          }
-      }
+      // var pending= []
+      // for (var i = this.state.orders.length - 1; i >= 0; i--) {
+      //     if (this.state.orders[i].status!=="delivered"){
+      //         pending.push(this.state.orders[i])
+      //     }
+      // }
 
-      var delivered=[]
-      for (var i = this.state.orders.length - 1; i >= 0; i--) {
-          if (this.state.orders[i].status==="delivered"){
-              delivered.push(this.state.orders[i])
-          }
-      }      
+      // var delivered=[]
+      // for (var i = this.state.orders.length - 1; i >= 0; i--) {
+      //     if (this.state.orders[i].status==="delivered"){
+      //         delivered.push(this.state.orders[i])
+      //     }
+      // }      
 
         var ord= []
         for (var i = this.state.orders.length - 1; i >= 0; i--) {

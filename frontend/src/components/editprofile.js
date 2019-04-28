@@ -51,7 +51,7 @@ class EditProfile extends Component {
 
     componentWillReceiveProps(nextProps) {
         if(nextProps.auth.isAuthenticated) {
-            this.props.history.push('/')
+            this.props.history.push('/') // Not sure of this is correct.
         }
         if(nextProps.errors) {
             this.setState({
@@ -94,6 +94,8 @@ class EditProfile extends Component {
             <br/> 
 
             <h3 className="heading"> Edit Profile </h3>
+            <p className="heading"> Press confirm after making your changes. </p>
+            <p className="heading"> Leave the password fields blank if you do not wish to change your password. </p>
             <br/>
             <div className='infocontainer'>
 

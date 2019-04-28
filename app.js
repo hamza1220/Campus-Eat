@@ -108,6 +108,26 @@ app.post('/placeorder', function(req, res) {
     console.log(req.body)
 });
 
+app.post('/addorder', function(req,res){
+    const newOrder= new Order({
+        orderID : req.body.orderID,
+        customer_email : req.body.customer_email,
+        restaurant_name : req.body.restaurant_name,
+        items : req.body.items,
+        order_time : req.body.order_time,
+        del_location : req.body.del_location,
+        del_time : req.body.del_time,
+        status : req.body.status,
+        instructions : req.body.instructions
+    });
+    newOrder.save()
+    .then(order=>{
+        res.json(order)
+    });
+
+    console.log(req.body)
+});
+
 app.post('/getrestorders', function(req, res){
     Order.find({
         restaurant_name: req.body.restaurant_name
@@ -118,17 +138,22 @@ app.post('/getrestorders', function(req, res){
 
 app.post('/delivered', function(req, res){
     console.log("Request to change to delivered")
-    Order.updateOne({orderID: req.body.orderID}, {
+    Order.updateOne(
+        {orderID: parseInt(req.body.orderID)}, {
         status: "delivered"
-    })
+    }).then(()=>{Order.find({
+        orderID: parseInt(req.body.orderID)
+    })}).then((order)=>{console.log(order)})
 })
 
 app.post('/processing', function(req, res){
-    console.log("Request to change to delivered")
-   
-    Order.updateOne({orderID: req.body.orderID}, {
+    console.log("Request to change to processing")   
+    Order.updateOne(
+        {orderID: parseInt(req.body.orderID)}, {
         status: "processing"
-    })
+    }).then(()=>{Order.find({
+        orderID: parseInt(req.body.orderID)
+    })}).then((order)=>{console.log(order)})
 })
 
 const PORT = process.env.PORT || 5000;

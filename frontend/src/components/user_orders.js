@@ -1,44 +1,54 @@
 import React, { Component } from 'react';
 // import './userscreen.css'
 import PropTypes from 'prop-types';
+import MetaTags from 'react-meta-tags';
 import { connect } from 'react-redux';
 import { setRestaurant } from '../actions/restaurant';
 import { Link, Redirect } from 'react-router-dom';
 import './user_orders.css'
 import { Button, Modal, Table} from 'react-bootstrap';
 
+function interval(func, wait, times){
+    var interv = function(w, t){
+        return function(){
+            // console.log("in")
+            if(typeof t === "undefined" || t-- > 0){
+                setTimeout(interv, w);
+                try{
+                    func.call(null);
+                }
+                catch(e){
+                    t = 0;
+                    throw e.toString();
+                }
+            }
+        };
+    }(wait, times);
+
+    setTimeout(interv, wait);
+};
+
 
 class user_orders extends Component {
- 	constructor(props){
- 		super(props);
+     constructor(props){
+         super(props);
 
- 		this.state={
- 			orders:'',
+         this.state={
+             orders:'',
             show:false,
- 		    currItems: [],
+            currItems: [],
             total:0,
             orderID: null,
         };
 
         this.handleClose = this.handleClose.bind(this);
         this.handleShow = this.handleShow.bind(this);
- 	}
-
-    handleClose() {
-        this.setState({ show: false, currItems:[], total: 0, orderID:null});
     }
-
-    handleShow(items,id) {
-        let total = 0
-        for (var i = items.length - 1; i >= 0; i--) {
-            total += items[i].price
-        }
-        this.setState({ show: true, currItems:items, orderID:id, total:total});
-
-    };
-
-    checkDB() {
+    componentDidMount(){
         var email = String(this.props.auth.user.email)
+        console.log(email);
+
+        interval(() => {
         fetch('api/orders', {
           method: 'POST',
           body: JSON.stringify({email: email}),
@@ -51,29 +61,51 @@ class user_orders extends Component {
             let t = ((body))
             this.setState({orders: t})
         })
-     };
-
-	componentDidMount(){
-        this.lookupInterval = setTimeout(checkDB(), 3500)    
+        }, 4000, 200)    
     }
+
+    componentWillUnmount() {
+        clearInterval(this.lookupInterval)
+        this.lookupInterval = 0
+    }
+
+    handleClose() {
+        this.setState({ show: false, currItems:[], total: 0, orderID:null});
+    }
+
+    handleShow(items,id) {
+        let total = 0
+        for (var i = items.length - 1; i >= 0; i--) {
+            total += items[i].price
+        }
+        this.setState({ show: true, currItems:items, orderID:id, total:total});
+
+    }
+
+    
 
     render() {
         
         var pending= []
+        let check1 = true        
         for (var i = this.state.orders.length - 1; i >= 0; i--) {
             if (this.state.orders[i].status!=="delivered"){
                 pending.push(this.state.orders[i])
             }
         }
+        if (pending.length === 0){
+            check1 = false
+        }
+
         var doneOrders= []
-        let check = true
+        let check2 = true
         for (var i = this.state.orders.length - 1; i >= 0; i--) {
             if (this.state.orders[i].status==="delivered"){
                 doneOrders.push(this.state.orders[i])
             }
-            if (doneOrders.length === 0){
-                check = false
-            }
+        }
+        if (doneOrders.length === 0){
+            check2 = false
         }
 
 
@@ -83,11 +115,6 @@ class user_orders extends Component {
             ord.push(this.state.orders[i])
         }
         console.log(ord)
-        // {const items = d.items.map((z,k)=>
-        //                     <div>
-        //                         {z.name, z.price}
-        //                     </div>
-        // )}
 
         const pendingOrders = pending.map((d,i) => 
             <div id="orderdiv">
@@ -149,13 +176,17 @@ class user_orders extends Component {
 
         return (
             <div id = "stuff">
+                <MetaTags>
+                    <meta charSet="utf-8" name="viewport" content="width=device-width, initial-scale=1.0"/>
+                    <meta name="theme-color" content="#B02737"/>
+                </MetaTags>
                 <div className = "borderx">
                     <h4 className = "heading3">Pending Orders</h4>
-                    {pendingOrders}
+                    {check1 ? pendingOrders: none}
                 </div>
                 <div className = "borderx">
                     <h4 className = "heading3">Completed Orders</h4>
-                    {check ? completedOrders: none}
+                    {check2 ? completedOrders: none}
                 </div>
 
                 <Modal show={this.state.show} onHide={this.handleClose}>

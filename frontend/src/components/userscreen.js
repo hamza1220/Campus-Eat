@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import MetaTags from 'react-meta-tags';
 import user_background from './userscreen_background.jpeg'
 import './userscreen.css'
 import StarRatingComponent from 'react-star-rating-component'
@@ -44,10 +45,15 @@ class Userscreen extends Component {
     render() {
         return (
             <div>
+                <MetaTags>
+                    <meta charSet="utf-8" name="viewport" content="width=device-width, initial-scale=1.0"/>
+                    <meta name="theme-color" content="#B02737"/>
+                </MetaTags>
         		<img src={user_background} alt="" style= {{width: "100%", height: "auto", margin:"0auto"}}/>
+                
                 <Link to ={{ pathname: '/menu', state: { id: 'ChopChop' }}}>
-                    <div id="btn2">
-                	    Chop Chop
+                    <div id="btn1">
+                	    <h4> Chop Chop </h4>
                 		<div>
                 		<StarRatingComponent name="ChopChop" editing={false} starCount={5} value={parseInt(this.state.r2, 10)}/>
                 		</div>
@@ -55,8 +61,8 @@ class Userscreen extends Component {
                 </Link>
                 
                 <Link to ={{ pathname: '/menu', state: { id: 'Jammin' }}}>
-                    <div id="btn3">
-                		Jammin Java
+                    <div id="btn2">
+                		<h4> Jammin Java </h4>
                 		<div>
                 		<StarRatingComponent name="JamminJava" editing={false} starCount={5} value={parseInt(this.state.r3, 10)}/>
                 		</div>
@@ -64,8 +70,8 @@ class Userscreen extends Component {
             	</Link>
 
                 <Link to ={{ pathname: '/menu', state: { id: 'Flavours' }}}>
-                    <div id="btn4">
-                		Flavours 
+                    <div id="btn3">
+                		<h4> Flavours </h4> 
                 		<div>
                 		<StarRatingComponent name="Flavours" editing={false} starCount={5} value={parseInt(this.state.r4, 10)}/>
                 		</div>
@@ -74,8 +80,8 @@ class Userscreen extends Component {
 
 
                 <Link to ={{ pathname: '/menu', state: { id: 'Zakir' }}}>
-                	<div id="btn1">
-                		Zakir Tikka 
+                	<div id="btn4">
+                		<h4> Zakir Tikka </h4> 
                 		<div>
                 		<StarRatingComponent name="Zakir" editing={false} starCount={5} value={parseInt(this.state.r1, 10)}/>
                 		</div>

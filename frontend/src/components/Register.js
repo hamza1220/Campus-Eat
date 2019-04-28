@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import MetaTags from 'react-meta-tags';
 import { registerUser } from '../actions/authentication';
 import classnames from 'classnames';
 import '../App.css'
@@ -64,6 +65,10 @@ class Register extends Component {
         const { errors } = this.state;
         return(
         <div className="App">
+                <MetaTags>
+                    <meta charSet="utf-8" name="viewport" content="width=device-width, initial-scale=1.0"/>
+                    <meta name="theme-color" content="#B02737"/>
+                </MetaTags>
             <br/> <br/> <br/> <br/>
             <img id="logo" src={logo} width='30%' height="30%" alt="CE Logo"/>
             <br/> 
