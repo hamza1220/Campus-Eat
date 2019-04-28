@@ -125,15 +125,14 @@ class user_orders extends Component {
                         <li>&nbsp;&nbsp;&nbsp;Order Placed at: &nbsp; {(d.order_time).split('T')[0]} &nbsp;&nbsp; {(parseInt(d.order_time.split('T')[1].split('.')[0], 10)+5)%24 }:{(d.order_time.split('T')[1]).split(':')[1]}:{(d.order_time.split('T')[1]).split(':')[2].split('.')[0]} </li>                            
                         <li>&nbsp;&nbsp;&nbsp;Location: &nbsp; {d.del_location}</li>
                         <li>&nbsp;&nbsp;&nbsp;Instructions: &nbsp;{d.instructions}</li>
-                        &nbsp;&nbsp;&nbsp;
                         <div id="btnn">
-                        <Button  variant="danger" title="View Bill" onClick={()=>{this.handleShow(d.items, d.orderID)}}>
-                            View Bill
-                        </Button>
-                        &nbsp;&nbsp;&nbsp;
-                        <Button  variant={d.status==="pending"? "warning" : "info"  } disabled={true} title="Order Status" onClick={this.handleShow}>
-                            Status: {d.status}
-                        </Button>
+                            <Button  variant="danger" title="View Bill" onClick={()=>{this.handleShow(d.items, d.orderID)}}>
+                                View Bill
+                            </Button>
+                            &nbsp;&nbsp;&nbsp;
+                            <Button  variant={d.status==="pending"? "warning" : "info"  } disabled={true} title="Order Status" onClick={this.handleShow}>
+                                Status: {d.status}
+                            </Button>
                         </div>
                     </ul>
                 </div>
@@ -147,14 +146,15 @@ class user_orders extends Component {
                         <li>&nbsp;&nbsp;&nbsp;Order Placed at: &nbsp; {(d.order_time).split('T')[0].split('-')[2]}-{(d.order_time).split('T')[0].split('-')[1]}-{(d.order_time).split('T')[0].split('-')[0]} &nbsp;&nbsp; {(parseInt(d.order_time.split('T')[1].split('.')[0], 10)+5)%24 }:{(d.order_time.split('T')[1]).split(':')[1]}:{(d.order_time.split('T')[1]).split(':')[2].split('.')[0]} </li>                            
                         <li>&nbsp;&nbsp;&nbsp;Location: &nbsp; {d.del_location}</li>
                         <li>&nbsp;&nbsp;&nbsp;Instructions: &nbsp;{d.instructions}</li>
-                        &nbsp;&nbsp;&nbsp;
-                        <Button variant="danger" title="View Bill" onClick={()=>{this.handleShow(d.items, d.orderID)}}>
-                            View Bill
-                        </Button>
-                        &nbsp;&nbsp;&nbsp;
-                        <Button variant="success" disabled={true} title="Order Status" onClick={this.handleShow}>
-                            Status: {d.status}
-                        </Button>
+                        <div id="btnn">
+                            <Button variant="danger" title="View Bill" onClick={()=>{this.handleShow(d.items, d.orderID)}}>
+                                View Bill
+                            </Button>
+                            &nbsp;&nbsp;&nbsp;
+                            <Button variant="success" disabled={true} title="Order Status" onClick={this.handleShow}>
+                                Status: {d.status}
+                            </Button>
+                        </div>
                     </ul>
                 </div>
             </div>
