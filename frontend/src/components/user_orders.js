@@ -36,11 +36,11 @@ function interval(func, wait, times){
 
 
 class user_orders extends Component {
- 	constructor(props){
- 		super(props);
+     constructor(props){
+         super(props);
 
- 		this.state={
- 			orders:'',
+         this.state={
+             orders:'',
             show:false,
             currItems: [],
             total:0,
@@ -50,26 +50,26 @@ class user_orders extends Component {
         this.handleClose = this.handleClose.bind(this);
         this.handleShow = this.handleShow.bind(this);
     }
-	componentDidMount(){
+    componentDidMount(){
         close=false
         // console.log("new",close)
         var email = String(this.props.auth.user.email)
         // console.log(email);
 
         interval(() => {
-		fetch('api/orders', {
+        fetch('api/orders', {
           method: 'POST',
           body: JSON.stringify({email: email}),
           headers: {
             "Content-Type": "application/json",
           }
         })
-	    .then(res => res.json())
-	    .then(body =>{
-	    	let t = ((body))
+        .then(res => res.json())
+        .then(body =>{
+            let t = ((body))
             this.setState({orders: t})
             received =true
-	    })
+        })
         }, 2500, 240)
         setTimeout(()=>{window.location.reload()}, 602500)
 
