@@ -35,27 +35,26 @@ class user_orders extends Component {
         }
         this.setState({ show: true, currItems:items, orderID:id, total:total});
 
-    }
+    };
 
-    
-	componentDidMount(){
+    checkDB() {
         var email = String(this.props.auth.user.email)
-        console.log(email);
-
-        this.lookupInterval = setInterval(() => {
-		fetch('api/orders', {
+        fetch('api/orders', {
           method: 'POST',
           body: JSON.stringify({email: email}),
           headers: {
             "Content-Type": "application/json",
           }
         })
-	    .then(res => res.json())
-	    .then(body =>{
-	    	let t = ((body))
+        .then(res => res.json())
+        .then(body =>{
+            let t = ((body))
             this.setState({orders: t})
-	    })
-        }, 3500)    
+        })
+     };
+
+	componentDidMount(){
+        this.lookupInterval = setTimeout(checkDB(), 3500)    
     }
 
     render() {

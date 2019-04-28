@@ -69,7 +69,7 @@ class rest_orders extends Component {
     
   componentDidMount(){
         var restaurant_name = String(this.props.auth.user.user_type).split('_')[1]
-        this.lookupInterval = setInterval(() => {
+        this.lookupInterval = setTimeout(() => {
           axios.post('/getrestorders', {
             restaurant_name: restaurant_name,
             })
@@ -78,7 +78,7 @@ class rest_orders extends Component {
             this.setState({orders: response.data})
               console.log(response.data)
           })
-        }, 2500)
+        }, 3500)
         
   }
 
