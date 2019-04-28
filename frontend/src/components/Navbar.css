@@ -32,3 +32,15 @@ mainColor2 = #891421
   background-color: #891421;
   color: #fff; }
 
+.searchButton{
+  height: 30px;
+  width: 30px;
+  border: none;
+  background-image: url("search.png");
+  background-size: cover;
+  background-color: white;
+  vertical-align: top;
+  text-decoration: none;
+  padding-top: 20%;
+}
+

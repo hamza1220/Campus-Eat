@@ -83,9 +83,9 @@ class Navbar extends Component {
                     <Link to="/orders"><button>Orders</button></Link>
                 </li>
                 <li >
-                    <form onSubmit={this.handleSubmit}>
-                        <input type="text" placeholder= "Search for food" value={this.state.value} onChange={this.handleChange} />
-                        <input id= "searchButton" type="submit" value= "yen"/>
+                    <form onSubmit={this.handleSubmit} style={{border: "none", height: "100%"}}>
+                        <input type="text" placeholder= "Search for food" value={this.state.value} onChange={this.handleChange}/>
+                        <button className="searchButton"></button>
                     </form>
                 </li>
             </ul>
