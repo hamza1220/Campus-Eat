@@ -156,6 +156,14 @@ app.post('/processing', function(req, res){
     })}).then((order)=>{console.log(order)})
 })
 
+app.post('/api/search', function(req, res) {
+    console.log(req.body.user.search)
+    Item.find({
+        name: req.body.user.search
+    })
+    .then(result =>{res.json(result)})
+});
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
