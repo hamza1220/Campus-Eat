@@ -22,7 +22,7 @@
 }
 
 #stuff{
-  	background-image: linear-gradient(black, #353535);
+  	background-image: linear-gradient(#353535, black );
     background-size: cover;
     width: 100%;
     height: 100%;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import MetaTags from 'react-meta-tags';
 import logo from './redlogo.png'
 import {Redirect } from 'react-router-dom';
