@@ -10,7 +10,7 @@ import { Button, Modal, Table} from 'react-bootstrap';
 // import BackDrop from './BackDrop.js'
 import './Navbar.css'
 // import Search from './Search'
-import './NavbarStyle.css'
+// import './Search.css'
 
 class Navbar extends Component {
     constructor(props) {
@@ -85,7 +85,7 @@ class Navbar extends Component {
                 <li >
                     <form onSubmit={this.handleSubmit} style={{border: "none", height: "100%"}}>
                         <input type="text" placeholder= "Search for food" value={this.state.value} onChange={this.handleChange}/>
-                        <button className="searchButton"></button>
+                        <button className="searchButton" ></button>
                     </form>
                 </li>
             </ul>

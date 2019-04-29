@@ -33,6 +33,8 @@ mainColor2 = #891421
   color: #fff; }
 
 .searchButton{
+  float: right;
+  padding-top: 10%;
   height: 30px;
   width: 30px;
   border: none;
