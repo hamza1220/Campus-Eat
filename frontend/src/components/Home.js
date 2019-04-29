@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import MetaTags from 'react-meta-tags';
-import background from './homeimage.jpeg'
+import background from './homeimage.jpg'
 
 
 export default class Home extends Component {
