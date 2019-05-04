@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { logoutUser } from '../actions/authentication';
 import { withRouter } from 'react-router-dom';
 import { Button, Modal, Table} from 'react-bootstrap';
+import logo from './whiteEdited.png'
 // import Toolbar from './toolbar.js'
 // import SideDrawer from './SideDrawer.js'
 // import BackDrop from './BackDrop.js'
@@ -87,6 +88,9 @@ class Navbar extends Component {
                         <input type="text" placeholder= "Search for food" value={this.state.value} onChange={this.handleChange}/>
                         <button className="searchButton" ></button>
                     </form>
+                </li>
+                <li style={{float: "left"}}>
+                	<a href= "/"><img src={logo}/></a>
                 </li>
             </ul>
 
