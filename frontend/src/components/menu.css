@@ -16,6 +16,22 @@
   display: flex;
 
 }
+
+#cartstyle{
+  float:right;
+  margin-right: 1%;
+  text-align: center;
+  display: inline-flex;
+  margin-top: 1%;
+}
+
+#cartHeading{
+  float: right;
+  margin-left: 1%;
+  margin-top: 1%;
+  display: inline-block;
+}
+
 .VC{
 	float: right;
 	margin-right: 1%;
@@ -24,6 +40,7 @@
 	background-size: cover;
 	height: 50px;
 	width: 50px;
+  display: block;
 
 }
 

@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import MetaTags from 'react-meta-tags';
 import { connect } from 'react-redux';
 import './menu.css'
+import 'font-awesome/css/font-awesome.min.css';
+
 
 class Menu extends Component {
  	constructor(props){
@@ -258,8 +260,10 @@ class Menu extends Component {
 	                <meta name="theme-color" content="#B02737"/>
 	            </MetaTags>
             <h1 id="heading">{this.state.rest}
-            	<Button variant="danger" title="View shopping cart" className = "VC" onClick={this.handleShow}>
-		        </Button>
+            	<Button variant="danger" id="cartstyle" onClick={this.handleShow}>
+            		<span className="fa fa-3x fa-shopping-cart"></span> 
+            		<h6 id="cartHeading">Shopping Cart</h6>
+				</Button>
 		    </h1>
 		    <h5 className="heading1"> Select an Item to add to your Shopping Cart </h5>
 
