@@ -108,6 +108,9 @@ class Navbar extends Component {
                 <li >
                     <Link to="/rest_orders"><button>Orders</button></Link>
                 </li>
+                <li style={{float: "left"}}>
+                    <a href= "/"><img src={logo}/></a>
+                </li>
             </ul>
 
         )
@@ -119,6 +122,9 @@ class Navbar extends Component {
                 </li>
                 <li >
                     <Link to="/login"><button>Login</button></Link>
+                </li>
+                <li style={{float: "left"}}>
+                    <a href= "/"><img src={logo}/></a>
                 </li>
             </ul>
         )

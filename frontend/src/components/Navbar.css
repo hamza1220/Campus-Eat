@@ -10,6 +10,11 @@ mainColor2 = #891421
   line-height: 250%;
 }
 
+#nav img{
+  margin-top: 8%;
+  width: 80%;
+}
+
 #nav li {
   float: right;
   display: block;

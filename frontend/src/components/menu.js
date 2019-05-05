@@ -52,7 +52,7 @@ class Menu extends Component {
 
 			let o = {orderID: Math.floor(Math.random() * 1000000000000), customer_email:email, 
 				customer_number:number, restaurant_name: this.state.rest,
-				items:this.state.cart, del_location: loc, status: "pending", 
+				items:this.state.cart, del_location: loc, del_time: "N/A", status: "pending", 
 				instructions: inst}
 			// console.log(o)
 			// this.setState({show:false});
