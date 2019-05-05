@@ -22,7 +22,7 @@ class Login extends Component {
  
     fetch('api/forgot-pw', {
       method: 'POST',
-      body: JSON.stringify(this.state),
+      body: JSON.stringify(this.state.changePassEmail),
       headers: {
         "Content-Type": "application/json",
       }
@@ -56,7 +56,7 @@ class Login extends Component {
             className={classnames('form-control form-control-lg')} 
             name="email" 
             type="email" 
-            placeholder="Enter accociated Email Address"
+            placeholder="Enter associated Email Address"
             required = "required"
             value= {this.state.changePassEmail} 
             onChange = {event => this.setState({changePassEmail: event.target.value})}

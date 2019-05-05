@@ -52,7 +52,10 @@ app.post('/api/gibprofile', (req,res)=>{
 
 app.post('/api/forgot-pw', (req,res)=>{
 	console.log(req.body)
-	//GET FROM DB AND USE NODEMAIL TO SEND PASSWORD TO EMAIL ADDRESS
+	User.findOne({
+        email: req.body
+    })
+    .then(user => console.log(user))
 	res.json("sent password to your mail")
 })
 
@@ -145,7 +148,7 @@ app.post('/delivered', function(req, res){
                     status: "delivered",
                     del_time: req.body.del_time
                 
-                }}).then(()=>{Order.find({
+        }}).then(()=>{Order.find({
         orderID: parseInt(req.body.orderID)
 
     })}).then((order)=>{console.log(order)})
@@ -154,10 +157,11 @@ app.post('/delivered', function(req, res){
 app.post('/processing', function(req, res){
     console.log("Request to change to processing")   
     Order.updateOne(
-        {orderID: parseInt(req.body.orderID)}, {
-        status: "processing",
-        del_time: req.body.del_time
-    }).then(()=>{Order.find({
+        {orderID: parseInt(req.body.orderID)}, 
+        {$set: {
+                    status: "processing",
+                    del_time: req.body.del_time
+        }}).then(()=>{Order.find({
         orderID: parseInt(req.body.orderID)
     })}).then((order)=>{console.log(order)})
 })
