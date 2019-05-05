@@ -43,21 +43,51 @@ class Navbar extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        console.log(JSON.stringify(this.state.value))
-        fetch('api/search', {  
-            method: 'post',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ "user": {
-              "search" : this.state.value}
-            }),
+        let convUpperCase= new Promise((resolve,reject)=>{
+        	var queryArray= this.state.value.split(" ")
+        	var finalString= ""
+        	for(var i=0;i<queryArray.length;i++){
+        		queryArray[i]= queryArray[i].charAt(0).toUpperCase() + queryArray[i].slice(1);
+        		finalString= finalString+queryArray[i]+" "
+        	}
+        	var newStr = finalString.substring(0, finalString.length-1);
+        	resolve(newStr)
         })
-        .then(res => {
-          res.json().then(body => {
-            console.log(body)
-            this.setState({results: body})
-            this.handleShow(body);
-        }); 
-      })
+        convUpperCase.then(searchString=>{
+	        fetch('api/search', {  
+	            method: 'post',
+	            headers: {'Content-Type': 'application/json'},
+	            body: JSON.stringify({ "user": {
+	              "search" : searchString}
+	            }),
+	        })
+	        .then(res => {
+	          res.json().then(body => {
+	            var finalArray= []
+	            let p= new Promise((resolve, reject)=>{
+	            	for(var i=0;i<body.length;i++){
+	            		var element= body[i]
+	            		for(var j=0;j<element.length;j++){
+	            			finalArray.push(element[j])
+	            		}
+	            	}
+	            	for(var i=0;i<finalArray.length;i++){
+	            		var currElement= finalArray[i]
+	            		for(var j=i+1;j<finalArray.length;j++){
+	            			if(finalArray[j].item_id==currElement.item_id){
+	            				finalArray.splice(j, 1)
+	            			}
+	            		}
+	            	}
+	            	resolve(finalArray)
+	            })
+	            p.then(array=>{
+		            this.setState({results: array})
+		            this.handleShow(array);
+	            })
+	        }); 
+	      })	
+        })
     }
 
     onLogout(e) {

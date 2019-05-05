@@ -157,14 +157,25 @@ app.post('/processing', function(req, res){
 })
 
 app.post('/api/search', function(req, res) {
-    console.log(req.body.user.search)
     var searchArray = req.body.user.search.split(" ");
     var returnArray= []
-    let p= new Promise((resolve, reject)=>{
-        for(var i=0;i<searchArray.length;i++){
-            console.log(searchArray[i], i)
-        }
-    })
+    var count= 0
+    for(var i=0;i<searchArray.length;i++){
+        count++
+        var searchQuery= searchArray[i]
+        let p= new Promise((resolve,reject)=>{
+            Item.find({
+                name: searchQuery
+            })
+            .then(result=>{
+                returnArray.push(result)
+                if(returnArray.length==searchArray.length){
+                    res.json(returnArray)
+                    resolve('done')
+                }
+            })
+        })
+    }
 });
 
 const PORT = process.env.PORT || 5000;
