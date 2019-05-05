@@ -158,10 +158,13 @@ app.post('/processing', function(req, res){
 
 app.post('/api/search', function(req, res) {
     console.log(req.body.user.search)
-    Item.find({
-        name: req.body.user.search
+    var searchArray = req.body.user.search.split(" ");
+    var returnArray= []
+    let p= new Promise((resolve, reject)=>{
+        for(var i=0;i<searchArray.length;i++){
+            console.log(searchArray[i], i)
+        }
     })
-    .then(result =>{res.json(result)})
 });
 
 const PORT = process.env.PORT || 5000;
