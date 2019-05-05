@@ -52,7 +52,10 @@ app.post('/api/gibprofile', (req,res)=>{
 
 app.post('/api/forgot-pw', (req,res)=>{
 	console.log(req.body)
-	//GET FROM DB AND USE NODEMAIL TO SEND PASSWORD TO EMAIL ADDRESS
+	User.findOne({
+        email: req.body
+    })
+    .then(user => console.log(user))
 	res.json("sent password to your mail")
 })
 
@@ -97,6 +100,7 @@ app.post('/placeorder', function(req, res) {
         restaurant_name:req.body.restaurant_name,
         items:req.body.items,
         del_location:req.body.del_location,
+        del_time: req.body.del_time,
         status:req.body.status,
         instructions:req.body.instructions
     });
@@ -139,19 +143,25 @@ app.post('/getrestorders', function(req, res){
 app.post('/delivered', function(req, res){
     console.log("Request to change to delivered")
     Order.updateOne(
-        {orderID: parseInt(req.body.orderID)}, {
-        status: "delivered"
-    }).then(()=>{Order.find({
+        {orderID: parseInt(req.body.orderID)}, 
+        {$set: {   
+                    status: "delivered",
+                    del_time: req.body.del_time
+                
+        }}).then(()=>{Order.find({
         orderID: parseInt(req.body.orderID)
+
     })}).then((order)=>{console.log(order)})
 })
 
 app.post('/processing', function(req, res){
     console.log("Request to change to processing")   
     Order.updateOne(
-        {orderID: parseInt(req.body.orderID)}, {
-        status: "processing"
-    }).then(()=>{Order.find({
+        {orderID: parseInt(req.body.orderID)}, 
+        {$set: {
+                    status: "processing",
+                    del_time: req.body.del_time
+        }}).then(()=>{Order.find({
         orderID: parseInt(req.body.orderID)
     })}).then((order)=>{console.log(order)})
 })

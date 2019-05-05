@@ -32,8 +32,8 @@ const OrderSchema = new Schema({
         required: true
     },
     del_time:{
-        type: Date,
-        default: Date.now 
+        type: String,
+        required: true 
     },
     status:{
         type: String,
