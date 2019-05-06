@@ -35,7 +35,6 @@ router.post('/editprofile', (req,res)=>{
         }
     }
 
-
     if (pass1){
         console.log("if")
         bcrypt.genSalt(10, (err, salt) => {
