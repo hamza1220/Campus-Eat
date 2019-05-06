@@ -115,7 +115,7 @@ class Menu extends Component {
 		tempCount += 1
 		this.setState({count: tempCount})
       
-	      toast.error("Added to cart!", {
+	      toast.error(name+" added to cart!", {
 	        position: toast.POSITION.TOP_RIGHT,
 	      });
 
@@ -144,7 +144,7 @@ class Menu extends Component {
     render() {
 
 	    toast.configure({
-  			autoClose: 1200,
+  			autoClose: 1800,
 		 	draggable: false,
 		});
 
