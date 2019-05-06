@@ -25,11 +25,16 @@
   margin-top: 1%;
 }
 
+#spann{
+  margin-left: -3%;
+}
+
 #cartHeading{
   float: right;
-  margin-left: 1%;
-  margin-top: 1%;
+  margin-left: 7%;
+  margin-top: 5%;
   display: inline-block;
+  font-weight: bold;
 }
 
 .VC{

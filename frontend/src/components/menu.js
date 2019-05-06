@@ -1,9 +1,12 @@
-import { Button, Modal, Table} from 'react-bootstrap';
+import { Button, Modal, Table, Badge } from 'react-bootstrap';
 import React, { Component } from 'react';
 import MetaTags from 'react-meta-tags';
 import { connect } from 'react-redux';
 import './menu.css'
 import 'font-awesome/css/font-awesome.min.css';
+
+import NotificationBadge from 'react-notification-badge';
+import {Effect} from 'react-notification-badge';
 
 
 class Menu extends Component {
@@ -23,6 +26,7 @@ class Menu extends Component {
  			showmessage: false,
  			message: '',
  			emptycart: false,
+ 			count: 0,
  		};
  	}
  	handleClose() {
@@ -70,7 +74,7 @@ class Menu extends Component {
 			       	this.setState({showmessage:true, message: response, cart: [], location: '', instructions: '', total:0})
 			    }); 
 		    })
-
+		this.setState({count: 0})
 		}
 
 	}
@@ -104,6 +108,9 @@ class Menu extends Component {
 			restaurant_name: this.state.rest})
 		let updatedPrice= this.state.total + price
 		this.setState({total: updatedPrice})
+		let tempCount = this.state.count
+		tempCount += 1
+		this.setState({count: tempCount})
 	}
 
 	removeItemFromCart(e,item_id)
@@ -120,6 +127,9 @@ class Menu extends Component {
 		let new_price = this.state.total- remPrice
 		this.state.cart.splice(z,1)
 		this.setState({total: new_price})
+		let tempCount = this.state.count
+		tempCount -= 1
+		this.setState({count: tempCount})
 		console.log(this.state.cart)
 	}
 
@@ -261,8 +271,14 @@ class Menu extends Component {
 	            </MetaTags>
             <h1 id="heading">{this.state.rest}
             	<Button variant="danger" id="cartstyle" onClick={this.handleShow}>
-            		<span className="fa fa-3x fa-shopping-cart"></span> 
+            		<span id="spann" className="fa fa-3x fa-shopping-cart"></span> 
             		<h6 id="cartHeading">Shopping Cart</h6>
+        		  	<NotificationBadge 
+        		  		count={this.state.count}
+        		  		effect={Effect.SCALE}
+        		  		style={{color: 'red', backgroundColor:'black'}}
+        		  		frameLength={70.0}
+        		  	/>
 				</Button>
 		    </h1>
 		    <h5 className="heading1"> Select an Item to add to your Shopping Cart </h5>
