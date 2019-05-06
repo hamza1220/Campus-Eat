@@ -8,6 +8,8 @@ import 'font-awesome/css/font-awesome.min.css';
 import NotificationBadge from 'react-notification-badge';
 import {Effect} from 'react-notification-badge';
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class Menu extends Component {
  	constructor(props){
@@ -103,7 +105,8 @@ class Menu extends Component {
 	}
 
 	addToCart(e,id,name,price, cat)
-	{	e.preventDefault()
+	{	
+		e.preventDefault()
 		this.state.cart.push({item_id: id, name: name, price: price, category: cat, 
 			restaurant_name: this.state.rest})
 		let updatedPrice= this.state.total + price
@@ -111,6 +114,11 @@ class Menu extends Component {
 		let tempCount = this.state.count
 		tempCount += 1
 		this.setState({count: tempCount})
+      
+	      toast.error("Added to cart!", {
+	        position: toast.POSITION.TOP_RIGHT,
+	      });
+
 	}
 
 	removeItemFromCart(e,item_id)
@@ -134,6 +142,11 @@ class Menu extends Component {
 	}
 
     render() {
+
+	    toast.configure({
+  			autoClose: 1200,
+		 	draggable: false,
+		});
 
     	if (this.state.emptycart === true){
     		alert("Your shopping cart is empty. Please click the + symbol next to an item to add it to your cart.")
@@ -261,6 +274,7 @@ class Menu extends Component {
 	          </Modal.Footer>
 	    </Modal>
 	    ) 
+
 
 	    
         return (
