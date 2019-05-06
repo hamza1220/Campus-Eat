@@ -42,7 +42,7 @@ app.get('*', (request, response) => {
 app.use(bodyParser.urlencoded({ extended: true}));
 
 
-app.get('/api/rest-ratings', (req,res)=>{
+app.post('/api/rest-ratings', (req,res)=>{
 	res.send({'Z':'3', 'C':'4', 'J':'3', 'F':'2'})
 })
 

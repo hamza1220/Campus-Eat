@@ -24,7 +24,7 @@ class Userscreen extends Component {
     
 	componentDidMount(){
 		fetch('api/rest-ratings', {
-	      method: 'GET'
+	      method: 'POST'
 	    })
 	    .then(res => res.json())
 	    .then(body =>{
