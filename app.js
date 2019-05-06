@@ -18,6 +18,8 @@ mongoose.connect(config.DB, { useNewUrlParser: true }).then(
     err => { console.log('Can not connect to the database'+ err)}
 );
 
+
+
 const app = express();
 app.use(passport.initialize());
 require('./passport')(passport);
@@ -26,8 +28,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use('/api/users', users);
+// ===================================================================
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('frontend/build'));
+}
 
-app.use(express.static(path.join(__dirname, 'frontend/build')))
+app.get('*', (request, response) => {
+    response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
+
+// app.use(express.static(path.join(__dirname, 'frontend/build')))
+// ==================================================================
 app.use(bodyParser.urlencoded({ extended: true}));
 
 
