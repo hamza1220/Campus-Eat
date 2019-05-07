@@ -19,7 +19,6 @@ mongoose.connect(config.DB, { useNewUrlParser: true }).then(
 );
 
 
-
 const app = express();
 app.use(passport.initialize());
 require('./passport')(passport);
@@ -70,6 +69,42 @@ app.post('/api/forgot-pw', (req,res)=>{
 	res.json("sent password to your mail")
 })
 
+app.post('/api/rate', (req, res)=>{
+    // rest = req.body.rest
+    // rating = req.body.rating[0]
+    console.log(req.body, req.body.rating, req.body.rating[0])
+    Order.updateOne(
+        { orderID: req.body.orderID},
+        {$set: {
+            rating: req.body.rating
+        }}
+    ).then(console.log("updated"))
+    
+
+    Rest.find({
+        restaurant_name: req.body.rest
+    })
+    .then(R => {
+        console.log(R)
+        let p1 = new Promise((resolve, reject) =>{
+            console.log(R[0].rating*R[0].num_orders+req.body.rating)
+            let new_rating = parseInt(((R[0].rating*R[0].num_orders) + req.body.rating)/(R[0].num_orders+1),10)
+            resolve(new_rating)
+        })
+        p1.then(new_rating => {
+            console.log(R[0].num_orders, new_rating)
+            Rest.updateOne(
+            {restaurant_name: req.body.rest}, 
+            {$set: {
+                        rating: new_rating,
+                        num_orders: R[0].num_orders+1
+            }}).then(console.log("done"))
+            
+        })
+
+    })
+})
+
 app.post('/api/menu', (req,res)=>{
 	console.log("send menu of",req.body)
 	Item.find({
@@ -113,7 +148,8 @@ app.post('/placeorder', function(req, res) {
         del_location:req.body.del_location,
         del_time: req.body.del_time,
         status:req.body.status,
-        instructions:req.body.instructions
+        instructions:req.body.instructions,
+        rating: req.body.rating
     });
     newOrder.save()
     .then(order=>{

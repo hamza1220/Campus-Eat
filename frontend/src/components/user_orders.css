@@ -4,6 +4,11 @@
     width: 50%;
 }
 
+#star{
+	display: flex;
+
+}
+
 #uList{
 	border-radius: 30px;
 	list-style: none;
@@ -13,6 +18,15 @@
 #resName{
 	font-size: 20px;
 	color: #474747;
+	display: flex;
+}
+
+#s1{
+	display:flex;
+}
+
+#starbtn{
+	display: flex;
 }
 
 #btnn{
