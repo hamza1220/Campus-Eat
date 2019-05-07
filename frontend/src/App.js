@@ -19,6 +19,7 @@ import User_Orders from './components/user_orders'
 import EditProfile from './components/editprofile'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Rest_Orders from './components/rest_orders'
+import editMenu from './components/editMenu'
 // import Cart from './components/Shoppingcart'
 
 if(localStorage.jwtToken) {
@@ -51,6 +52,7 @@ class App extends Component {
                   <Route exact path="/menu" component={ Menu }/>
                   <Route exact path='/editprofile' component={EditProfile}/>
                   <Route exact path='/rest_orders' component={Rest_Orders}/>
+                  <Route exact path='/editMenu' component={editMenu}/>
                 </Switch>
             </div>
           </Router>

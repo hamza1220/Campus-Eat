@@ -60,7 +60,7 @@ class Userscreen extends Component {
                 	</div>
                 </Link>
                 
-                <Link to ={{ pathname: '/menu', state: { id: 'Jammin' }}}>
+                <Link to ={{ pathname: '/menu', state: { id: 'Jammin Java' }}}>
                     <div id="btn2">
                 		<h4> Jammin Java </h4>
                 		<div>
@@ -79,7 +79,7 @@ class Userscreen extends Component {
                 </Link>
 
 
-                <Link to ={{ pathname: '/menu', state: { id: 'Zakir' }}}>
+                <Link to ={{ pathname: '/menu', state: { id: 'Zakir Tikka' }}}>
                 	<div id="btn4">
                 		<h4> Zakir Tikka </h4> 
                 		<div>
