@@ -29,6 +29,7 @@ class Menu extends Component {
  			message: '',
  			emptycart: false,
  			count: 0,
+ 			visible: false,
  		};
  	}
  	handleClose() {
@@ -144,6 +145,13 @@ class Menu extends Component {
   			autoClose: 1800,
 		 	draggable: false,
 		});
+
+		if (this.state.count > 0){
+			this.state.visible = true
+		}
+		else{
+			this.state.visible = false
+		}
 
     	if (this.state.emptycart === true){
     		alert("Your shopping cart is empty. Please click the + symbol next to an item to add it to your cart.")
@@ -272,8 +280,13 @@ class Menu extends Component {
 	    </Modal>
 	    ) 
 
+	    const cartCount = (
+    		  <Badge pill id="badge">
+			    {this.state.count}
+			  </Badge>
+	    )
 
-	    
+    
         return (
             <div id="bg">
 				<MetaTags>
@@ -282,8 +295,9 @@ class Menu extends Component {
 	            </MetaTags>
             <h1 id="heading">{this.state.rest}
             	<Button variant="danger" id="cartstyle" onClick={this.handleShow}>
-            		<span id="spann" className="fa fa-3x fa-shopping-cart"></span> 
+            		<span id="spann" title="View shopping cart" className="fa fa-3x fa-shopping-cart"></span> 
             		<h6 id="cartHeading">Shopping Cart</h6>
+            		{this.state.visible ? cartCount : <div></div> }
 {/*        		  	<NotificationBadge 
         		  		count={this.state.count}
         		  		effect={Effect.SCALE}

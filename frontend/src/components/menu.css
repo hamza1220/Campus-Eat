@@ -30,8 +30,15 @@
   background-color: #891421;
 }
 
-.foo-bar{
-  background-color: black;
+#badge{
+  background-color: #4B0000;
+  animation-name: bb;
+  animation-duration: 2s;
+}
+
+@keyframes bb {
+  from {background-color: red;}
+  to {background-color: #4B0000;}
 }
 
 #spann{
