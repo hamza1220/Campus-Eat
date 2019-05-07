@@ -69,10 +69,20 @@ app.post('/api/forgot-pw', (req,res)=>{
 	res.json("sent password to your mail")
 })
 
+app.post('/api/get_rating', (req,res)=>{
+    Rest.find({
+        restaurant_name: req.body.rest
+    })
+    .then(R =>{
+        console.log(R)
+        res.json(R[0].rating)
+    })
+})
+
 app.post('/api/rate', (req, res)=>{
     // rest = req.body.rest
     // rating = req.body.rating[0]
-    console.log(req.body, req.body.rating, req.body.rating[0])
+    // console.log(req.body, req.body.rating, req.body.rating[0])
     Order.updateOne(
         { orderID: req.body.orderID},
         {$set: {
@@ -88,7 +98,7 @@ app.post('/api/rate', (req, res)=>{
         console.log(R)
         let p1 = new Promise((resolve, reject) =>{
             console.log(R[0].rating*R[0].num_orders+req.body.rating)
-            let new_rating = parseInt(((R[0].rating*R[0].num_orders) + req.body.rating)/(R[0].num_orders+1),10)
+            let new_rating = ((R[0].rating*R[0].num_orders) + req.body.rating)/(R[0].num_orders+1)
             resolve(new_rating)
         })
         p1.then(new_rating => {

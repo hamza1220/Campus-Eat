@@ -53,6 +53,7 @@ class App extends Component {
                   <Route exact path='/editprofile' component={EditProfile}/>
                   <Route exact path='/rest_orders' component={Rest_Orders}/>
                   <Route exact path='/editMenu' component={editMenu}/>
+                  <Route exact path='/rest_rating' component={blank}/>
                 </Switch>
             </div>
           </Router>

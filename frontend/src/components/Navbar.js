@@ -136,10 +136,13 @@ class Navbar extends Component {
                     <Link to="/editprofile"><button>Profile</button></Link>
                 </li>
                 <li >
-                    <Link to="/rest_orders"><button>Orders</button></Link>
+                    <Link to="/rest_rating"><button>View Rating</button></Link>
                 </li>
                 <li >
                     <Link to="/editMenu"><button>Edit Menu</button></Link>
+                </li>
+                <li >
+                    <Link to="/rest_orders"><button>Orders</button></Link>
                 </li>
                 <li style={{float: "left"}}>
                     <a href= "/"><img src={logo}/></a>
