@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import './menu.css'
 import 'font-awesome/css/font-awesome.min.css';
 
-import NotificationBadge from 'react-notification-badge';
-import {Effect} from 'react-notification-badge';
+// import NotificationBadge from 'react-notification-badge';
+// import {Effect} from 'react-notification-badge';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css' 
@@ -284,13 +284,13 @@ class Menu extends Component {
             	<Button variant="danger" id="cartstyle" onClick={this.handleShow}>
             		<span id="spann" className="fa fa-3x fa-shopping-cart"></span> 
             		<h6 id="cartHeading">Shopping Cart</h6>
-        		  	<NotificationBadge 
+{/*        		  	<NotificationBadge 
         		  		count={this.state.count}
         		  		effect={Effect.SCALE}
         		  		style={{color: 'red', backgroundColor:'black'}}
         		  		frameLength={70.0}
         		  	/>
-				</Button>
+*/}				</Button>
 		    </h1>
 		    <h5 className="heading1"> Select an Item to add to your Shopping Cart </h5>
 
