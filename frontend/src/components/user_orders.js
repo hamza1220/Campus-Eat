@@ -57,11 +57,9 @@ class user_orders extends Component {
     }
     componentDidMount(){
         close=false
-        // console.log("new",close)
         var email = String(this.props.auth.user.email)
-        // console.log(email);
 
-        interval(() => {
+        // Load orders instantly on first mount.
         fetch('api/orders', {
           method: 'POST',
           body: JSON.stringify({email: email}),
@@ -75,7 +73,24 @@ class user_orders extends Component {
             this.setState({orders: t})
             received =true
         })
-        }, 2500, 240)
+        /////////////////////////////////////////
+
+        interval(() => {
+        	// console.log("Loop")
+	        fetch('api/orders', {
+	          method: 'POST',
+	          body: JSON.stringify({email: email}),
+	          headers: {
+	            "Content-Type": "application/json",
+	          }
+	        })
+	        .then(res => res.json())
+	        .then(body =>{
+	            let t = ((body))
+	            this.setState({orders: t})
+	            received =true
+	        })
+	        }, 2500, 240)
         setTimeout(()=>{window.location.reload()}, 602500)
 
     }
@@ -109,22 +124,23 @@ class user_orders extends Component {
     RateRest(restaurant_name, orderID){
         // console.log(orderID)
         console.log(this.state.ratings)
-        let r = []
-        let p1 = new Promise((resolve, reject)=>{
-            r = this.state.ratings.filter(item => item["id"]=== String(orderID))
-            resolve(r)
-        })
-        p1.then(r1 => {
-            console.log("r1",r1,r1[0].rating)
-            fetch('api/rate', {
-              method: 'POST',
-              body: JSON.stringify({orderID: orderID, rest: restaurant_name, rating: r1[0].rating}),
-              headers: {
-                "Content-Type": "application/json",
-              }
-            })
-            
-        })    
+        if (this.state.ratings.length !== 0){
+	        let r = []
+	        let p1 = new Promise((resolve, reject)=>{
+	            r = this.state.ratings.filter(item => item["id"]=== String(orderID))
+	            resolve(r)
+	        })
+	        p1.then(r1 => {
+	            console.log("r1",r1,r1[0].rating)
+	            fetch('api/rate', {
+	              method: 'POST',
+	              body: JSON.stringify({orderID: orderID, rest: restaurant_name, rating: r1[0].rating}),
+	              headers: {
+	                "Content-Type": "application/json",
+	              }
+	            })	            
+	        })    
+        }
 
         // .then(res => res.json())
         // .then(body =>{
@@ -184,14 +200,11 @@ class user_orders extends Component {
                 <div id = "list"> 
                     <ul id = "uList">
                         <li id = "resName"><b>{d.restaurant_name}&nbsp; Order#: {d.orderID} </b></li>
-                        <li>
                             <div id= "s1"> 
                                 <div id="star"><StarRatingComponent name={String(d.orderID)} editing={d.rating==-1? true:false} starCount={5} value = {d.rating==-1? null:d.rating} onStarClick={this.onStarClick.bind(this)}/> </div> 
-                                {d.rating==-1? <div>&nbsp;&nbsp;<Button variant= "info" onClick = {()=>{this.RateRest(d.restaurant_name, d.orderID)}}> Rate Order!</Button></div> : null }
+                                {d.rating==-1? <div>&nbsp;&nbsp;<Button variant= "info" onClick = {()=>{this.RateRest(d.restaurant_name, d.orderID)}}> Rate Order</Button></div> : null }
                             </div>
-                        </li>
 
-                        <li> &nbsp;</li>
                         <li>&nbsp;&nbsp;&nbsp;Order Placed at: &nbsp; {(d.order_time).split('T')[0].split('-')[2]}-{(d.order_time).split('T')[0].split('-')[1]}-{(d.order_time).split('T')[0].split('-')[0]} &nbsp;&nbsp; {(parseInt(d.order_time.split('T')[1].split('.')[0], 10)+5)%24 }:{(d.order_time.split('T')[1]).split(':')[1]}:{(d.order_time.split('T')[1]).split(':')[2].split('.')[0]} </li>                            
                         <li>&nbsp;&nbsp;&nbsp;Location: &nbsp; {d.del_location}</li>
                         <li>&nbsp;&nbsp;&nbsp;Instructions: &nbsp;{d.instructions}</li>

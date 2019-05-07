@@ -59,7 +59,24 @@ class rest_orders extends Component {
     console.log("new",close)
     close=false
     var restaurant_name = String(this.props.auth.user.user_type).split('_')[1]
+    
+    // Fetch orders instantly the first time.
+    axios.post('/getrestorders', {
+        restaurant_name: restaurant_name,
+        })
+      .then((response) => {
+        // console.log(this.state.close)
+        // if(close===false){
+          this.setState({orders: response.data})
+          // console.log(response.data)
+          received=true
+        // }
+
+      })
+    ///////////////////////////////////////////
+
     this.interval(() => {
+      // console.log("Loop")
       axios.post('/getrestorders', {
         restaurant_name: restaurant_name,
         })
