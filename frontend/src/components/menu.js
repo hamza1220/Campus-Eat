@@ -59,7 +59,7 @@ class Menu extends Component {
 			let o = {orderID: Math.floor(Math.random() * 1000000000000), customer_email:email, 
 				customer_number:number, restaurant_name: this.state.rest,
 				items:this.state.cart, del_location: loc, del_time: "N/A", status: "pending", 
-				instructions: inst}
+				instructions: inst, rating: -1}
 			// console.log(o)
 			// this.setState({show:false});
 			fetch('/placeorder', {
@@ -170,8 +170,8 @@ class Menu extends Component {
     	let c = this.state.cart
 
     	const food_items = food.map((d,i)=> 
-    		<div id="lol">
-	    		<div id= "items" key={i}> 
+    		<div id="lol" key={i}>
+	    		<div id= "items" > 
 	    		    <div>&nbsp; {d.name} </div>
 	    			<div className="spacer"/>
 		    		<div> Rs.{d.price} &nbsp; </div>
@@ -181,8 +181,8 @@ class Menu extends Component {
     	)
 
     	const drink_items = drinks.map((d,i)=> 
-    		<div id="lol">
-	    		<div id= "items" key={i}> 
+    		<div id="lol" key={i}>
+	    		<div id= "items" > 
 	    		    <div>&nbsp; {d.name} </div>
 	    			<div className="spacer"/>
 		    		<div> Rs.{d.price} &nbsp; </div>

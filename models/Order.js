@@ -42,6 +42,10 @@ const OrderSchema = new Schema({
     instructions:{
         type: String,
         required: true
+    },
+    rating:{
+        type: String,
+        required: true
     }
 });
 
