@@ -36,9 +36,9 @@ class blank extends Component {
             	<br></br>
             	<br></br>
             	<h1>{restaurant_name}</h1>
-            	<br></br><br></br><br></br>
+            	<br></br><br></br>
             	<br></br>
-            	<p> Your restaurant's current rating </p>
+            	<p> Your restaurant's current rating: </p>
             	<StarRatings
             		rating = {this.state.rating}
             		starRatedColor="#ffd700"

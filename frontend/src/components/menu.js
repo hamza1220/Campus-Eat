@@ -115,9 +115,9 @@ class Menu extends Component {
 		tempCount += 1
 		this.setState({count: tempCount})
       
-	      toast.error(name+" added to cart!", {
+	    toast.error(name+" added to cart!", {
 	        position: toast.POSITION.TOP_RIGHT,
-	      });
+	    });
 
 	}
 

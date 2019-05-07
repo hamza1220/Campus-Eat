@@ -5,9 +5,7 @@
 }
 
 #star{
-
 	display: flex;
-	width: 100%;
 }
 
 #uList{
@@ -20,6 +18,7 @@
 	font-size: 20px;
 	color: #474747;
 	display: flex;
+	font-weight: bold;
 }
 
 #s1{
