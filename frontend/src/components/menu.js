@@ -110,12 +110,10 @@ class Menu extends Component {
 		this.state.cart.push({item_id: id, name: name, price: price, category: cat, 
 			restaurant_name: this.state.rest})
 		let updatedPrice= this.state.total + price
-		this.setState({total: updatedPrice})
 		let tempCount = this.state.count
 		tempCount += 1
-		this.setState({count: tempCount})
-      
-	    toast.error(name+" added to cart!", {
+		this.setState({total: updatedPrice, count:tempCount})      
+	    toast.error(name + " added to cart!", {
 	        position: toast.POSITION.TOP_RIGHT,
 	    });
 
@@ -134,10 +132,9 @@ class Menu extends Component {
 		}
 		let new_price = this.state.total- remPrice
 		this.state.cart.splice(z,1)
-		this.setState({total: new_price})
 		let tempCount = this.state.count
 		tempCount -= 1
-		this.setState({count: tempCount})
+		this.setState({total: new_price, count:tempCount})
 		console.log(this.state.cart)
 	}
 
