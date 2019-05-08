@@ -84,7 +84,7 @@ router.post('/editprofile', (req,res)=>{
 
 router.post('/register', function(req, res) {
 
-    const { errors, isValid } = validateRegisterInput(req.body);
+    const { errors, isValid } = validateRegisterInput(req.body, false);
 
     if(!isValid) {
         return res.status(400).json(errors);

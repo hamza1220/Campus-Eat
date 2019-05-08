@@ -40,7 +40,7 @@ class Menu extends Component {
 	   this.setState({ show: true });
 
 	}
-	placeOrder(event,email, number){
+	placeOrder(event,name, email, number){
 		event.preventDefault();
 		
 		
@@ -58,7 +58,7 @@ class Menu extends Component {
 		else{
 
 			let o = {orderID: Math.floor(Math.random() * 1000000000000), customer_email:email, 
-				customer_number:number, restaurant_name: this.state.rest,
+				customer_number:number, customer_name:name, restaurant_name: this.state.rest,
 				items:this.state.cart, del_location: loc, del_time: "N/A", status: "pending", 
 				instructions: inst, rating: -1}
 			// console.log(o)
@@ -230,7 +230,7 @@ class Menu extends Component {
 						</tbody>
 		          </Table>
 
-		         <form onSubmit={(e)=>{this.placeOrder(e,this.props.auth.user.email,this.props.auth.user.number)}}>
+		         <form onSubmit={(e)=>{this.placeOrder(e,this.props.auth.user.name,this.props.auth.user.email,this.props.auth.user.number)}}>
 	                <label>
 	                    Delivery Location &nbsp; &nbsp; &nbsp;  
 	                    <input

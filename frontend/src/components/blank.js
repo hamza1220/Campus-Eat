@@ -10,14 +10,14 @@ class blank extends Component {
          super(props);
 
          this.state={
-			rating: -1,           
+      rating: -1,           
         };
 
     }
 
     componentWillMount(){
-	    restaurant_name = String(this.props.auth.user.user_type).split('_')[1]
-		fetch('api/get_rating', {
+      restaurant_name = String(this.props.auth.user.user_type).split('_')[1]
+    fetch('api/get_rating', {
           method: 'POST',
           body: JSON.stringify({rest: restaurant_name}),
           headers: {
@@ -27,25 +27,25 @@ class blank extends Component {
         .then(body =>{
             this.setState({rating: parseInt(body,10)})
         })
-	}
+  }
 
     render() {
         return (
             <div id = "rating">
-            	&nbsp;
-            	<br></br>
-            	<br></br>
-            	<h1>{restaurant_name}</h1>
-            	<br></br><br></br>
-            	<br></br>
-            	<p> Your restaurant's current rating: </p>
-            	<StarRatings
-            		rating = {this.state.rating}
-            		starRatedColor="#ffd700"
-            		starDimension = "70px"
-            		numberOfStars={5}
-            		name = "rating"
-            	/>
+              &nbsp;
+              <br></br>
+              <br></br>
+              <h1>{restaurant_name}</h1>
+              <br></br><br></br>
+              <br></br>
+              <p> Your restaurant's current rating: </p>
+              <StarRatings
+                rating = {this.state.rating}
+                starRatedColor="#ffd700"
+                starDimension = "70px"
+                numberOfStars={5}
+                name = "rating"
+              />
             </div>
         );
     }
