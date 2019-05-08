@@ -7,6 +7,9 @@ import { registerUser } from '../actions/authentication';
 import classnames from 'classnames';
 import '../App.css'
 import logo from './redlogo.png'
+import Validator from 'validator';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css' 
 
 
 class Register extends Component {
@@ -33,16 +36,21 @@ class Register extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        const user = {
-            name: this.state.name,
-            email: this.state.email,
-            number: this.state.number,
-            password: this.state.password,
-            password_confirm: this.state.password_confirm,
-            user_type: "customer",
-            resetPasswordToken: "."
+        let validNum = true
+        
+        if (validNum){
+            const user = {
+                name: this.state.name,
+                email: this.state.email,
+                number: this.state.number,
+                password: this.state.password,
+                password_confirm: this.state.password_confirm,
+                user_type: "customer",
+                resetPasswordToken: "."
+            }
+            this.props.registerUser(user, this.props.history);
+            
         }
-        this.props.registerUser(user, this.props.history);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -63,6 +71,12 @@ class Register extends Component {
     }
 
     render() {
+        toast.configure({
+            autoClose: 8000,
+            draggable: true,
+        });
+
+
         const { errors } = this.state;
         return(
         <div className="App">
