@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-// import { registerUser } from '../actions/authentication';
 import { editUser } from '../actions/authentication';
 
 import classnames from 'classnames';
 import '../App.css'
 import logo from './redlogo.png'
+import queryString from'query-string'
 
 
-class EditProfile extends Component {
+class ResetPassword extends Component {
 
     constructor() {
         super();
@@ -41,8 +41,9 @@ class EditProfile extends Component {
             email: this.state.email,
             number: this.state.number,
             password: this.state.password,
-            password_confirm: this.state.password_confirm,
-            user_type: this.state.user_type
+            password_confirm: this.state.password,
+            user_type: this.state.user_type,
+            resetPasswordToken : ".",
         }
         this.props.editUser(user,this.props.history)
 
@@ -62,10 +63,11 @@ class EditProfile extends Component {
 
     componentDidMount() {
         // this.setState({email: this.props.auth.user.emai;})
-        console.log(this.props.auth.user.email)
-        fetch('api/giveprofile', {
+        const values = queryString.parse(this.props.location.search)
+        console.log(values.id)
+        fetch('/reset', {
           method: 'POST',
-          body: JSON.stringify({email: String(this.props.auth.user.email)}),
+          body: JSON.stringify({resetPasswordToken: String(values.id)}),
           headers: {
             "Content-Type": "application/json",
           }
@@ -73,7 +75,12 @@ class EditProfile extends Component {
         .then(res => {
             res.json().then(body => {
             console.log(body)
+            console.log(body.name)
+
             this.setState({name: body.name, email: body.email, number:body.number, user_type: body.user_type})
+            })
+            .then(()=> {
+                console.log(this.state.name);
             })
         }); 
     }
@@ -84,7 +91,7 @@ class EditProfile extends Component {
         const { errors } = this.state;
 
         if (this.state.clicked) {
-            return <Redirect to='/userscreen'/>;
+            return <Redirect to='/login'/>;
         }
 
         return(
@@ -93,72 +100,12 @@ class EditProfile extends Component {
             <img id="logo" src={logo} width='30%' height="30%" alt="CE Logo"/>
             <br/> 
 
-            <h3 className="heading"> Edit Profile </h3>
+            <h3 className="heading"> Update Password </h3>
             <p className="heading"> Press confirm after making your changes. </p>
-            <p className="heading"> Leave the password fields blank if you do not wish to change your password. </p>
             <br/>
             <div className='infocontainer'>
 
                 <form onSubmit={ this.handleSubmit }>
-                <label style={{float: 'left'}} >
-                    Your name:
-                </label>    
-                    <div className="form-group">
-                            <div>
-                                <input
-                                type="text"
-                                placeholder="Name"
-                                className={classnames('form-control form-control-lg', {
-                                    'is-invalid': errors.name
-                                })}
-                                name="name"
-                                required = "required"
-                                onChange={ this.handleInputChange }
-                                value={ this.state.name }
-                                />
-                            </div>
-                            {errors.name && (<div className="invalid-feedback">{errors.name}</div>)}
-                    </div>
-                    <div className="form-group">
-                        <label style={{float: 'left'}}>
-                            Email Address:
-                        </label>
-                            <div >
-                                <input
-                                type="email"
-                                placeholder="Email"
-                                required = "required"
-                                className={classnames('form-control form-control-lg', {
-                                    'is-invalid': errors.email
-                                })}
-                                name="email"
-                                onChange={ this.handleInputChange }
-                                value={ this.state.email }
-                                readOnly
-                                />
-                            </div>
-                        {errors.email && (<div className="invalid-feedback">{errors.email}</div>)}
-                    </div>
-                    <div className="form-group">
-                        <label style={{float: 'left'}}>
-                            New Number:
-                        </label>
-                            <div>
-                                <input
-                                type="text"
-                                placeholder="Phone Number eg 03001234567"
-                                className={classnames('form-control form-control-lg', {
-                                    'is-invalid': errors.number
-                                })}
-                                name="number"
-                                required = "required"
-                                onChange={ this.handleInputChange }
-                                value={ this.state.number }
-                                />
-                            </div>
-                        
-                        {errors.number && (<div className="invalid-feedback">{errors.number}</div>)}
-                    </div>
                     <div className="form-group">
                         <label style={{float: 'left'}}>
                             New Password:
@@ -207,13 +154,10 @@ class EditProfile extends Component {
     }
 }
 
-EditProfile.propTypes = {
-    auth: PropTypes.object.isRequired
-};
 
 const mapStateToProps = state => ({
     auth: state.auth,
     errors: state.errors
 });
 
-export default connect(mapStateToProps,{editUser })((EditProfile))
+export default connect(mapStateToProps,{editUser })((ResetPassword))

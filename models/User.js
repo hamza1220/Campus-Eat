@@ -33,7 +33,14 @@ const UserSchema = new Schema({
     orders: {
         type: [Number],
         required: false
-    }
+    },
+    resetPasswordToken: {
+        type: String,
+        default:"."
+    },
+    resetPasswordExpires: {
+        type: String
+    },
 });
 
 

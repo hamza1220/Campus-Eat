@@ -40,6 +40,7 @@ class Register extends Component {
             password: this.state.password,
             password_confirm: this.state.password_confirm,
             user_type: "customer",
+            resetPasswordToken: "."
         }
         this.props.registerUser(user, this.props.history);
     }
