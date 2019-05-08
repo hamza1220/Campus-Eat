@@ -17,6 +17,14 @@
 
 }
 
+.itemButton{
+  color: #FFF;
+  padding-top: 1.5%;
+  align-items: center;
+  font-weight: bolder;
+
+}
+
 #cartstyle{
   float:right;
   margin-right: 1%;
@@ -30,17 +38,6 @@
   background-color: #891421;
 }
 
-#badge{
-  background-color: #4B0000;
-  animation-name: bb;
-  animation-duration: 2s;
-}
-
-@keyframes bb {
-  from {background-color: red;}
-  to {background-color: #4B0000;}
-}
-
 #spann{
   margin-left: -3%;
 }
@@ -51,18 +48,6 @@
   margin-top: 5%;
   display: inline-block;
   font-weight: bold;
-}
-
-.VC{
-	float: right;
-	margin-right: 1%;
-	background-image: url("cart.png");
-	background-color: none;
-	background-size: cover;
-	height: 50px;
-	width: 50px;
-  display: block;
-
 }
 
 #heading{
@@ -78,39 +63,6 @@
 #heading1 {
   color: #626262;
   font-size: small;
-}
-
-#b2{
-  /*display: flex;*/
-  background-color: #B02737;
-  border: none;
-  color: #FFF;
-  padding-top: 1.5%;
-  align-items: center;
-  border-bottom: 1px solid #898989;
-  font-size: 15px;
-  font-weight: bolder;
-} 
-
-#b2:hover {
-  background-color: #510000;
-  color: white;
-}
-
-#b2:active {
-  background-color: #00AE00;
-}
-
-
-
-#cartbtn{
-  background-color: #B02737;
-  color: white;
-  font-size: 16px;
-  padding: 12px 24px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
 }
 
 html{

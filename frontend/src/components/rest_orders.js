@@ -59,7 +59,24 @@ class rest_orders extends Component {
     console.log("new",close)
     close=false
     var restaurant_name = String(this.props.auth.user.user_type).split('_')[1]
+    
+    // Fetch orders instantly the first time.
+    axios.post('/getrestorders', {
+        restaurant_name: restaurant_name,
+        })
+      .then((response) => {
+        // console.log(this.state.close)
+        // if(close===false){
+          this.setState({orders: response.data})
+          // console.log(response.data)
+          received=true
+        // }
+
+      })
+    ///////////////////////////////////////////
+
     this.interval(() => {
+      // console.log("Loop")
       axios.post('/getrestorders', {
         restaurant_name: restaurant_name,
         })
@@ -224,7 +241,8 @@ class rest_orders extends Component {
           <div id="orderdiv" key={i}>
               <div id = "list"> 
                       <ul id = "uList">
-                          <li id = "resName">{d.restaurant_name}</li>
+                          <li id = "resName">Order#: {d.orderID}</li>
+                          <li>&nbsp;&nbsp;&nbsp;Phone Number: &nbsp; {d.customer_number}</li>
                           <li>&nbsp;&nbsp;&nbsp;Order Placed at: &nbsp; {(d.order_time).split('T')[0].split('-')[2]}-{(d.order_time).split('T')[0].split('-')[1]}-{(d.order_time).split('T')[0].split('-')[0]} &nbsp;&nbsp; {(parseInt(d.order_time.split('T')[1].split('.')[0], 10)+5)%24 }:{(d.order_time.split('T')[1]).split(':')[1]}:{(d.order_time.split('T')[1]).split(':')[2].split('.')[0]} </li>                            
                           <li>&nbsp;&nbsp;&nbsp;Location: &nbsp; {d.del_location}</li>
                           <li>&nbsp;&nbsp;&nbsp;Instructions: &nbsp;{d.instructions}</li>

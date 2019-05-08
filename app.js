@@ -22,14 +22,6 @@ mongoose.connect(config.DB, { useNewUrlParser: true }).then(
 );
 
 
-var auth = {
-    type: 'oauth2',
-    user: 'campuseat.lums@gmail.com',
-    clientId: '995311755642-gos132hf3ebrqo99imt802j0t56pre2l.apps.googleusercontent.com',
-    clientSecret: 'rFjHE8keq26zvxLdMlHRa7TJ',
-    refreshToken: '1/WPpE-aA_tq31oP1JBNYBBwSEANIg6Vx-t1kyFUZe68CNB4MXXtiWE3uzLeBJFQk0',
-};
-
 const app = express();
 app.use(passport.initialize());
 require('./passport')(passport);
@@ -132,7 +124,6 @@ app.post('/api/forgot-pw', (req,res)=>{
 
 })
 
-
 app.post('/reset', (req, res) => {
     User.findOne({
         resetPasswordToken : req.body.resetPasswordToken,
@@ -142,6 +133,52 @@ app.post('/reset', (req, res) => {
     })
 
   });
+
+app.post('/api/get_rating', (req,res)=>{
+    Rest.find({
+        restaurant_name: req.body.rest
+    })
+    .then(R =>{
+        console.log(R)
+        res.json(R[0].rating)
+    })
+})
+
+app.post('/api/rate', (req, res)=>{
+    // rest = req.body.rest
+    // rating = req.body.rating[0]
+    // console.log(req.body, req.body.rating, req.body.rating[0])
+    Order.updateOne(
+        { orderID: req.body.orderID},
+        {$set: {
+            rating: req.body.rating
+        }}
+    ).then(console.log("updated"))
+    
+
+    Rest.find({
+        restaurant_name: req.body.rest
+    })
+    .then(R => {
+        console.log(R)
+        let p1 = new Promise((resolve, reject) =>{
+            console.log(R[0].rating*R[0].num_orders+req.body.rating)
+            let new_rating = ((R[0].rating*R[0].num_orders) + req.body.rating)/(R[0].num_orders+1)
+            resolve(new_rating)
+        })
+        p1.then(new_rating => {
+            console.log(R[0].num_orders, new_rating)
+            Rest.updateOne(
+            {restaurant_name: req.body.rest}, 
+            {$set: {
+                        rating: new_rating,
+                        num_orders: R[0].num_orders+1
+            }}).then(console.log("done"))
+            
+        })
+
+    })
+})
 
 
 app.post('/api/menu', (req,res)=>{
@@ -200,7 +237,8 @@ app.post('/placeorder', function(req, res) {
         del_location:req.body.del_location,
         del_time: req.body.del_time,
         status:req.body.status,
-        instructions:req.body.instructions
+        instructions:req.body.instructions,
+        rating: req.body.rating
     });
     newOrder.save()
     .then(order=>{

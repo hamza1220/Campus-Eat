@@ -2,16 +2,16 @@ import { Button, Modal, Table, Badge } from 'react-bootstrap';
 import React, { Component } from 'react';
 import MetaTags from 'react-meta-tags';
 import { connect } from 'react-redux';
-import './menu.css'
+import './editMenu.css'
 import 'font-awesome/css/font-awesome.min.css';
 
-// import NotificationBadge from 'react-notification-badge';
-// import {Effect} from 'react-notification-badge';
+import NotificationBadge from 'react-notification-badge';
+import {Effect} from 'react-notification-badge';
 
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css' 
+import 'react-toastify/dist/ReactToastify.css';
 
-class Menu extends Component {
+class editMenu extends Component {
  	constructor(props){
  		super(props);
  		this.handleShow = this.handleShow.bind(this);
@@ -29,7 +29,6 @@ class Menu extends Component {
  			message: '',
  			emptycart: false,
  			count: 0,
- 			visible: false,
  		};
  	}
  	handleClose() {
@@ -60,7 +59,7 @@ class Menu extends Component {
 			let o = {orderID: Math.floor(Math.random() * 1000000000000), customer_email:email, 
 				customer_number:number, restaurant_name: this.state.rest,
 				items:this.state.cart, del_location: loc, del_time: "N/A", status: "pending", 
-				instructions: inst, rating: -1}
+				instructions: inst}
 			// console.log(o)
 			// this.setState({show:false});
 			fetch('/placeorder', {
@@ -88,8 +87,8 @@ class Menu extends Component {
   }
     
 	componentDidMount(){
-        var y = String(this.props.location.state.id)
-        this.setState({rest: String(this.props.location.state.id)})
+        var y = String(this.props.auth.user.user_type).split('_')[1]
+        this.setState({rest: y})
         fetch('api/menu', {
 	      method: 'POST',
 	      body: JSON.stringify({rest: y}),
@@ -111,12 +110,14 @@ class Menu extends Component {
 		this.state.cart.push({item_id: id, name: name, price: price, category: cat, 
 			restaurant_name: this.state.rest})
 		let updatedPrice= this.state.total + price
+		this.setState({total: updatedPrice})
 		let tempCount = this.state.count
 		tempCount += 1
-		this.setState({total: updatedPrice, count:tempCount})      
-	    toast.error(name + " added to cart!", {
+		this.setState({count: tempCount})
+      
+	      toast.error(name+" added to cart!", {
 	        position: toast.POSITION.TOP_RIGHT,
-	    });
+	      });
 
 	}
 
@@ -133,9 +134,10 @@ class Menu extends Component {
 		}
 		let new_price = this.state.total- remPrice
 		this.state.cart.splice(z,1)
+		this.setState({total: new_price})
 		let tempCount = this.state.count
 		tempCount -= 1
-		this.setState({total: new_price, count:tempCount})
+		this.setState({count: tempCount})
 		console.log(this.state.cart)
 	}
 
@@ -145,13 +147,6 @@ class Menu extends Component {
   			autoClose: 1800,
 		 	draggable: false,
 		});
-
-		if (this.state.count > 0){
-			this.state.visible = true
-		}
-		else{
-			this.state.visible = false
-		}
 
     	if (this.state.emptycart === true){
     		alert("Your shopping cart is empty. Please click the + symbol next to an item to add it to your cart.")
@@ -175,24 +170,28 @@ class Menu extends Component {
     	let c = this.state.cart
 
     	const food_items = food.map((d,i)=> 
-    		<div id="lol" key={i}>
-	    		<div id= "items" > 
+    		<div id="lol">
+	    		<div id= "items" key={i}> 
 	    		    <div>&nbsp; {d.name} </div>
 	    			<div className="spacer"/>
 		    		<div> Rs.{d.price} &nbsp; </div>
 	    		</div>
-		 	<button id='b2' title="Add to cart" onClick = {(e)=> {this.addToCart(e,d.item_id,d.name,d.price, d.category)}}> &nbsp; + &nbsp; &nbsp; </button>  
+		 	<Button variant="info" className="itemButton" title="Edit this item" onClick = {(e)=> {this.addToCart(e,d.item_id,d.name,d.price, d.category)}}> &nbsp; Edit &nbsp; &nbsp; </Button>  
+		 	<Button variant="danger" className="itemButton" title="Remove this item from inventory" onClick = {(e)=> {this.addToCart(e,d.item_id,d.name,d.price, d.category)}}> &nbsp; Remove &nbsp; &nbsp; </Button>
+
     		</div>
     	)
 
     	const drink_items = drinks.map((d,i)=> 
-    		<div id="lol" key={i}>
-	    		<div id= "items" > 
+    		<div id="lol">
+	    		<div id= "items" key={i}> 
 	    		    <div>&nbsp; {d.name} </div>
 	    			<div className="spacer"/>
 		    		<div> Rs.{d.price} &nbsp; </div>
 	    		</div>
-		 	<button id='b2' title="Add to cart" onClick = {(e)=> {this.addToCart(e,d.item_id,d.name,d.price, d.category)}}> &nbsp; + &nbsp; &nbsp; </button>  
+		 	<Button variant="info" className="itemButton" title="Edit this item" onClick = {(e)=> {this.addToCart(e,d.item_id,d.name,d.price, d.category)}}> &nbsp; Edit &nbsp; &nbsp; </Button>  
+		 	<Button variant="danger" className="itemButton" title="Remove this item from inventory" onClick = {(e)=> {this.addToCart(e,d.item_id,d.name,d.price, d.category)}}> &nbsp; Remove &nbsp; &nbsp; </Button>  
+
     		</div>
     	)
     	
@@ -280,13 +279,8 @@ class Menu extends Component {
 	    </Modal>
 	    ) 
 
-	    const cartCount = (
-    		  <Badge pill id="badge">
-			    {this.state.count}
-			  </Badge>
-	    )
 
-    
+	    
         return (
             <div id="bg">
 				<MetaTags>
@@ -295,16 +289,9 @@ class Menu extends Component {
 	            </MetaTags>
             <h1 id="heading">{this.state.rest}
             	<Button variant="danger" id="cartstyle" onClick={this.handleShow}>
-            		<span id="spann" title="View shopping cart" className="fa fa-3x fa-shopping-cart"></span> 
-            		<h6 id="cartHeading">Shopping Cart</h6>
-            		{this.state.visible ? cartCount : <div></div> }
-{/*        		  	<NotificationBadge 
-        		  		count={this.state.count}
-        		  		effect={Effect.SCALE}
-        		  		style={{color: 'red', backgroundColor:'black'}}
-        		  		frameLength={70.0}
-        		  	/>
-*/}				</Button>
+            		<span id="spann" className="fa fa-3x fa-plus"></span> 
+            		<h6 id="cartHeading">Add Item</h6>
+				</Button>
 		    </h1>
 		    <h5 className="heading1"> Select an Item to add to your Shopping Cart </h5>
 
@@ -325,4 +312,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth,
 })
 
-export default connect(mapStateToProps,  {})(Menu)
+export default connect(mapStateToProps,  {})(editMenu)
