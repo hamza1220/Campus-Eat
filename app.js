@@ -189,6 +189,15 @@ app.post('/api/menu', (req,res)=>{
 
 })
 
+app.post('/api/delete_item' , (req,res)=>{
+    // console.log(req.body.item_id)
+    Item.deleteOne({
+        item_id: parseInt(req.body.item_id,10)
+    })
+    .then(a => {console.log(a)})
+
+})
+
 app.post('/api/orders', (req,res)=>{
     console.log("sending orders of",req.body)
     Order.find({
@@ -198,20 +207,50 @@ app.post('/api/orders', (req,res)=>{
 
 })
 
-app.post('/additem', function(req, res) {
-    const newItem= new Item({
-        item_id : req.body.item_id,
-        name : req.body.name,
-        price : req.body.price,
-        category : req.body.category,
-        restaurant_name : req.body.restaurant_name
-    });
-    newItem.save()
-    .then(item=>{
-        res.json(item)
-    });
-    console.log(req.body)
+app.post('/api/additem', function(req, res) {
+    
+    let max = 0
+    let p1 = new Promise((resolve, reject) =>{
+        let items = Item.find()   
+        resolve(items)
+        })
+        p1.then(items => {
+            for (var i = items.length - 1; i >= 0; i--) {
+                if(items[i]["item_id"]>max){
+                    max=items[i]["item_id"]
+                }    
+            }
+
+            const newItem = new Item({
+                item_id : max+1,
+                name : req.body.name.charAt(0).toUpperCase() + req.body.name.slice(1),
+                price : req.body.price,
+                category : req.body.category,
+                restaurant_name : req.body.rest
+            });
+            newItem.save()
+            .then(Item => {
+                res.json(max+1)
+            })
+        })
+
 });
+
+app.post('/api/edititem', function(req, res) {
+    console.log("here", req.body.item_id, req.body.name, req.body.price, req.body.category) 
+
+    Item.updateOne(
+        {item_id: req.body.item_id}, 
+        {$set: {   
+                    name: req.body.name,
+                    price: parseInt(req.body.price,10),
+                    category: req.body.category
+                
+        }}).then(res1 =>{
+            console.log(res1)
+            res.json("edited")
+        })
+})
 
 app.post('/addrest', function(req, res) {
     const newRest= new Rest({
