@@ -4,16 +4,18 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { loginUser } from '../actions/authentication';
 import MetaTags from 'react-meta-tags';
-import StarRatings from 'react-star-ratings';
-
+import StarRatings from './react-star-ratings';
+import classnames from 'classnames';
+import logo from './redlogo.png'
+import '../App.css'
 
 
 class b2 extends Component {
 
-    constructor(props) {
+    constructor() {
         super(props);
         this.state = {
-            rating: 8,
+            rating: '',
             
         }
         
@@ -34,7 +36,8 @@ componentDidMount(){
         .then(res => {
             res.json()
             .then(body => {
-                this.setState({rating: parseInt(body,10)})
+                let t = parseInt(body,10)
+                this.setState({rating: t})
             }); 
         })
     }
