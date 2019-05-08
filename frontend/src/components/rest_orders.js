@@ -199,6 +199,7 @@ class rest_orders extends Component {
               <div id = "list"> 
                       <ul id = "uList">
                           <li id = "resName">Order#: {d.orderID}</li>
+                          <li>&nbsp;&nbsp;&nbsp;Customer Name: &nbsp; {d.customer_name}</li>
                           <li>&nbsp;&nbsp;&nbsp;Phone Number: &nbsp; {d.customer_number}</li>
                           <li>&nbsp;&nbsp;&nbsp;Order Placed at: &nbsp; {(d.order_time).split('T')[0].split('-')[2]}-{(d.order_time).split('T')[0].split('-')[1]}-{(d.order_time).split('T')[0].split('-')[0]} &nbsp;&nbsp; {(parseInt(d.order_time.split('T')[1].split('.')[0], 10)+5)%24 }:{(d.order_time.split('T')[1]).split(':')[1]}:{(d.order_time.split('T')[1]).split(':')[2].split('.')[0]} </li>                            
                           <li>&nbsp;&nbsp;&nbsp;Location: &nbsp; {d.del_location}</li>
@@ -242,6 +243,7 @@ class rest_orders extends Component {
               <div id = "list"> 
                       <ul id = "uList">
                           <li id = "resName">Order#: {d.orderID}</li>
+                          <li>&nbsp;&nbsp;&nbsp;Customer Name: &nbsp; {d.customer_name}</li>
                           <li>&nbsp;&nbsp;&nbsp;Phone Number: &nbsp; {d.customer_number}</li>
                           <li>&nbsp;&nbsp;&nbsp;Order Placed at: &nbsp; {(d.order_time).split('T')[0].split('-')[2]}-{(d.order_time).split('T')[0].split('-')[1]}-{(d.order_time).split('T')[0].split('-')[0]} &nbsp;&nbsp; {(parseInt(d.order_time.split('T')[1].split('.')[0], 10)+5)%24 }:{(d.order_time.split('T')[1]).split(':')[1]}:{(d.order_time.split('T')[1]).split(':')[2].split('.')[0]} </li>                            
                           <li>&nbsp;&nbsp;&nbsp;Location: &nbsp; {d.del_location}</li>

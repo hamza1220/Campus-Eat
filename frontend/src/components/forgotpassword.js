@@ -21,21 +21,23 @@ class Login extends Component {
     console.log(JSON.stringify(this.state))
  
     fetch('api/forgot-pw', {
-      method: 'POST',
-      body: JSON.stringify(this.state.changePassEmail),
-      headers: {
-        "Content-Type": "application/json",
-      }
-    })
+          method: 'POST',
+          body: JSON.stringify({email: this.state.changePassEmail}),
+          headers: {
+            "Content-Type": "application/json",
+          }
+        })
     .then(res => {
-      res.json().then(body => console.log(body)); 
+      res.json()
+      .then(body => 
+        {console.log(body)}); 
     })
     this.setState({clicked:true})
   }
 
   render() {
     if (this.state.clicked) {
-      console.log("Should redirect here.")
+      // console.log("Should redirect here.")
       return <Redirect to='/passwordsent'/>;
      }
 

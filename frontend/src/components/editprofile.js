@@ -9,6 +9,10 @@ import classnames from 'classnames';
 import '../App.css'
 import logo from './redlogo.png'
 
+import Validator from 'validator';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css' 
+
 
 class EditProfile extends Component {
 
@@ -22,7 +26,7 @@ class EditProfile extends Component {
             password_confirm: '',
             user_type: '',
             errors: {},
-            clicked: false
+            succ: false
         }
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -36,17 +40,64 @@ class EditProfile extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        const user = {
-            name: this.state.name,
-            email: this.state.email,
-            number: this.state.number,
-            password: this.state.password,
-            password_confirm: this.state.password_confirm,
-            user_type: this.state.user_type
-        }
-        this.props.editUser(user,this.props.history)
 
-        this.setState({clicked:true}) 
+        let testsPassed = true
+
+        if(!Validator.isLength(this.state.name, { min: 2, max: 30 })) {
+            testsPassed = false
+            toast.error("Name must be between 2 and 30 characters", {
+              position: toast.POSITION.TOP_CENTER,
+            })
+
+        }
+
+        if((Validator.isLength(this.state.number, {min: 11, max: 11})) === false){
+            testsPassed = false
+            toast.error("Length of number should be 11", {
+              position: toast.POSITION.TOP_CENTER,
+            })
+        } 
+        // console.log("length is 11")
+        if ((Validator.isNumeric(this.state.number, [{no_symbols: true}])) === false) {
+            // console.log('Please enter a valid number, e.g 03001234567')
+            testsPassed = false
+            toast.error("Please enter a valid number, e.g 03001234567", {
+              position: toast.POSITION.TOP_CENTER,
+            })
+        }
+
+        if (this.state.password !== '' || this.state.password_confirm !== '') {
+
+            if(!Validator.isLength(this.state.password, {min: 6, max: 30})) {
+                testsPassed = false
+                toast.error("Password must have 6 chars.", {
+                position: toast.POSITION.TOP_CENTER,
+                })
+            }
+
+            if((!Validator.equals(this.state.password, this.state.password_confirm))) {
+                testsPassed = false
+                toast.error("Password and Confirm Password must match", {
+                position: toast.POSITION.TOP_CENTER,
+                })
+            }
+        }
+
+        if (testsPassed) {
+            this.setState({succ:true})
+            const user = {
+                name: this.state.name,
+                email: this.state.email,
+                number: this.state.number,
+                password: this.state.password,
+                password_confirm: this.state.password_confirm,
+                user_type: this.state.user_type
+            }
+            this.props.editUser(user,this.props.history)
+        }
+
+        // this.setState({clicked:true}) 
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -63,7 +114,7 @@ class EditProfile extends Component {
     componentDidMount() {
         // this.setState({email: this.props.auth.user.emai;})
         console.log(this.props.auth.user.email)
-        fetch('api/gibprofile', {
+        fetch('api/giveprofile', {
           method: 'POST',
           body: JSON.stringify({email: String(this.props.auth.user.email)}),
           headers: {
@@ -78,12 +129,21 @@ class EditProfile extends Component {
         }); 
     }
 
-    
 
     render() {
         const { errors } = this.state;
 
-        if (this.state.clicked) {
+        toast.configure({
+            autoClose: 8000,
+            draggable: true,
+        });
+
+        if (this.state.succ) {
+            toast.error("Profile Updated Successfully. Happy Ordering!", {
+                autoClose: 4000,
+                position: toast.POSITION.TOP_CENTER,
+            })
+
             return <Redirect to='/userscreen'/>;
         }
 
