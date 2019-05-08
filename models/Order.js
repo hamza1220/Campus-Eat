@@ -7,6 +7,10 @@ const OrderSchema = new Schema({
         type: Number,
         required: true
     },
+    customer_name: {
+        type: String,
+        required: true
+    },
     customer_email: {
         type: String,
         required: true

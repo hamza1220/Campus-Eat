@@ -229,6 +229,7 @@ app.post('/addrest', function(req, res) {
 app.post('/placeorder', function(req, res) {
     const newOrder= new Order({
         orderID : req.body.orderID,
+        customer_name: req.body.customer_name,
         customer_email : req.body.customer_email,
         customer_number : req.body.customer_number,
         restaurant_name:req.body.restaurant_name,
@@ -241,7 +242,7 @@ app.post('/placeorder', function(req, res) {
     });
     newOrder.save()
     .then(order=>{
-        res.json("Your Order has been Placed. Track in Orders Screen")
+        res.json("Your Order has been Placed. Track it in Orders.")
     });
     
     console.log(req.body)
@@ -250,6 +251,7 @@ app.post('/placeorder', function(req, res) {
 app.post('/addorder', function(req,res){
     const newOrder= new Order({
         orderID : req.body.orderID,
+        customer_name: req.body.customer_name,
         customer_email : req.body.customer_email,
         restaurant_name : req.body.restaurant_name,
         items : req.body.items,
