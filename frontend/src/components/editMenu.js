@@ -74,59 +74,82 @@ class editMenu extends Component {
 
 	addItem(event){
 		event.preventDefault();
-		this.setState({clicked: true})
-		console.log(event.target.name.value , event.target.price.value, this.state.category)		
-		let n = event.target.name.value.charAt(0).toUpperCase() + event.target.name.value.slice(1)
-		let p = event.target.price.value
 
-		if (this.state.category!=='Select Category'){
-		fetch('api/additem', {
-	      method: 'POST',
-	      body: JSON.stringify({rest: String(this.props.auth.user.user_type).split('_')[1], name: event.target.name.value, price: event.target.price.value, category: this.state.category}),
-	      headers: {
-	        "Content-Type": "application/json",
-	      }
-	    }).then(res=>{
+		if (event.target.price.value <= 0) {
+			toast.error("Price of an item cannot be 0 or less than 0. " , {
+	        position: toast.POSITION.TOP_CENTER,
+	        autoClose: 8000
+	    })}
 
-			// console.log("check1",event.target.name.value , event.target.price.value, this.state.category)		
+		else {
+			this.setState({clicked: true})
+			console.log(event.target.name.value , event.target.price.value, this.state.category)		
+			let n = event.target.name.value.charAt(0).toUpperCase() + event.target.name.value.slice(1)
+			let p = event.target.price.value
 
-	    	let x = this.state.category
-	    	let y = this.state.rest
-		    this.state.menu.push({item_id: res, name: n, price: p, category: x, restaurant_name: y})
-	       	this.setState({showmessage:true, message: "Item Added To Menu", category: 'Select Category', clicked: false})
-	    	
-	    })
-	    	
-       }
+			if (this.state.category!=='Select Category'){
+			fetch('api/additem', {
+		      method: 'POST',
+		      body: JSON.stringify({rest: String(this.props.auth.user.user_type).split('_')[1], name: event.target.name.value, price: event.target.price.value, category: this.state.category}),
+		      headers: {
+		        "Content-Type": "application/json",
+		      }
+		    }).then(res=>{
+
+				// console.log("check1",event.target.name.value , event.target.price.value, this.state.category)		
+
+		    	let x = this.state.category
+		    	let y = this.state.rest
+			    this.state.menu.push({item_id: res, name: n, price: p, category: x, restaurant_name: y})
+		       	this.setState({showmessage:true, message: "Item Added To Menu", category: 'Select Category', clicked: false})
+		    	
+		    })
+		    	
+	       }
+		}
+
+
 
 	}
 
 	editItem(e){
 		e.preventDefault()
 		console.log(this.state.ename, this.state.eprice, this.state.category, this.state.eid)
-		fetch('api/edititem', {
-	      method: 'POST',
-	      body: JSON.stringify({rest: String(this.props.auth.user.user_type).split('_')[1], name: this.state.ename, price: this.state.eprice, item_id: this.state.eid,  category: this.state.category}),
-	      headers: {
-	        "Content-Type": "application/json",
-	      }
-	    }).then(res => {    	
-	    	let filtered = this.state.menu
-		    for (var i = filtered.length - 1; i >= 0; i--) {
-		    	if (filtered[i]["item_id"] ===this.state.eid){
-		    		filtered[i]["name"]=this.state.ename
-		    		filtered[i]["price"]=parseInt(this.state.eprice,10)
-		    		filtered[i]["category"]=this.state.category
-		    		break
-		    	}
-		    }
-		    this.setState({menu: filtered})
-	       	this.setState({edit: false, editmessage:true, emessage: "Item has been Edited." ,category: 'Select Category'})
-	    })
 
-	   	toast.error("Item edited successfully. " , {
+		if (this.state.eprice <= 0) {
+			toast.error("Price of an item cannot be 0 or less than 0. " , {
 	        position: toast.POSITION.TOP_CENTER,
-	    });
+	        autoClose: 8000
+	    })}
+
+		else {
+
+		
+			fetch('api/edititem', {
+		      method: 'POST',
+		      body: JSON.stringify({rest: String(this.props.auth.user.user_type).split('_')[1], name: this.state.ename, price: this.state.eprice, item_id: this.state.eid,  category: this.state.category}),
+		      headers: {
+		        "Content-Type": "application/json",
+		      }
+		    }).then(res => {    	
+		    	let filtered = this.state.menu
+			    for (var i = filtered.length - 1; i >= 0; i--) {
+			    	if (filtered[i]["item_id"] ===this.state.eid){
+			    		filtered[i]["name"]=this.state.ename
+			    		filtered[i]["price"]=parseInt(this.state.eprice,10)
+			    		filtered[i]["category"]=this.state.category
+			    		break
+			    	}
+			    }
+			    this.setState({menu: filtered})
+		       	this.setState({edit: false, editmessage:true, emessage: "Item has been Edited." ,category: 'Select Category'})
+		    })
+
+		   	toast.error("Item edited successfully. " , {
+		        position: toast.POSITION.TOP_CENTER,
+		    });
+
+		}
 
 
 
