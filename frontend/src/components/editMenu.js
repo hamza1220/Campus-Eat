@@ -8,8 +8,17 @@ import '../App.css'
 // import NotificationBadge from 'react-notification-badge';
 // import {Effect} from 'react-notification-badge';
 
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+
+
+
+
+		 		// onClick = {(e)=> {this.removeItem(e,d.item_id)}}> &nbsp; Remove &nbsp; &nbsp; 
+
+
 
 class editMenu extends Component {
  	constructor(props){
@@ -115,6 +124,11 @@ class editMenu extends Component {
 	       	this.setState({edit: false, editmessage:true, emessage: "Item has been Edited." ,category: 'Select Category'})
 	    })
 
+	   	toast.error("Item edited successfully. " , {
+	        position: toast.POSITION.TOP_CENTER,
+	    });
+
+
 
 	}   
 
@@ -149,8 +163,27 @@ class editMenu extends Component {
         })
     }
 
-	removeItem(e, item_id){
-		e.preventDefault()
+    handleRemove(e, itemID, name) {
+	    confirmAlert({
+	      title: 'Delete ' + name,
+	      message: 'Are you sure you want to delete '+ name + ' from menu?',
+	      buttons: [
+	        {
+	          label: 'Yes',
+	          // onClick: () => alert('Click Yes'),
+	          onClick: ()=> {this.removeItem(e,itemID, name)}
+
+	        },
+	        {
+	          label: 'No',
+	        }
+	      ]
+	    });
+
+    }
+
+	removeItem(e, item_id, name){
+		e.preventDefault();
 		let p1 = new Promise((resolve, reject)=>{
 			let filtered = this.state.menu.filter(item => item["item_id"]!== item_id)
 	            resolve(filtered)
@@ -168,6 +201,11 @@ class editMenu extends Component {
 	      }
 	    })
 
+	   	toast.error(name + " deleted successfully. " , {
+	        position: toast.POSITION.TOP_CENTER,
+	    });
+
+
 
 	}
 
@@ -178,6 +216,12 @@ class editMenu extends Component {
 
 
     render() {
+
+	    toast.configure({
+  			autoClose: 6000,
+		 	draggable: false,
+		});
+
 
     	var food= []
     	for (var i = this.state.menu.length - 1; i >= 0; i--) {
@@ -203,7 +247,9 @@ class editMenu extends Component {
 		    		<div> Rs.{d.price} &nbsp; </div>
 	    		</div>
 		 	<Button variant="info" className="itemButton" title="Edit this item" onClick = {(e)=>{this.handleShow1(e,d.item_id, d.name, d.price, d.category)}}> &nbsp; Edit &nbsp; &nbsp; </Button>  
-		 	<Button variant="danger" className="itemButton" title="Remove this item from inventory" onClick = {(e)=> {this.removeItem(e,d.item_id)}}> &nbsp; Remove &nbsp; &nbsp; </Button>
+		 	<Button variant="danger" className="itemButton" title="Remove this item from inventory" 
+		 		onClick = {(e)=> {this.handleRemove(e,d.item_id, d.name)}}> &nbsp; Remove &nbsp; &nbsp; 
+		 	</Button>
 
     		</div>
     	)
@@ -216,7 +262,9 @@ class editMenu extends Component {
 		    		<div> Rs.{d.price} &nbsp; </div>
 	    		</div>
 		 	<Button variant="info" className="itemButton" title="Edit this item" onClick = {(e)=>{this.handleShow1(e,d.item_id, d.name, d.price, d.category)}}> &nbsp; Edit &nbsp; &nbsp; </Button>  
-		 	<Button variant="danger" className="itemButton" title="Remove this item from inventory" onClick = {(e)=> {this.removeItem(e,d.item_id)}}> &nbsp; Remove &nbsp; &nbsp; </Button>  
+		 	<Button variant="danger" className="itemButton" title="Remove this item from inventory"
+		 		onClick = {(e)=> {this.handleRemove(e,d.item_id, d.name)}}> &nbsp; Remove &nbsp; &nbsp; 
+		 	 </Button>  
 
     		</div>
     	)
