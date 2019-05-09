@@ -363,7 +363,7 @@ class editMenu extends Component {
             		<h6 id="cartHeading">Add Item</h6>
 				</Button>
 		    </h1>
-		    <h5 className="heading1"> Select an Item to add to your Shopping Cart </h5>
+		    <h5 className="heading1"> Use the edit and remove buttons to change menu. Press "Add Item" to add new item. </h5>
 
             <br/>
 	            <h4 className = "heading">Food</h4>

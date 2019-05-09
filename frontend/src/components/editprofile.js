@@ -58,7 +58,7 @@ class EditProfile extends Component {
             })
         } 
         // console.log("length is 11")
-        if ((Validator.isNumeric(this.state.number, [{no_symbols: true}])) === false) {
+        if ((Validator.isNumeric(this.state.number, {no_symbols: true})) === false) {
             // console.log('Please enter a valid number, e.g 03001234567')
             testsPassed = false
             toast.error("Please enter a valid number, e.g 03001234567", {
