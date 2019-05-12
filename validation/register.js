@@ -41,9 +41,10 @@ module.exports = function validateRegisterInput(data, editprofile) {
             errors.number = 'Number should have 11 digits'
         }
 
-        if ((Validator.isNumeric(num, [{no_symbols: true}])) === false) {
+        if ((Validator.isNumeric(num, {no_symbols: true})) === false) {
             errors.number = 'Please enter a valid number, e.g 03001234567'
         } 
+        
 
         // if(/^\d+$/.test(data.number)){
         //     errors.number = 'Number cannot contain alphabets'

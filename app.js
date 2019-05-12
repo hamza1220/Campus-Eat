@@ -343,7 +343,9 @@ app.post('/processing', function(req, res){
 })
 
 app.post('/api/search', function(req, res) {
+    var fullQuery= req.body.user.search
     var searchArray = req.body.user.search.split(" ");
+    searchArray.push(fullQuery)
     var returnArray= []
     var count= 0
     for(var i=0;i<searchArray.length;i++){

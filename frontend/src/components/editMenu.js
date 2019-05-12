@@ -8,8 +8,17 @@ import '../App.css'
 // import NotificationBadge from 'react-notification-badge';
 // import {Effect} from 'react-notification-badge';
 
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+
+
+
+
+		 		// onClick = {(e)=> {this.removeItem(e,d.item_id)}}> &nbsp; Remove &nbsp; &nbsp; 
+
+
 
 class editMenu extends Component {
  	constructor(props){
@@ -65,55 +74,83 @@ class editMenu extends Component {
 
 	addItem(event){
 		event.preventDefault();
-		this.setState({clicked: true})
-		console.log(event.target.name.value , event.target.price.value, this.state.category)		
-		let n = event.target.name.value.charAt(0).toUpperCase() + event.target.name.value.slice(1)
-		let p = event.target.price.value
 
-		if (this.state.category!=='Select Category'){
-		fetch('api/additem', {
-	      method: 'POST',
-	      body: JSON.stringify({rest: String(this.props.auth.user.user_type).split('_')[1], name: event.target.name.value, price: event.target.price.value, category: this.state.category}),
-	      headers: {
-	        "Content-Type": "application/json",
-	      }
-	    }).then(res=>{
+		if (event.target.price.value <= 0) {
+			toast.error("Price of an item cannot be 0 or less than 0. " , {
+	        position: toast.POSITION.TOP_CENTER,
+	        autoClose: 8000
+	    })}
 
-			// console.log("check1",event.target.name.value , event.target.price.value, this.state.category)		
+		else {
+			this.setState({clicked: true})
+			console.log(event.target.name.value , event.target.price.value, this.state.category)		
+			let n = event.target.name.value.charAt(0).toUpperCase() + event.target.name.value.slice(1)
+			let p = event.target.price.value
 
-	    	let x = this.state.category
-	    	let y = this.state.rest
-		    this.state.menu.push({item_id: res, name: n, price: p, category: x, restaurant_name: y})
-	       	this.setState({showmessage:true, message: "Item Added To Menu", category: 'Select Category', clicked: false})
-	    	
-	    })
-	    	
-       }
+			if (this.state.category!=='Select Category'){
+			fetch('api/additem', {
+		      method: 'POST',
+		      body: JSON.stringify({rest: String(this.props.auth.user.user_type).split('_')[1], name: event.target.name.value, price: event.target.price.value, category: this.state.category}),
+		      headers: {
+		        "Content-Type": "application/json",
+		      }
+		    }).then(res=>{
+
+				// console.log("check1",event.target.name.value , event.target.price.value, this.state.category)		
+
+		    	let x = this.state.category
+		    	let y = this.state.rest
+			    this.state.menu.push({item_id: res, name: n, price: p, category: x, restaurant_name: y})
+		       	this.setState({showmessage:true, message: "Item Added To Menu", category: 'Select Category', clicked: false})
+		    	
+		    })
+		    	
+	       }
+		}
+
+
 
 	}
 
 	editItem(e){
 		e.preventDefault()
 		console.log(this.state.ename, this.state.eprice, this.state.category, this.state.eid)
-		fetch('api/edititem', {
-	      method: 'POST',
-	      body: JSON.stringify({rest: String(this.props.auth.user.user_type).split('_')[1], name: this.state.ename, price: this.state.eprice, item_id: this.state.eid,  category: this.state.category}),
-	      headers: {
-	        "Content-Type": "application/json",
-	      }
-	    }).then(res => {    	
-	    	let filtered = this.state.menu
-		    for (var i = filtered.length - 1; i >= 0; i--) {
-		    	if (filtered[i]["item_id"] ===this.state.eid){
-		    		filtered[i]["name"]=this.state.ename
-		    		filtered[i]["price"]=parseInt(this.state.eprice,10)
-		    		filtered[i]["category"]=this.state.category
-		    		break
-		    	}
-		    }
-		    this.setState({menu: filtered})
-	       	this.setState({edit: false, editmessage:true, emessage: "Item has been Edited." ,category: 'Select Category'})
-	    })
+
+		if (this.state.eprice <= 0) {
+			toast.error("Price of an item cannot be 0 or less than 0. " , {
+	        position: toast.POSITION.TOP_CENTER,
+	        autoClose: 8000
+	    })}
+
+		else {
+
+		
+			fetch('api/edititem', {
+		      method: 'POST',
+		      body: JSON.stringify({rest: String(this.props.auth.user.user_type).split('_')[1], name: this.state.ename, price: this.state.eprice, item_id: this.state.eid,  category: this.state.category}),
+		      headers: {
+		        "Content-Type": "application/json",
+		      }
+		    }).then(res => {    	
+		    	let filtered = this.state.menu
+			    for (var i = filtered.length - 1; i >= 0; i--) {
+			    	if (filtered[i]["item_id"] ===this.state.eid){
+			    		filtered[i]["name"]=this.state.ename
+			    		filtered[i]["price"]=parseInt(this.state.eprice,10)
+			    		filtered[i]["category"]=this.state.category
+			    		break
+			    	}
+			    }
+			    this.setState({menu: filtered})
+		       	this.setState({edit: false, editmessage:true, emessage: "Item has been Edited." ,category: 'Select Category'})
+		    })
+
+		   	toast.error("Item edited successfully. " , {
+		        position: toast.POSITION.TOP_CENTER,
+		    });
+
+		}
+
 
 
 	}   
@@ -149,8 +186,27 @@ class editMenu extends Component {
         })
     }
 
-	removeItem(e, item_id){
-		e.preventDefault()
+    handleRemove(e, itemID, name) {
+	    confirmAlert({
+	      title: 'Delete ' + name,
+	      message: 'Are you sure you want to delete '+ name + ' from menu?',
+	      buttons: [
+	        {
+	          label: 'Yes',
+	          // onClick: () => alert('Click Yes'),
+	          onClick: ()=> {this.removeItem(e,itemID, name)}
+
+	        },
+	        {
+	          label: 'No',
+	        }
+	      ]
+	    });
+
+    }
+
+	removeItem(e, item_id, name){
+		e.preventDefault();
 		let p1 = new Promise((resolve, reject)=>{
 			let filtered = this.state.menu.filter(item => item["item_id"]!== item_id)
 	            resolve(filtered)
@@ -168,6 +224,11 @@ class editMenu extends Component {
 	      }
 	    })
 
+	   	toast.error(name + " deleted successfully. " , {
+	        position: toast.POSITION.TOP_CENTER,
+	    });
+
+
 
 	}
 
@@ -178,6 +239,12 @@ class editMenu extends Component {
 
 
     render() {
+
+	    toast.configure({
+  			autoClose: 6000,
+		 	draggable: false,
+		});
+
 
     	var food= []
     	for (var i = this.state.menu.length - 1; i >= 0; i--) {
@@ -203,7 +270,9 @@ class editMenu extends Component {
 		    		<div> Rs.{d.price} &nbsp; </div>
 	    		</div>
 		 	<Button variant="info" className="itemButton" title="Edit this item" onClick = {(e)=>{this.handleShow1(e,d.item_id, d.name, d.price, d.category)}}> &nbsp; Edit &nbsp; &nbsp; </Button>  
-		 	<Button variant="danger" className="itemButton" title="Remove this item from inventory" onClick = {(e)=> {this.removeItem(e,d.item_id)}}> &nbsp; Remove &nbsp; &nbsp; </Button>
+		 	<Button variant="danger" className="itemButton" title="Remove this item from inventory" 
+		 		onClick = {(e)=> {this.handleRemove(e,d.item_id, d.name)}}> &nbsp; Remove &nbsp; &nbsp; 
+		 	</Button>
 
     		</div>
     	)
@@ -216,7 +285,9 @@ class editMenu extends Component {
 		    		<div> Rs.{d.price} &nbsp; </div>
 	    		</div>
 		 	<Button variant="info" className="itemButton" title="Edit this item" onClick = {(e)=>{this.handleShow1(e,d.item_id, d.name, d.price, d.category)}}> &nbsp; Edit &nbsp; &nbsp; </Button>  
-		 	<Button variant="danger" className="itemButton" title="Remove this item from inventory" onClick = {(e)=> {this.removeItem(e,d.item_id)}}> &nbsp; Remove &nbsp; &nbsp; </Button>  
+		 	<Button variant="danger" className="itemButton" title="Remove this item from inventory"
+		 		onClick = {(e)=> {this.handleRemove(e,d.item_id, d.name)}}> &nbsp; Remove &nbsp; &nbsp; 
+		 	 </Button>  
 
     		</div>
     	)
@@ -363,7 +434,7 @@ class editMenu extends Component {
             		<h6 id="cartHeading">Add Item</h6>
 				</Button>
 		    </h1>
-		    <h5 className="heading1"> Select an Item to add to your Shopping Cart </h5>
+		    <h5 className="heading1"> Use the edit and remove buttons to change menu. Press "Add Item" to add new item. </h5>
 
             <br/>
 	            <h4 className = "heading">Food</h4>
