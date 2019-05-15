@@ -345,26 +345,60 @@ app.post('/processing', function(req, res){
 app.post('/api/search', function(req, res) {
     var fullQuery= req.body.user.search
     var searchArray = req.body.user.search.split(" ");
-    searchArray.push(fullQuery)
+    // console.log(searchArray, searchArray.length, Math.ceil(searchArray.length/2) )    
+    // searchArray = searchArray.slice(0, Math.ceil(searchArray.length/2))
+    // searchArray.push(fullQuery)
+    console.log(searchArray)
     var returnArray= []
     var count= 0
-    for(var i=0;i<searchArray.length;i++){
-        count++
-        var searchQuery= searchArray[i]
-        let p= new Promise((resolve,reject)=>{
-            Item.find({
-                name: searchQuery
-            })
-            .then(result=>{
-                returnArray.push(result)
-                if(returnArray.length==searchArray.length){
-                    res.json(returnArray)
-                    resolve('done')
+    let result=[]
+    let p = new Promise((resolve, reject)=>{
+        result = Item.find() 
+        resolve(result)
+    }).then(result=>{
+
+        let p2 = new Promise((resolve, reject) => {
+            for(var i = 0; i < searchArray.length; i++) {
+                console.log("searching for ", searchArray[i])
+                    for (var j = result.length - 1; j >= 0; j--) {
+                        if (result[j]["name"].includes(searchArray[i])) {
+                            // console.log("found , " + result[j]["name"])
+                            returnArray.push(result[j])
+                        } else {
+                            // console.log(result[j]["name"])
+                        }
+                    } 
                 }
+
+            resolve(returnArray)
+            }).then(returnArray => {
+                console.log(returnArray)
+                 for (var i = returnArray.length - 1; i >= 0; i--) {
+                    // console.log("i is ", i)
+                     for (var j = returnArray.length - 1; j >= 0; j--) {
+                        console.log("i, j is ", i, j)
+                        if ((returnArray[i] === undefined) || (returnArray[j] === undefined)) {
+                            continue
+                        }
+                         // console.log(returnArray[i],returnArray[j])
+                         if (returnArray[i]["id"] === returnArray[j]["id"] && i !== j ) {
+                             returnArray.splice(i,1)
+                         }
+                    }
+                 }
+
+                res.json(returnArray)
             })
+
         })
-    }
-});
+
+    })
+// });
+
+
+// For i in items.length
+//   If items[i]["name"].includes("egg") or items[i]["name"].includes("fried")
+
 
 const PORT = process.env.PORT || 5000;
 
