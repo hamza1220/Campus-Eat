@@ -94,6 +94,7 @@ class Userscreen extends Component {
 
 const mapStateToProps = (state) => ({
     rest: state.rest,
+    auth: state.auth
 })
 
 export  default connect(mapStateToProps, { setRestaurant })(Userscreen)

@@ -2,6 +2,7 @@ import axios from 'axios';
 import { GET_ERRORS, SET_CURRENT_USER } from './types';
 import setAuthToken from '../setAuthToken';
 import jwt_decode from 'jwt-decode';
+import {Redirect } from 'react-router-dom';
 
 export const registerUser = (user, history) => dispatch => {
     axios.post('/api/users/register', user)
@@ -52,5 +53,9 @@ export const logoutUser = (history) => dispatch => {
     localStorage.removeItem('jwtToken');
     setAuthToken(false);
     dispatch(setCurrentUser({}));
-    this.props.history.push('/');
+    if (history!==undefined)
+    {
+        history.push('/');
+    }
+    // return <Redirect to='/passwordsent'/>
 }
