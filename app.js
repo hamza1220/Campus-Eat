@@ -53,6 +53,9 @@ app.post('/api/rest-ratings', (req,res)=>{
     Rest.find()
     .then(response =>{
         console.log(response)
+        // for (i = 0; i < 5; i++) {
+        //   text += "The number is " + i + "<br>";
+        // }
     })
 	res.send({'Z':'3', 'C':'4', 'J':'3', 'F':'2'})
 })
