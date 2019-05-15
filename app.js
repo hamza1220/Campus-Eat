@@ -59,20 +59,16 @@ app.post('/api/rest-ratings', (req,res)=>{
         // console.log(response)
         for (i = 0; i < 4; i++) {
           if(response[i].restaurant_name==='Zakir'){
-              console.log("sds")
               z=response[i].rating
           }
           if(response[i].restaurant_name ==='Flavors'){
               f=response[i].rating
-              console.log("sds")
           }
-          if(response[i].restaurant_name==='Jammin'){
+          if(response[i].restaurant_name==='Jammin Java'){
               j=response[i].rating
-              console.log("sds")
           }
           if(response[i].restaurant_name==='ChopChop'){
               c=response[i].rating
-              console.log("sds")
           }
         }
         console.log(z,c,j,f)
