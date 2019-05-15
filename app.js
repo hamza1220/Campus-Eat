@@ -248,10 +248,16 @@ app.post('/api/additem', function(req, res) {
                     max=items[i]["item_id"]
                 }    
             }
+            let xname = req.body.name.split(" ")
+            let newname = ""
+            for (var j = xname.length - 1; j >= 0; j--) {
+                
+                newname = newname + xname[j].charAt(0).toUpperCase() + xname[j].slice(1)
+            }
 
             const newItem = new Item({
                 item_id : max+1,
-                name : req.body.name.charAt(0).toUpperCase() + req.body.name.slice(1),
+                name : newname,
                 price : req.body.price,
                 category : req.body.category,
                 restaurant_name : req.body.rest
@@ -267,10 +273,17 @@ app.post('/api/additem', function(req, res) {
 app.post('/api/edititem', function(req, res) {
     console.log("here", req.body.item_id, req.body.name, req.body.price, req.body.category) 
 
+    let xname = req.body.name.split(" ")
+    let newname = ""
+    for (var j = xname.length - 1; j >= 0; j--) {
+        
+        newname = newname + xname[j].charAt(0).toUpperCase() + xname[j].slice(1)
+    }
+
     Item.updateOne(
         {item_id: req.body.item_id}, 
         {$set: {   
-                    name: req.body.name,
+                    name: newname,
                     price: parseInt(req.body.price,10),
                     category: req.body.category
                 
