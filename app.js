@@ -245,11 +245,17 @@ app.post('/api/additem', function(req, res) {
                 }    
             }
             let xname = req.body.name.split(" ")
-            let newname = ""
-            for (var j = xname.length - 1; j >= 0; j--) {
-                
-                newname = newname + xname[j].charAt(0).toUpperCase() + xname[j].slice(1)
-            }
+            let newname = req.body.name
+
+            newname = newname.toLowerCase()
+            .split(' ')
+            .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+            .join(' ');
+
+            
+            // for (var j = xname.length - 1; j >= 0; j--) {    
+            //     newname = newname +" "+ xname[j].charAt(0).toUpperCase() + xname[j].slice(1)
+            // }
 
             const newItem = new Item({
                 item_id : max+1,
