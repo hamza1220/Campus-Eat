@@ -50,6 +50,10 @@ app.use(bodyParser.urlencoded({ extended: true}));
 
 
 app.post('/api/rest-ratings', (req,res)=>{
+    Rest.find()
+    .then(response =>{
+        console.log(response)
+    })
 	res.send({'Z':'3', 'C':'4', 'J':'3', 'F':'2'})
 })
 
