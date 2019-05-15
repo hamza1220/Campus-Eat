@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { setRestaurant } from '../actions/restaurant';
 import { Link, Redirect } from 'react-router-dom';
 
+// let auth1 = {}
 
 class Userscreen extends Component {
  	constructor(props){
@@ -33,6 +34,7 @@ class Userscreen extends Component {
 	    	this.setState({r3: body.J})
 	    	this.setState({r4: body.F})
 	    })
+        // auth1 = this.props.auth.user
 	}
 
     handleClick1(event){
@@ -44,6 +46,8 @@ class Userscreen extends Component {
 
     render() {
         return (
+        <div>
+            
             <div>
                 <MetaTags>
                     <meta charSet="utf-8" name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -88,6 +92,8 @@ class Userscreen extends Component {
                 	</div>
                 </Link>
             </div>
+            
+        </div>
         );
     }
 }
