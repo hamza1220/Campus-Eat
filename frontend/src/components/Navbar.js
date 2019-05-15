@@ -136,6 +136,26 @@ class Navbar extends Component {
                     <Link to="/editprofile"><button>Profile</button></Link>
                 </li>
                 <li >
+                    <Link to="/rest_orders"><button>Orders</button></Link>
+                </li>
+                <li style={{float: "left"}}>
+                    <a href= "/"><img src={logo}/></a>
+                </li>
+            </ul>
+
+
+        )
+        const manager1 = (
+            <ul id ="nav">
+                <li >
+                    <button onClick={this.onLogout.bind(this)}>
+                        Logout
+                    </button>
+                </li>
+                <li >
+                    <Link to="/editprofile"><button>Profile</button></Link>
+                </li>
+                <li >
                     <Link to="/rest_rating"><button>View Rating</button></Link>
                 </li>
                 <li >
@@ -148,7 +168,6 @@ class Navbar extends Component {
                     <a href= "/"><img src={logo}/></a>
                 </li>
             </ul>
-
         )
 
         const guestLinks = (
@@ -174,7 +193,8 @@ class Navbar extends Component {
         )
         return(
                 <div>
-                    {isAuthenticated ? (user.user_type==="customer"? customer1 : cashier1) : guestLinks}
+                    {isAuthenticated ? (user.user_type==="customer"? customer1 : 
+                        (user.user_type.split("_")[0]==="manager"? manager1 :cashier1)) : guestLinks}
                     <Modal show={this.state.show} onHide={this.handleClose}>
                       <Modal.Header closeButton>
                         <Modal.Title>Results here</Modal.Title>
