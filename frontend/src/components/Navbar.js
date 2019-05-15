@@ -51,6 +51,8 @@ class Navbar extends Component {
         		finalString= finalString+queryArray[i]+" "
         	}
         	var newStr = finalString.substring(0, finalString.length-1);
+        	// console.log(finalString.length)
+        	// console.log(newStr.length)
         	resolve(newStr)
         })
         convUpperCase.then(searchString=>{
@@ -63,22 +65,25 @@ class Navbar extends Component {
 	        })
 	        .then(res => {
 	          res.json().then(body => {
+	          	// console.log("Body is" , body, body[1], "")
 	            var finalArray= []
 	            let p= new Promise((resolve, reject)=>{
-	            	for(var i=0;i<body.length;i++){
-	            		var element= body[i]
-	            		for(var j=0;j<element.length;j++){
-	            			finalArray.push(element[j])
-	            		}
-	            	}
-	            	for(var i=0;i<finalArray.length;i++){
-	            		var currElement= finalArray[i]
-	            		for(var j=i+1;j<finalArray.length;j++){
-	            			if(finalArray[j].item_id==currElement.item_id){
-	            				finalArray.splice(j, 1)
-	            			}
-	            		}
-	            	}
+	            	finalArray = body
+	            	// for(var i=0;i<body.length;i++){
+	            	// 	var element= body[i]
+	            	// 	for(var j=0;j<element.length;j++){
+	            	// 		finalArray.push(element[j])
+	            	// 	}
+	            	// }
+
+	            	// for(var i=0;i<finalArray.length;i++){
+	            	// 	var currElement= finalArray[i]
+	            	// 	for(var j=i+1;j<finalArray.length;j++){
+	            	// 		if(finalArray[j].item_id==currElement.item_id){
+	            	// 			finalArray.splice(j, 1)
+	            	// 		}
+	            	// 	}
+	            	// }
 	            	resolve(finalArray)
 	            })
 	            p.then(array=>{

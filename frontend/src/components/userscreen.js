@@ -34,7 +34,6 @@ class Userscreen extends Component {
 	    	this.setState({r3: body.J})
 	    	this.setState({r4: body.F})
 	    })
-        // auth1 = this.props.auth.user
 	}
 
     handleClick1(event){
@@ -92,7 +91,7 @@ class Userscreen extends Component {
                 	</div>
                 </Link>
             </div>
-            
+
         </div>
         );
     }
