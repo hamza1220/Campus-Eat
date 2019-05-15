@@ -50,14 +50,35 @@ app.use(bodyParser.urlencoded({ extended: true}));
 
 
 app.post('/api/rest-ratings', (req,res)=>{
+    let z=0
+    let c=0
+    let j=0
+    let f=0
     Rest.find()
     .then(response =>{
-        console.log(response)
-        // for (i = 0; i < 5; i++) {
-        //   text += "The number is " + i + "<br>";
-        // }
+        // console.log(response)
+        for (i = 0; i < 4; i++) {
+          if(response[i].restaurant_name==='Zakir'){
+              console.log("sds")
+              z=response[i].rating
+          }
+          if(response[i].restaurant_name ==='Flavors'){
+              f=response[i].rating
+              console.log("sds")
+          }
+          if(response[i].restaurant_name==='Jammin'){
+              j=response[i].rating
+              console.log("sds")
+          }
+          if(response[i].restaurant_name==='ChopChop'){
+              c=response[i].rating
+              console.log("sds")
+          }
+        }
+        console.log(z,c,j,f)
+        res.send({'Z':z, 'C':c, 'J':j, 'F':f})
     })
-	res.send({'Z':'3', 'C':'4', 'J':'3', 'F':'2'})
+
 })
 
 app.post('/api/giveprofile', (req,res)=>{
