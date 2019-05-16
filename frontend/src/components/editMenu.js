@@ -96,11 +96,16 @@ class editMenu extends Component {
 		      }
 		    }).then(res=>{
 
-				// console.log("check1",event.target.name.value , event.target.price.value, this.state.category)		
+		    	let name = n.split(" ")
+		    	let newname = name[0]
+
+				for (var i = 1; i < name.length ; i++) {
+					newname = newname + " " + name[i].charAt(0).toUpperCase() + name[i].slice(1)
+				}
 
 		    	let x = this.state.category
 		    	let y = this.state.rest
-			    this.state.menu.push({item_id: res, name: n, price: p, category: x, restaurant_name: y})
+			    this.state.menu.push({item_id: res, name: newname, price: p, category: x, restaurant_name: y})
 		       	this.setState({showmessage:true, message: "Item Added To Menu", category: 'Select Category', clicked: false})
 		    	
 		    })
