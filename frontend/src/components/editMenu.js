@@ -192,7 +192,8 @@ class editMenu extends Component {
         })
     }
 
-    handleRemove(e, itemID, name) {
+    handleRemove(e, itemID, name, rest) {
+    	console.log(name, rest)
 	    confirmAlert({
 	      title: 'Delete ' + name,
 	      message: 'Are you sure you want to delete '+ name + ' from menu?',
@@ -200,8 +201,7 @@ class editMenu extends Component {
 	        {
 	          label: 'Yes',
 	          // onClick: () => alert('Click Yes'),
-	          onClick: ()=> {this.removeItem(e,itemID, name)}
-
+	          onClick: ()=> {this.removeItem(e, itemID, name, rest)}
 	        },
 	        {
 	          label: 'No',
@@ -211,7 +211,7 @@ class editMenu extends Component {
 
     }
 
-	removeItem(e, item_id, name){
+	removeItem(e, item_id, name, rest){
 		e.preventDefault();
 		let p1 = new Promise((resolve, reject)=>{
 			let filtered = this.state.menu.filter(item => item["item_id"]!== item_id)
@@ -224,7 +224,10 @@ class editMenu extends Component {
 
 		fetch('api/delete_item', {
 	      method: 'POST',
-	      body: JSON.stringify({item_id: item_id}),
+	      body: JSON.stringify({
+	      	item_id: item_id,
+	      	name: name,
+	      	rest: rest}),
 	      headers: {
 	        "Content-Type": "application/json",
 	      }
@@ -277,7 +280,7 @@ class editMenu extends Component {
 	    		</div>
 		 	<Button variant="info" className="itemButton" title="Edit this item" onClick = {(e)=>{this.handleShow1(e,d.item_id, d.name, d.price, d.category)}}> &nbsp; Edit &nbsp; &nbsp; </Button>  
 		 	<Button variant="danger" className="itemButton" title="Remove this item from inventory" 
-		 		onClick = {(e)=> {this.handleRemove(e,d.item_id, d.name)}}> &nbsp; Remove &nbsp; &nbsp; 
+		 		onClick = {(e)=> {this.handleRemove(e,d.item_id, d.name, this.state.rest)}}> &nbsp; Remove &nbsp; &nbsp; 
 		 	</Button>
 
     		</div>
@@ -292,7 +295,7 @@ class editMenu extends Component {
 	    		</div>
 		 	<Button variant="info" className="itemButton" title="Edit this item" onClick = {(e)=>{this.handleShow1(e,d.item_id, d.name, d.price, d.category)}}> &nbsp; Edit &nbsp; &nbsp; </Button>  
 		 	<Button variant="danger" className="itemButton" title="Remove this item from inventory"
-		 		onClick = {(e)=> {this.handleRemove(e,d.item_id, d.name)}}> &nbsp; Remove &nbsp; &nbsp; 
+		 		onClick = {(e)=> {this.handleRemove(e,d.item_id, d.name, this.state.rest)}}> &nbsp; Remove &nbsp; &nbsp; 
 		 	 </Button>  
 
     		</div>
