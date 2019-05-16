@@ -204,6 +204,7 @@ app.post('/api/rate', (req, res)=>{
 })
 
 
+
 app.post('/api/menu', (req,res)=>{
 	console.log("send menu of",req.body)
 	Item.find({
@@ -214,9 +215,10 @@ app.post('/api/menu', (req,res)=>{
 })
 
 app.post('/api/delete_item' , (req,res)=>{
-    // console.log(req.body.item_id)
+    console.log(req.body.name, req.body.rest)
     Item.deleteOne({
-        item_id: parseInt(req.body.item_id,10)
+        name: req.body.name,
+        restaurant_name: req.body.rest
     })
     .then(a => {console.log(a)})
 
