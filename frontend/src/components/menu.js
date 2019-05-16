@@ -177,6 +177,13 @@ class Menu extends Component {
     		}
     	}
 
+    	var promo = []
+		for (var j = this.state.menu.length - 1; j >= 0; j--) {
+    		if (this.state.menu[j].category==="Promotions"){
+    			drinks.push(this.state.menu[j])
+    		}
+    	}
+
     	let c = this.state.cart
 
     	const food_items = food.map((d,i)=> 
@@ -201,6 +208,18 @@ class Menu extends Component {
     		</div>
     	)
     	
+    	const promo_items = promo.map((d,i)=> 
+    		<div id="lol" key={i}>
+	    		<div id= "items" > 
+	    		    <div>&nbsp; {d.name} </div>
+	    			<div className="spacer"/>
+		    		<div> Rs.{d.price} &nbsp; </div>
+	    		</div>
+		 	<button id='b2' title="Add to cart" onClick = {(e)=> {this.addToCart(e,d.item_id,d.name,d.price, d.category)}}> &nbsp; + &nbsp; &nbsp; </button>  
+    		</div>
+    	)
+
+
     	const cart_table = c.map((d,i)=>
     		<tr>
 	    		<td> {d.item_id} </td>
@@ -323,6 +342,10 @@ class Menu extends Component {
 				<h4 className="heading">Drinks</h4>
 				{drink_items}
 				<br/>
+	            <h4 className = "heading">Promotions</h4>
+				{promo_items}
+				<br/>
+
 		        	{this.state.showmessage? view_message:view_cart}
             </div>
         	}

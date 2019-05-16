@@ -100,10 +100,16 @@ class editMenu extends Component {
 		    }).then(res=>{
 
 				// console.log("check1",event.target.name.value , event.target.price.value, this.state.category)		
+		    	let name = n.split(" ")
+		    	let newname = name[0]
+
+				for (var i = 1; i < name.length ; i++) {
+					newname = newname + " " + name[i].charAt(0).toUpperCase() + name[i].slice(1)
+				}
 
 		    	let x = this.state.category
 		    	let y = this.state.rest
-			    this.state.menu.push({item_id: res, name: n, price: p, category: x, restaurant_name: y})
+			    this.state.menu.push({item_id: res, name: newname, price: p, category: x, restaurant_name: y})
 		       	this.setState({showmessage:true, message: "Item Added To Menu", category: 'Select Category', clicked: false})
 		    })
 		    	
@@ -275,6 +281,13 @@ class editMenu extends Component {
     		}
     	}
 
+    	var promo = []
+    	for (var j = this.state.menu.length - 1; j >= 0; j--) {
+    		if (this.state.menu[j].category==="Promotions"){
+    			promo.push(this.state.menu[j])
+    		}
+    	}
+
     	let c = this.state.cart
 
     	const food_items = food.map((d,i)=> 
@@ -293,6 +306,21 @@ class editMenu extends Component {
     	)
 
     	const drink_items = drinks.map((d,i)=> 
+    		<div id="lol" key={i}>
+	    		<div id= "items" > 
+	    		    <div>&nbsp; {d.name} </div>
+	    			<div className="spacer"/>
+		    		<div> Rs.{d.price} &nbsp; </div>
+	    		</div>
+		 	<Button variant="info" className="itemButton" title="Edit this item" onClick = {(e)=>{this.handleShow1(e,d.item_id, d.name, d.price, d.category)}}> &nbsp; Edit &nbsp; &nbsp; </Button>  
+		 	<Button variant="danger" className="itemButton" title="Remove this item from inventory"
+		 		onClick = {(e)=> {this.handleRemove(e,d.item_id, d.name, this.state.rest)}}> &nbsp; Remove &nbsp; &nbsp; 
+		 	 </Button>  
+
+    		</div>
+    	)
+
+    	const promo_items = promo.map((d,i)=> 
     		<div id="lol" key={i}>
 	    		<div id= "items" > 
 	    		    <div>&nbsp; {d.name} </div>
@@ -460,6 +488,9 @@ class editMenu extends Component {
 				<br/>
 				<h4 className="heading">Drinks</h4>
 				{drink_items}
+				<br/>
+				<h4 className = "heading">Promotions</h4>
+				{promo_items}
 				<br/>
 		        	{this.state.showmessage? view_message:view_cart}
 		        	{this.state.edit? edit_cart:null}
