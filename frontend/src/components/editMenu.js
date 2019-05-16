@@ -40,11 +40,11 @@ class editMenu extends Component {
  			editmessage:false,
  			edititem: [],
  			ename:'',
+ 			// oldname:'',
  			eprice:0,
  			ecat: '',
  			eid: 0,
- 			emessage: ''
-
+ 			emessage: '',
  		};
         this.handleClose1 = this.handleClose1.bind(this);
         this.handleInputChangeName = this.handleInputChangeName.bind(this)
@@ -90,7 +90,10 @@ class editMenu extends Component {
 			if (this.state.category!=='Select Category'){
 			fetch('api/additem', {
 		      method: 'POST',
-		      body: JSON.stringify({rest: String(this.props.auth.user.user_type).split('_')[1], name: event.target.name.value, price: event.target.price.value, category: this.state.category}),
+		      body: JSON.stringify({rest: String(this.props.auth.user.user_type).split('_')[1], 
+		      	name: event.target.name.value, 
+		      	price: event.target.price.value, 
+		      	category: this.state.category}),
 		      headers: {
 		        "Content-Type": "application/json",
 		      }
@@ -102,7 +105,6 @@ class editMenu extends Component {
 		    	let y = this.state.rest
 			    this.state.menu.push({item_id: res, name: n, price: p, category: x, restaurant_name: y})
 		       	this.setState({showmessage:true, message: "Item Added To Menu", category: 'Select Category', clicked: false})
-		    	
 		    })
 		    	
 	       }
@@ -127,11 +129,18 @@ class editMenu extends Component {
 		
 			fetch('api/edititem', {
 		      method: 'POST',
-		      body: JSON.stringify({rest: String(this.props.auth.user.user_type).split('_')[1], name: this.state.ename, price: this.state.eprice, item_id: this.state.eid,  category: this.state.category}),
+		      body: JSON.stringify({rest: String(this.props.auth.user.user_type).split('_')[1], 
+		      	name: this.state.ename, 
+		      	price: this.state.eprice, 
+		      	item_id: this.state.eid, 
+		      	category: this.state.category
+		      }),
+
 		      headers: {
 		        "Content-Type": "application/json",
 		      }
-		    }).then(res => {    	
+		    }).then(res => { 
+		    	// console.log(this.state.oldname, this.state.ename)   	
 		    	let filtered = this.state.menu
 			    for (var i = filtered.length - 1; i >= 0; i--) {
 			    	if (filtered[i]["item_id"] ===this.state.eid){
@@ -150,9 +159,6 @@ class editMenu extends Component {
 		    });
 
 		}
-
-
-
 	}   
 
 
