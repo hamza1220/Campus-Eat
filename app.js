@@ -58,10 +58,10 @@ app.post('/api/rest-ratings', (req,res)=>{
     .then(response =>{
         // console.log(response)
         for (i = 0; i < 4; i++) {
-          if(response[i].restaurant_name==='Zakir'){
+          if(response[i].restaurant_name==='Zakir Tikka'){
               z=response[i].rating
           }
-          if(response[i].restaurant_name ==='Flavors'){
+          if(response[i].restaurant_name ==='Flavours'){
               f=response[i].rating
           }
           if(response[i].restaurant_name==='Jammin Java'){
@@ -244,24 +244,30 @@ app.post('/api/additem', function(req, res) {
                     max=items[i]["item_id"]
                 }    
             }
-            let xname = req.body.name.split(" ")
-            let newname = ""
+            let p2= new Promise((resolve, reject) =>{
+                let xname = req.body.name.split(" ")
+                let newname = xname[0]
 
-
-            for (var j = xname.length - 1; j >= 0; j--) {    
-                newname = newname +" "+ xname[j].charAt(0).toUpperCase() + xname[j].slice(1)
-            }
-
-            const newItem = new Item({
-                item_id : max+1,
-                name : newname,
-                price : req.body.price,
-                category : req.body.category,
-                restaurant_name : req.body.rest
-            });
-            newItem.save()
-            .then(Item => {
-                res.json(max+1)
+                for (var j= 1; j < xname.length; j++) {    
+                    newname = newname +" "+ xname[j].charAt(0).toUpperCase() + xname[j].slice(1)
+                }                
+                console.log(newname)
+                resolve(newname)
+            })
+            p2.then(newname=>{
+                console.log(newname)
+                const newItem = new Item({
+                    item_id : max+1,
+                    name : newname,
+                    price : req.body.price,
+                    category : req.body.category,
+                    restaurant_name : req.body.rest
+                });
+                newItem.save()
+                .then(Item => {
+                    res.json(max+1)
+                })
+                
             })
         })
 
@@ -271,10 +277,10 @@ app.post('/api/edititem', function(req, res) {
     console.log("here", req.body.item_id, req.body.name, req.body.price, req.body.category) 
 
     let xname = req.body.name.split(" ")
-    let newname = ""
-    for (var j = xname.length - 1; j >= 0; j--) {
+    let newname = xname[0]
+    for (var j = 1; j < xname.length; j++) {
         
-        newname = newname + xname[j].charAt(0).toUpperCase() + xname[j].slice(1)
+        newname = newname + " " + xname[j].charAt(0).toUpperCase() + xname[j].slice(1)
     }
 
     Item.updateOne(

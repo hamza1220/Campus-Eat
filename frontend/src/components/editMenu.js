@@ -19,7 +19,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 		 		// onClick = {(e)=> {this.removeItem(e,d.item_id)}}> &nbsp; Remove &nbsp; &nbsp; 
 
 
-
+let status = false
 class editMenu extends Component {
  	constructor(props){
  		super(props);
@@ -172,6 +172,12 @@ class editMenu extends Component {
 		       	this.setState({menu: t})
 		    }); 
 	    })
+		if(this.props.auth.isAuthenticated){
+	    	if (this.props.auth.user.user_type!=="customer"){
+		    	status=true
+	    	}
+	    }
+
 	}
 
 	handleInputChangeName(e) {
@@ -423,6 +429,9 @@ class editMenu extends Component {
 
 	    
         return (
+        	<div>
+        	{!status? <h1 className="heading">Please Login as a Restaurant Manager to Edit Menu</h1>
+        		:
             <div id="bg">
 				<MetaTags>
 	                <meta charSet="utf-8" name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -446,6 +455,8 @@ class editMenu extends Component {
 		        	{this.state.showmessage? view_message:view_cart}
 		        	{this.state.edit? edit_cart:null}
             </div>
+        	}
+        	</div>
         );
     }
 }

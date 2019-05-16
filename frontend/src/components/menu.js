@@ -10,7 +10,7 @@ import 'font-awesome/css/font-awesome.min.css';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css' 
-
+let status =false
 class Menu extends Component {
  	constructor(props){
  		super(props);
@@ -103,6 +103,11 @@ class Menu extends Component {
 		       	this.setState({menu: t})
 		    }); 
 	    })
+	    if(this.props.auth.isAuthenticated){
+	    	if (this.props.auth.user.user_type==="customer"){
+		    	status=true
+	    	}
+	    }
 	}
 
 	addToCart(e,id,name,price, cat)
@@ -288,6 +293,9 @@ class Menu extends Component {
 
     
         return (
+        	<div>
+        	{!status? <h1 className="heading">Please Login as a Customer to view Menu</h1>
+        		:
             <div id="bg">
 				<MetaTags>
 	                <meta charSet="utf-8" name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -317,6 +325,8 @@ class Menu extends Component {
 				<br/>
 		        	{this.state.showmessage? view_message:view_cart}
             </div>
+        	}
+        </div>
         );
     }
 }
