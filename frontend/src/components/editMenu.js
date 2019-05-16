@@ -101,7 +101,7 @@ class editMenu extends Component {
 
 				// console.log("check1",event.target.name.value , event.target.price.value, this.state.category)		
 		    	let name = n.split(" ")
-		    	let newname = name[0]
+		    	let newname = name[0].charAt(0).toUpperCase() + name[0].slice(1)
 
 				for (var i = 1; i < name.length ; i++) {
 					newname = newname + " " + name[i].charAt(0).toUpperCase() + name[i].slice(1)
@@ -148,9 +148,15 @@ class editMenu extends Component {
 		    }).then(res => { 
 		    	// console.log(this.state.oldname, this.state.ename)   	
 		    	let filtered = this.state.menu
+		    	let name = this.state.ename.split(" ")
+		    	let newname = name[0].charAt(0).toUpperCase() + name[0].slice(1)
+		    	for(var j=1; j<name.length; j++){
+		    		newname = newname + " " + name[j].charAt(0).toUpperCase() + name[j].slice(1)
+		    	}
+
 			    for (var i = filtered.length - 1; i >= 0; i--) {
 			    	if (filtered[i]["item_id"] ===this.state.eid){
-			    		filtered[i]["name"]=this.state.ename
+			    		filtered[i]["name"]=newname
 			    		filtered[i]["price"]=parseInt(this.state.eprice,10)
 			    		filtered[i]["category"]=this.state.category
 			    		break

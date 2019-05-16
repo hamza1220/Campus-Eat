@@ -248,7 +248,7 @@ app.post('/api/additem', function(req, res) {
             }
             let p2= new Promise((resolve, reject) =>{
                 let xname = req.body.name.split(" ")
-                let newname = xname[0]
+                let newname = xname[0].charAt(0).toUpperCase() + xname[0].slice(1)
 
                 for (var j= 1; j < xname.length; j++) {    
                     newname = newname +" "+ xname[j].charAt(0).toUpperCase() + xname[j].slice(1)
@@ -279,7 +279,7 @@ app.post('/api/edititem', function(req, res) {
     console.log("here", req.body.item_id, req.body.name, req.body.price, req.body.category) 
 
     let xname = req.body.name.split(" ")
-    let newname = xname[0]
+    let newname = xname[0].charAt(0).toUpperCase() + xname[0].slice(1)
     for (var j = 1; j < xname.length; j++) {
         
         newname = newname + " " + xname[j].charAt(0).toUpperCase() + xname[j].slice(1)

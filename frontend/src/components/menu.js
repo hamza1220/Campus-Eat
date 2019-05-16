@@ -312,7 +312,7 @@ class Menu extends Component {
 
     
         return (
-        	<div>
+        	<div className="stuff">
         	{!status? <h1 className="heading">Please Login as a Customer to view Menu</h1>
         		:
             <div id="bg">
