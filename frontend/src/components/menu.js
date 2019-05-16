@@ -180,7 +180,7 @@ class Menu extends Component {
     	var promo = []
 		for (var j = this.state.menu.length - 1; j >= 0; j--) {
     		if (this.state.menu[j].category==="Promotions"){
-    			drinks.push(this.state.menu[j])
+    			promo.push(this.state.menu[j])
     		}
     	}
 
