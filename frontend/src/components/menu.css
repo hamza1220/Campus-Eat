@@ -53,6 +53,14 @@
   margin-left: -3%;
 }
 
+#heading1 {
+  color: white;
+}
+
+#heading2 {
+  color:white;
+}
+
 #cartHeading{
   float: right;
   margin-left: 7%;
@@ -73,19 +81,14 @@
 
 }
 
-#heading{
+#headingRes {
 	padding-top: 7%;
-	color: #626262;
+	color: white;
 }
 
 #lol div:hover{
   background-color: #CCC;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-}
-
-#heading1 {
-  color: #626262;
-  font-size: small;
 }
 
 #b2{
@@ -108,7 +111,6 @@
 #b2:active {
   background-color: #00AE00;
 }
-
 
 
 #cartbtn{

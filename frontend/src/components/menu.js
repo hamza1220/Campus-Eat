@@ -180,7 +180,7 @@ class Menu extends Component {
     	var promo = []
 		for (var j = this.state.menu.length - 1; j >= 0; j--) {
     		if (this.state.menu[j].category==="Promotions"){
-    			drinks.push(this.state.menu[j])
+    			promo.push(this.state.menu[j])
     		}
     	}
 
@@ -313,14 +313,14 @@ class Menu extends Component {
     
         return (
         	<div className="stuff">
-        	{!status? <h1 className="heading">Please Login as a Customer to view Menu</h1>
+        	{!status? <h1 id="heading">Please Login as a Customer to view Menu</h1>
         		:
             <div id="bg">
 				<MetaTags>
 	                <meta charSet="utf-8" name="viewport" content="width=device-width, initial-scale=1.0"/>
 	                <meta name="theme-color" content="#B02737"/>
 	            </MetaTags>
-            <h1 id="heading">{this.state.rest}
+            <h1 id="headingRes">{this.state.rest}
             	<Button variant="danger" id="cartstyle" onClick={this.handleShow}>
             		<span id="spann" title="View shopping cart" className="fa fa-3x fa-shopping-cart"></span> 
             		<h6 id="cartHeading">Shopping Cart</h6>
@@ -333,16 +333,16 @@ class Menu extends Component {
         		  	/>
 */}				</Button>
 		    </h1>
-		    <h5 className="heading1"> Select an Item to add to your Shopping Cart </h5>
+		    <h5 id="heading2"> Select an Item to add to your Shopping Cart </h5>
 
             <br/>
-	            <h4 className = "heading">Food</h4>
+	            <h4 id = "heading2">Food</h4>
 				{food_items}
 				<br/>
-				<h4 className="heading">Drinks</h4>
+				<h4 id="heading2">Drinks</h4>
 				{drink_items}
 				<br/>
-	            <h4 className = "heading">Promotions</h4>
+	            <h4 id = "heading2">Promotions</h4>
 				{promo_items}
 				<br/>
 
