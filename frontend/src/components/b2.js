@@ -15,11 +15,8 @@ class b2 extends Component {
     constructor() {
         super(props);
         this.state = {
-            rating: '',
-            
-        }
-        
-        
+            rating: '',         
+        }            
     }
 
     
