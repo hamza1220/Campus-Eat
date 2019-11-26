@@ -9,5 +9,3 @@ The web application is a food ordering system made for LUMS students. It allows 
 
 - **Username:** test@test.com
 - **Password:** abcd1234
-
-Have further queries? razi9126@gmail.com
